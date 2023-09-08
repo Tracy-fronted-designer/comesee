@@ -23,7 +23,7 @@ import Social from './components/socialpage/Tab';
 import ForgotPasswordPage from "./components/Frank/ForgotPasswordPage"
 import Login from './components/Frank/login'
 import Register from './components/Frank/register';
-import ChangePassword from './components/Frank/ChangePassword'
+// import ChangePassword from './components/Frank/ChangePassword'
 import UserMessage from './components/member/UserMessage'
 
 import { TicketProvider } from './TicketProvider';
@@ -50,7 +50,7 @@ class App extends Component {
             <Route path="/login" component={Login} />
             <Route path="/Register" component={Register} />
             {/* {/* <Route path="/ChangePassword" component={ChangePassword} /> */}
-            <Route path="/UserMessage" component={UserMessage} /> */}
+            <Route path="/UserMessage" component={UserMessage} />
           <TicketProvider>
             <Route path="/BookingSeat" component={BookingSeat} />
             <Route path="/TicketType" component={TicketType} />
