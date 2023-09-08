@@ -19,12 +19,12 @@ import Collectionpage from './components/member/collectionpage';
 import Fee from './components/member/fee';
 import Member from './components/member/member';
 import Socialhome from './components/socialpage/socialhome';
-import Social from './components/socialpage/social';
+import Social from './components/socialpage/Tab';
 import ForgotPasswordPage from "./components/Frank/ForgotPasswordPage"
-// import LoginPage from './components/Frank/LoginPage'
-// import RegisterPage from './components/Frank/RegisterPage';
-// import ChangePassword from './components/member/ChangePassword'
-// import UserMessage from './components/member/UserMessage'
+import Login from './components/Frank/login'
+import Register from './components/Frank/register';
+import ChangePassword from './components/Frank/ChangePassword'
+import UserMessage from './components/member/UserMessage'
 
 import { TicketProvider } from './TicketProvider';
 
@@ -47,9 +47,9 @@ class App extends Component {
             <Route path="/Socialhome" component={Socialhome} />
             <Route path="/Social" component={Social} />
             <Route path="/ForgotPassword" component={ForgotPasswordPage} />
-            {/* <Route path="/login" component={LoginPage} /> */}
-            {/* <Route path="/Register" component={RegisterPage} /> */}
-            {/* <Route path="/ChangePassword" component={ChangePassword} />
+            <Route path="/login" component={Login} />
+            <Route path="/Register" component={Register} />
+            {/* {/* <Route path="/ChangePassword" component={ChangePassword} /> */}
             <Route path="/UserMessage" component={UserMessage} /> */}
           <TicketProvider>
             <Route path="/BookingSeat" component={BookingSeat} />
