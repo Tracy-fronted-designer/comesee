@@ -1,0 +1,88 @@
+/* DateBtn */
+
+.dbtn {
+    width: 80px;
+    height: 80px;
+
+    border-radius: 50px;
+    border: 1.5px solid #F1EFE9;
+    background-color: rgba(0, 0, 0, 0.0);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    padding-top: 5px;
+
+    color: #F1EFE9;
+    font-family: 'Lucida Sans Unicode', 'Noto Sans TC';
+    font-weight: 600;
+    text-align: center;
+}
+
+.Date1 {
+    margin-top: 3px;
+    font-size: 34px;
+    line-height: 32px;
+}
+
+.Date2 {
+    font-size: 14px;
+    line-height: 14px;
+}
+
+.dbtn:hover {
+    color: #2f2f2f;
+    background-color: #F1EFE9;
+}
+
+
+
+/* Accordion */
+
+.ta {
+    margin-top: 30px;
+    background-color: rgba(0, 0, 0, 0.0);
+    border: none;
+    border-radius: 0;
+    border-top: 1px solid #f1efe9;
+}
+
+.header {
+    padding: 20px 10px;
+}
+
+.title {
+    background-color: rgba(0, 0, 0, 0.0);
+    border: none;
+
+    width: 100%;
+    text-align: left;
+    text-decoration: none;
+
+    color: #F1EFE9;
+    font-family: "Noto Sans TC";
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 140%;
+}
+
+.title:hover {
+    color: #B6B995;
+    text-decoration: none;
+}
+
+.vat {
+    display: flex;
+    width: 100%;
+    padding: 10px 15px;
+    gap: 20px;
+}
+
+.tb {
+    display: flex;
+    gap: 15px 20px;
+    flex-wrap: wrap;
+}

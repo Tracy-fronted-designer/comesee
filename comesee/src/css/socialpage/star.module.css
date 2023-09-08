@@ -1,0 +1,13 @@
+.all {
+    min-height: 100vh;
+    background-color: #000;
+    margin-top: 94px;
+}
+
+input[type=radio] {
+    display: none;
+}
+
+.starlight {
+    cursor: pointer;
+}
