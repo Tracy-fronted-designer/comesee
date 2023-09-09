@@ -6,7 +6,8 @@
 
 .body {
   min-height: 100vh;
-  margin-top: 94px;
+  padding-top: 120px;
+  /* margin-top: 94px; */
   /* min-width: 100vw; */
 }
 
@@ -222,7 +223,7 @@
   font-family: Noto Sans TC;
   display: flex;
   flex-direction: row;
-  margin-top: 94px;
+  /* margin-top: 94px; */
 
   background-color: #2f2f2f;
   height: 263px;
