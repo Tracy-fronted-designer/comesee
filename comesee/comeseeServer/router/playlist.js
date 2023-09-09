@@ -1,10 +1,11 @@
 var express = require("express");
 var db = require("../db");
-var order = express.Router();
+var playlist = express.Router();
 
-//取得該userID訂單
-order.get("/:userID([0-9]+)", function (req, res) {
+//取得該userID擁有的片單(playlistID, listname)
+playlist.get("/:userID([0-9]+)", function (req, res) {
   let userID = req.params.userID;
+
   db.exec(
     "SELECT playlistID, listname from playlist WHERE userID = ?",
     [userID],
@@ -14,8 +15,8 @@ order.get("/:userID([0-9]+)", function (req, res) {
   );
 });
 
-//訂單
-order.get("/movieCount/:playlistID([0-9]+)", function (req, res) {
+//在movieinplaylist資料表中取得該playlistID擁有的電影數量
+playlist.get("/movieCount/:playlistID([0-9]+)", function (req, res) {
   let playlistID = req.params.playlistID;
   db.exec(
     "SELECT COUNT(*) as movieCount from movieinplaylist WHERE playlistID = ?",
@@ -34,7 +35,7 @@ order.get("/movieCount/:playlistID([0-9]+)", function (req, res) {
 });
 
 //在movieinplaylist資料表中取得該playlistID擁有的電影ID與imageUrl
-order.get("/movieinplaylist/:playlistID([0-9]+)", function (req, res) {
+playlist.get("/movieinplaylist/:playlistID([0-9]+)", function (req, res) {
   let playlistID = req.params.playlistID;
 
   db.exec(
