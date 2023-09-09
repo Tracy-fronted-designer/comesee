@@ -1,12 +1,19 @@
-import React, { useState } from "react";
-import SocialStyle from "../../css/socialpage/social.module.css";
-import BtnLarge from "./btnLarge";
-import Tabb from "../../css/socialpage/Tab.module.css";
+import React, { useState, useEffect } from "react";
+import SocialStyle from "../../css/personalSocialPage/social.module.css";
+import BtnLarge from "../socialpage/btnLarge";
+import Tabb from "../../css/personalSocialPage/Tab.module.css";
 import StaticStart from "./StaticStart";
 import SmartMasonry from "react-smart-masonry"; // 引入 react-smart-masonry
 
-function Tabs() {
+function Tabs(props) {
   const [toggleState, setToggleState] = useState(1); // tab的紀錄值
+
+  const { userID } = props; //取得social.js傳來的prop
+
+  //測試userID用
+  useEffect(() => {
+    console.log(userID);
+  }, [userID]);
 
   // 更改tab的紀錄值
   const toggleTab = (index) => {
@@ -137,13 +144,13 @@ function Tabs() {
   ];
 
   const breakpoints = {
-    mobile: 0, // 手机屏幕宽度
+    mobile: 0, // 手機寬度
     tablet: 990, // 平板屏幕宽度
     desktop: 1400, // 桌面屏幕宽度
   };
 
   return (
-    <div>
+    <div className={Tabb.main}>
       {/* tab欄 */}
       <div className={SocialStyle.tabsselector}>
         <button
