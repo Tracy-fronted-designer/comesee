@@ -1,0 +1,358 @@
+.all {
+    min-height: 100vh;
+    background-color: #000;
+}
+
+.body {
+    min-height: 100vh;
+    margin-top: 94px;
+    background: rgba(47, 47, 47, 0.50);
+
+}
+
+.mostpop {
+    width: 1258px;
+    height: 510px;
+}
+
+.input-group {
+    width: 100px;
+    height: 36px;
+}
+
+.findmov {
+    width: 1018px;
+    display: flex;
+    margin-top: 30px;
+    margin-left: 120px;
+}
+
+.findmovinput {
+    width: 219.828px;
+    height: 40px;
+    border-radius: 15px;
+    flex-direction: column;
+    justify-content: center;
+    flex-shrink: 0;
+    color: #A6A79B !important;
+    font-family: Noto Sans TC;
+    font-size: 16px;
+}
+
+.findmovinput::placeholder {
+    width: 219.828px;
+    height: 40px;
+    border-radius: 15px;
+    flex-direction: column;
+    justify-content: center;
+    flex-shrink: 0;
+    color: #B6B995 !important;
+    font-family: Noto Sans TC;
+    font-size: 16px;
+}
+
+.formselect {
+    width: 306px !important;
+    flex-direction: column;
+    font-family: Noto Sans TC;
+    font-size: 16px;
+    align-items: flex-start;
+    align-self: stretch;
+    color: #B6B995;
+    margin-left: 50px;
+}
+
+.movieview {
+    display: flex;
+    justify-content: left;
+    gap: 300px;
+    flex-shrink: 0;
+    color: var(--primary-mint, #F1EFE9);
+    font-family: Noto Sans TC;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 140%;
+    margin-top: 33px;
+    margin-left: 120px;
+    margin-right: 120px;
+    border-bottom: 1px solid #F1EFE9;
+
+}
+
+.movievalue {
+    width: 1060px;
+    height: 101px;
+    border-bottom: 1px solid #F1EFE9;
+    margin-left: 120px;
+    margin-right: 120px;
+    display: flex;
+    justify-content: left;
+}
+
+.movievalue2 {
+    width: 1060px;
+    height: 360px;
+    border-bottom: 1px solid #F1EFE9;
+    margin-left: 120px;
+    margin-right: 120px;
+    display: flex;
+    justify-content: left;
+}
+
+.myh5 {
+    color: var(--primary-mint, #F1EFE9);
+    font-family: Noto Sans TC;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 140%;
+    /* 22.4px */
+}
+
+.myh51 {
+    color: var(--primary-mint, #F1EFE9);
+    font-family: Noto Sans TC;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 140%;
+    padding-left: 85px;
+    /* 22.4px */
+}
+
+.myh5b {
+    margin-top: 35px;
+    color: var(--primary-mint, #F1EFE9);
+    font-family: Noto Sans TC;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 140%;
+}
+
+.myh5c {
+    margin-top: 35px;
+    color: var(--primary-mint, #F1EFE9);
+    font-family: Noto Sans TC;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 140%;
+}
+
+/*.movievalue2>h5 {
+    margin-top: 35px;
+    color: var(--primary-mint, #F1EFE9);
+    font-family: Noto Sans TC;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 140%;
+}*/
+
+.movievalue>svg {
+    margin-top: 38px;
+    margin-right: 10px;
+    transform: rotate(-90deg);
+}
+
+.movievalue2>svg {
+    margin-top: 38px;
+    margin-right: 10px;
+}
+
+.star {
+    margin-top: 33px;
+    margin-left: 270px;
+}
+
+.movievalue2>.moviedate {
+    margin-left: 80px;
+    margin-top: 35px;
+
+    color: var(--primary-mint, #F1EFE9);
+    font-family: Noto Sans TC;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 140%;
+    /* 22.4px */
+}
+
+.moviedate {
+    margin-left: 280px;
+    margin-top: 35px;
+
+    color: var(--primary-mint, #F1EFE9);
+    font-family: Noto Sans TC;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 140%;
+    /* 22.4px */
+}
+
+.longmoviepost {
+    width: 194.306px;
+    height: 280px;
+    flex-shrink: 0;
+    background: url(../../img/Rectangle76.png), lightgray 50% / cover no-repeat;
+    box-shadow: 0px 0px 15px 5px #000 inset;
+    margin-top: 40px;
+    margin-left: 40px;
+}
+
+.moviecom {
+    width: 630px;
+    height: 225px;
+    border-radius: 15px;
+    background: #2F2F2F;
+    position: absolute;
+    margin-left: 400px;
+    margin-top: 90px;
+}
+
+
+.ratingchampion {
+    /* background-color: antiquewhite; */
+    display: flex;
+    justify-content: Space-between;
+}
+
+.ratingpost {
+    width: 70%;
+}
+
+.ratingword {
+    background-color: #F1EFE9;
+    width: 30%;
+}
+
+.inside {
+    height: 500px;
+}
+
+.accordion123 {
+    color: #F1EFE9;
+    font-family: Noto Sans TC;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+
+}
+
+.accordionall {
+    background-color: transparent;
+    color: #F1EFE9;
+    font-family: Noto Sans TC;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    padding-left: 120px;
+    padding-right: 120px;
+}
+
+
+.accordionh2 {
+    height: 80px;
+    border-bottom: 1.5px solid #F1EFE9;
+    margin-bottom: 0px;
+}
+
+.accordionbody {
+    border-bottom: 1.5px solid #F1EFE9;
+    display: flex;
+    padding: 10px 0px 20px 0px;
+}
+
+.usercomment {
+    width: 600px;
+    background-color: #2F2F2F;
+    border-radius: 15px;
+    padding: 18px 30px;
+    display: flex;
+    flex-direction: column;
+
+    max-height: 230px;
+    overflow: hidden;
+}
+
+.usercontent {
+    margin-bottom: 0px;
+    height: 30px;
+    color: #F1EFE9;
+    height: 20px;
+    white-space: nowrap;
+    /* 防止文本换行 */
+    overflow: hidden;
+    /* 隐藏超出部分的文本 */
+    text-overflow: ellipsis;
+    /* 用省略号表示被截断的文本 */
+}
+
+/* .moviecomment {
+    padding-left: 120px;
+} */
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    padding-top: 80px;
+    padding-bottom: 120px;
+}
+
+.btnpage {
+    background-color: transparent;
+    color: #F1EFE9;
+    font-family: Noto Sans TC;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 140%;
+    border: transparent;
+    margin-left: 80px;
+    margin-right: 80px;
+}
+
+.btnpage:hover {
+    background-color: transparent;
+    color: #F1EFE9;
+    font-family: Noto Sans TC;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 140%;
+    border: transparent;
+    margin-left: 80px;
+    margin-right: 80px;
+}
+
+.btnpageonclick {
+    background-color: transparent;
+    color: #F1EFE9;
+    font-family: Noto Sans TC;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 140%;
+    border: transparent;
+    width: 30px;
+    height: 30px;
+
+
+}
+
+.btnclick {
+    border-radius: 50px;
+    color: #F1EFE9;
+    font-family: Noto Sans TC;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 140%;
+    width: 30px;
+    height: 30px;
+    border: 2px solid #F1EFE9;
+    background-color: transparent;
+}
