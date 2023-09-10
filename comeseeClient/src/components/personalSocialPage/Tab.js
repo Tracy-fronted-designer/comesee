@@ -5,6 +5,8 @@ import Tabb from "../../css/personalSocialPage/Tab.module.css";
 import StaticStart from "./StaticStart";
 import SmartMasonry from "react-smart-masonry"; // 引入 react-smart-masonry
 
+import PlayListArea from "./PlayListArea";
+
 function Tabs(props) {
   const [toggleState, setToggleState] = useState(1); // tab的紀錄值
 
@@ -242,7 +244,7 @@ function Tabs(props) {
 
         {/* 片單 */}
         <div className={toggleState === 2 ? Tabb.activecontent : Tabb.content}>
-          <div className={SocialStyle.movietype}>
+          {/* <div className={SocialStyle.movietype}>
             <BtnLarge label="動作" />
             <BtnLarge label="愛情" />
             <BtnLarge label="搞笑" />
@@ -265,25 +267,9 @@ function Tabs(props) {
             <BtnLarge label="感人" />
             <BtnLarge label="感人" />
             <BtnLarge label="感人" />
-          </div>
+          </div> */}
 
-          <div className={SocialStyle.mm}>
-            {[...Array(8)].map((comment, index) => {
-              return (
-                <div key={index} className="col-3">
-                  <div className={SocialStyle.divrelative}>
-                    <div className={SocialStyle.divc}></div>
-                    <div className={SocialStyle.divb}></div>
-                    <div className={SocialStyle.diva}></div>
-                    <div className={SocialStyle.moviesave}>
-                      <p className={SocialStyle.movielist}>動作爽片</p>
-                      <p className={SocialStyle.subsave}>20部電影</p>
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
+          <PlayListArea userID={userID} />
         </div>
       </div>
     </div>
