@@ -2,14 +2,30 @@ import React, { Component } from "react";
 
 import styles from "../../css/booking/seatSelectorClass.module.css";
 
+import TicketContext from "../../TicketContext";
+
 class SeatSelectorClass extends Component {
+  static contextType = TicketContext;
+
   constructor(props) {
     super(props);
     this.state = {
       selectedSeats: [], // 初始化已選座位陣列
     };
     // 設置座位最多能選擇的數量
-    this.maxSelectedSeats = 3;
+    // this.maxSelectedSeats = 5;
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.selectedSeats !== this.state.selectedSeats) {
+      // selectedSeats 狀態已經更新
+      // console.log(this.state.selectedSeats);
+
+      // 在這裡進行其他相關操作，如更新 context 中的數據
+      this.context.setState({
+        selectedSeats: this.state.selectedSeats,
+      });
+    }
   }
 
   // 獲取座位狀態的函數
@@ -26,10 +42,12 @@ class SeatSelectorClass extends Component {
 
   // 處理座位點擊事件
   selectSeat = (seat) => {
-    const { rowNumber, seatNumber } = seat;
-    const seatStatus = this.getSeatStatus(rowNumber, seatNumber);
+    const { rowNumber, seatNumber } = seat; //解構該位置的rowNumber和seatNumber
+    const seatStatus = this.getSeatStatus(rowNumber, seatNumber); //獲取該座位狀態
 
-    const { selectedSeats } = this.state;
+    const { selectedSeats } = this.state; //已選座位陣列
+
+    //如果點擊的座位在已選座位陣列裡面的話isSelected為true
     const isSelected = selectedSeats.some(
       (selectedSeat) =>
         selectedSeat.rowNumber === rowNumber &&
@@ -37,7 +55,7 @@ class SeatSelectorClass extends Component {
     );
 
     // 判斷已選擇座位數是否小於最大可選擇座位數
-    if (selectedSeats.length < this.maxSelectedSeats) {
+    if (selectedSeats.length < this.context.state.maxSelectedSeats) {
       if (seatStatus === "empty") {
         // 處理座位為空的點擊事件
         this.handleEmptySeatClick(isSelected, seat, rowNumber, seatNumber);
@@ -55,9 +73,10 @@ class SeatSelectorClass extends Component {
 
   // 處理座位為空的點擊事件
   handleEmptySeatClick = (isSelected, seat, rowNumber, seatNumber) => {
-    const { selectedSeats } = this.state;
+    const { selectedSeats } = this.state; //已選座位陣列
+
+    // 如果點擊的座位在已選座位陣列之中(isSelected===true)，移除已選座位陣列中的該座位
     if (isSelected) {
-      // 如果座位已选择，移除该座位的选择状态
       const updatedSelectedSeats = selectedSeats.filter(
         (selectedSeat) =>
           !(
@@ -66,19 +85,21 @@ class SeatSelectorClass extends Component {
           )
       );
       this.setState({ selectedSeats: updatedSelectedSeats });
-      // 更新座位状态为 "empty"
-      this.props.updateSeatStatus(rowNumber, seatNumber, "empty");
+
+      this.props.updateSeatStatus(rowNumber, seatNumber, "empty"); // 更新父層座位狀態為 "empty"
     } else {
-      // 如果座位未选择，添加该座位到已选择数组中，并更新座位状态为 "selected"
-      const selectedSeat = { ...seat, seatStatus: "selected" };
+      // 如果座位未選擇，添加該座位到已選擇陣列中，並更新座位狀態為 "selected"
+      const selectedSeat = { ...seat, seatStatus: "selected" }; //建立一個變數selectedSeat存放原本rowNumber, seatNumber和seatStatus變為"selected"
+      // console.log(this.state.selectedSeats);
       this.setState((prevState) => ({
-        selectedSeats: [...prevState.selectedSeats, selectedSeat],
+        selectedSeats: [...prevState.selectedSeats, selectedSeat], //加入新建立的selectedSeat
       }));
-      this.props.updateSeatStatus(rowNumber, seatNumber, "selected");
+      // console.log(this.state.selectedSeats);
+      this.props.updateSeatStatus(rowNumber, seatNumber, "selected"); // 更新父層座位狀態為 "selected"
     }
   };
 
-  // 处理座位已选的点击事件
+  // 處理座位已選的點擊事件
   handleSelectedSeatClick = (isSelected, seat, rowNumber, seatNumber) => {
     const { selectedSeats } = this.state;
     // 移除已选择的座位
@@ -90,15 +111,15 @@ class SeatSelectorClass extends Component {
         )
     );
     this.setState({ selectedSeats: updatedSelectedSeats });
-    // 更新座位状态为 "empty"
+    // 更新座位狀態為 "empty"
     this.props.updateSeatStatus(rowNumber, seatNumber, "empty");
   };
 
-  // 处理达到最大选择座位数的情况
+  // 處理達到最大選擇座位數的情况
   handleMaxSelectedSeats = (isSelected, seat, rowNumber, seatNumber) => {
     if (isSelected) {
       const { selectedSeats } = this.state;
-      // 移除已选择的座位
+      // 移除已選擇的座位
       const updatedSelectedSeats = selectedSeats.filter(
         (selectedSeat) =>
           !(
@@ -107,31 +128,32 @@ class SeatSelectorClass extends Component {
           )
       );
       this.setState({ selectedSeats: updatedSelectedSeats });
-      // 更新座位状态为 "empty"
+      // 更新座位狀態为 "empty"
       this.props.updateSeatStatus(rowNumber, seatNumber, "empty");
     } else {
-      // 输出已达到最大选择座位数的提示
+      // 已選座位數量已達到最大限制的提示
+      alert("已選座位數量已達到最大限制");
       console.log("已選座位數量已達到最大限制");
     }
   };
 
-  // 渲染座位图的函数
+  // 渲染座位圖的函數
   renderSeatMap = () => {
-    const seatsPerRow = 10; // 每行座位数
-    const seatRows = Math.ceil(this.props.seatinfo.length / seatsPerRow); // 计算需要多少行
+    const seatsPerRow = 10; // 每行座位數
+    const seatRows = Math.ceil(this.props.seatinfo.length / seatsPerRow); // 計算需要多少行
 
-    const rows = []; // 存储渲染的每一行座位
+    const rows = []; // 存儲渲染的每一行座位
     for (let rowIndex = 0; rowIndex < seatRows; rowIndex++) {
-      // 根据当前行号，切片得到属于当前行的座位数组
+      // 根據當前行號，slice得到屬於當前行的座位array
       const rowSeats = this.props.seatinfo.slice(
         rowIndex * seatsPerRow,
         (rowIndex + 1) * seatsPerRow
       );
 
-      // 生成当前行的 JSX 元素
+      // 生成當前行的 JSX 元素
       const row = (
         <div key={rowIndex} className={styles.seatRow}>
-          <div className={styles.rowLabel}>{rowIndex + 1}</div> {/* 显示行号 */}
+          <div className={styles.rowLabel}>{rowIndex + 1}</div> {/* 顯示行號 */}
           {rowSeats.map((seat) => (
             <div
               key={`${seat.rowNumber}-${seat.seatNumber}`}
@@ -148,7 +170,7 @@ class SeatSelectorClass extends Component {
                     : ""
                 ]
               }`}
-              onClick={() => this.selectSeat(seat)} // 设置点击事件处理函数
+              onClick={() => this.selectSeat(seat)} // 設置點擊事件處理函數
             ></div>
           ))}
         </div>
