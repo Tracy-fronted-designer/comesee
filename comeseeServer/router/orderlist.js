@@ -1,6 +1,7 @@
 var express = require("express");
 var db = require("../db");
 var orderlist = express.Router();
+const orderlist = express();
 
 orderlist.get("/:orderID([0-9]+)", function (req, res) {
   db.exec(
@@ -27,6 +28,19 @@ orderlist.post("/create", function (req, res) {
       }
     }
   );
+});
+
+orderlist.get('/orderlist', (req, res) => {
+  const newStatus = "SELECT * FROM orderlist"; // 新訂單狀況
+  db.query(newStatus,(err,data)=>{
+    if(err) return res.json(err)
+    return res.send(JSON.stringify(data))
+  })
+
+  //新狀態進資料庫
+  // db.updateOrderStatus(newStatus);
+
+  // res.json({ message: '訂單狀態已更新' });
 });
 
 // //匯出給是app.js使用
