@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 
-// Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/free-mode';
 import 'swiper/css/navigation';
@@ -11,12 +10,20 @@ import HS from '../../css/home/homePage.module.css';
 
 
 class ComingSoon extends Component {
+
+    state = {
+        movie: [
+
+        ]
+    }
+
     render() {
 
         const Img = 'https://s.yimg.com/ny/api/res/1.2/HM0VvYQbSiUijkEIxFNaJQ--/YXBwaWQ9aGlnaGxhbmRlcjt3PTY0MDtoPTk0OA--/https://media.zenfs.com/ko/mirrormedia.mg/153bbf3dd7a3ee6b68f94ca88253faee';
 
         return (
             <>
+            
                 <div className={HS.bar}>
                     <h1 className={HS.title}>即將上映 ::</h1>
                     <Link to="/list"><h2 className={HS.more}>
@@ -49,17 +56,31 @@ class ComingSoon extends Component {
                         modules={[Navigation, FreeMode]}
                         className="ListSwiper"
                     >
-                        <SwiperSlide><Link to="/info"><img className={HS.listSlide} src={Img} alt=' '/></Link></SwiperSlide>
-                        <SwiperSlide><Link to="/info"><img className={HS.listSlide} src={Img} alt=' '/></Link></SwiperSlide>
-                        <SwiperSlide><Link to="/info"><img className={HS.listSlide} src={Img} alt=' '/></Link></SwiperSlide>
-                        <SwiperSlide><Link to="/info"><img className={HS.listSlide} src={Img} alt=' '/></Link></SwiperSlide>
-                        <SwiperSlide><Link to="/info"><img className={HS.listSlide} src={Img} alt=' '/></Link></SwiperSlide>
-                        <SwiperSlide><Link to="/info"><img className={HS.listSlide} src={Img} alt=' '/></Link></SwiperSlide>
-                        <SwiperSlide><Link to="/info"><img className={HS.listSlide} src={Img} alt=' '/></Link></SwiperSlide>
-                        <SwiperSlide><Link to="/info"><img className={HS.listSlide} src={Img} alt=' '/></Link></SwiperSlide>
-                        <SwiperSlide><Link to="/info"><img className={HS.listSlide} src={Img} alt=' '/></Link></SwiperSlide>
+
+                        {
+                            this.state.movie.map(filmPoster =>
+                                <SwiperSlide>
+                                    <Link to="/info">
+                                        <img className={HS.listSlide}
+                                            src={filmPoster.imageUrl} alt=' ' />
+                                    </Link>
+                                </SwiperSlide>
+
+                            )
+                        }
+
+                        <SwiperSlide><Link to="/info"><img className={HS.listSlide} src={Img} alt=' ' /></Link></SwiperSlide>
+                        <SwiperSlide><Link to="/info"><img className={HS.listSlide} src={Img} alt=' ' /></Link></SwiperSlide>
+                        <SwiperSlide><Link to="/info"><img className={HS.listSlide} src={Img} alt=' ' /></Link></SwiperSlide>
+                        <SwiperSlide><Link to="/info"><img className={HS.listSlide} src={Img} alt=' ' /></Link></SwiperSlide>
+                        <SwiperSlide><Link to="/info"><img className={HS.listSlide} src={Img} alt=' ' /></Link></SwiperSlide>
+                        <SwiperSlide><Link to="/info"><img className={HS.listSlide} src={Img} alt=' ' /></Link></SwiperSlide>
+                        <SwiperSlide><Link to="/info"><img className={HS.listSlide} src={Img} alt=' ' /></Link></SwiperSlide>
+                        <SwiperSlide><Link to="/info"><img className={HS.listSlide} src={Img} alt=' ' /></Link></SwiperSlide>
+
                     </Swiper>
                 </div>
+
             </>
         );
     }

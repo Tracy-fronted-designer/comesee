@@ -9,12 +9,11 @@ class TimeAccordion extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            activePanels: [1,2], // 使用陣列來追蹤多個面板的打開狀態
+            activePanels: [1, 2], // 使用陣列來追蹤多個面板的打開狀態
         };
     }
 
     togglePanel = (panelId) => {
-
         this.setState((prevState) => {
             const activePanels = [...prevState.activePanels];  // 複製先前的 activePanels 陣列
             const index = activePanels.indexOf(panelId);       // 檢查要切換的面板是否已打開
@@ -36,8 +35,8 @@ class TimeAccordion extends Component {
             <>
 
                 <div className={`${TAS.ta} card`}>
-
                     <div className={TAS.header} onClick={() => this.togglePanel(1)}>
+                        {/* 影城名稱 */}
                         <button
                             className={` ${TAS.title} ${activePanels.includes(1) ? '' : 'collapsed'}`}
                             aria-expanded={activePanels.includes(1) ? 'true' : 'false'}
@@ -50,17 +49,20 @@ class TimeAccordion extends Component {
                         id="panel-1"
                         className={`${TAS.vat} collapse ${activePanels.includes(1) ? 'show' : ''}`}
                     >
+
+                        {/* 類型標籤 */}
                         <div className={TAS.vb}>
+                            {/* map */}
                             <VerLabel label="數位" />
                         </div>
+
+                        {/* 時刻按鈕 */}
                         <div className={TAS.tb}>
-                            <TimeBtn />
-                            <TimeBtn />
-                            <TimeBtn />
-                            <TimeBtn />
-                            <TimeBtn />
-                            <TimeBtn />
+                            {/* map */}
+                            <TimeBtn label={123} />
                         </div>
+
+
                     </div>
 
                 </div>
@@ -94,6 +96,50 @@ class TimeAccordion extends Component {
                     </div>
 
                 </div>
+
+
+                <div
+                    className="modal fade"
+                    id="Modal"
+                    tabIndex={-1}
+                    aria-labelledby="ModalLabel"
+                    aria-hidden="true"
+                >
+                    <div className={`${TAS.modalbox} modal-dialog`}>
+                        <div className={TAS.modalcontent}>
+                            <div className={TAS.modalheader}>
+                                <button
+                                    type="button"
+                                    className={`${TAS.modalclose} btn-close`}
+                                    data-bs-dismiss="modal"
+                                    aria-label="Close"
+                                />
+                            </div>
+
+                            <div className={TAS.modalbody}>
+                                <h3 className={TAS.modaltitle}>注意</h3>
+                                <p className={TAS.modaltext}>您目前所選的時段已無空位</p>
+                                <p className={TAS.modaltext}>請重新選擇</p>
+                            </div>
+                            <div className={TAS.modalfooter}>
+                                <button
+                                    type="button"
+                                    className={TAS.modalcheck}
+                                    data-bs-dismiss="modal"
+                                >
+                                    確認
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+
+
+
 
 
             </>

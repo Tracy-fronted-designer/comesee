@@ -17,13 +17,12 @@ class TimeTabs extends Component {
                 <select className={IS.mySelect}>
                     <option selected>地區</option>
                     <option value="1">北區</option>
-                    <option value="2">桃竹苗</option>
-                    <option value="3">中區</option>
-                    <option value="4">南區及離島</option>
+                    <option value="2">中區</option>
                 </select>
 
                 <div className={IS.dateBox}>
                     <DateBtn /><DateBtn /><DateBtn /><DateBtn /><DateBtn />
+
                 </div>
 
                 <div className={IS.theaterTime}>

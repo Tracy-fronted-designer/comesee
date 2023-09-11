@@ -9,7 +9,7 @@ class ListPageCard extends Component {
     render() {
 
         // useEffect(() => {
-            
+
         //     async function getproductDetail() {
         //         if (pid) {
         //             const urlapi = ""
@@ -23,29 +23,37 @@ class ListPageCard extends Component {
         //     getproductDetail()
         // }, [pid, router.isReady])
 
-
-
-        const Img = 'https://www.mirrormedia.com.tw/assets/images/20230106145836-8de54a94bc2dc4af5762bc3aef823a1e-tablet.jpg';
-
+        var { id, imageUrl, movieNameCN, movieNameEN } = this.props;
+        
         return (
 
-            <div className={`${CardStyle.film} card col-3`}>
-                <a href="/info"><img src={Img} className={CardStyle.myImg} alt='' /></a>
-                <div className={CardStyle.myCard}>
 
-                    <ToastComponent />
+            <>
 
-                    <h2 className={CardStyle.title}>電影名稱{ }</h2>
-                    <p className={CardStyle.text}>電影英文名稱{ }</p>
-                    <a className={CardStyle.myLink} href="/info">
-                        <button className={CardStyle.cBtn}>立即購票</button>
-                    </a>
+                <div className={`${CardStyle.film} card col-3`}>
 
+                    <a href="/info"><img src={this.props.imageUrl} className={CardStyle.myImg} alt='' /></a>
+
+                    <div className={CardStyle.myCard}>
+
+                        <ToastComponent />
+
+                        <h2 className={CardStyle.title}>{this.props.movieNameCN}</h2>
+                        <p className={CardStyle.text}>{this.props.movieNameEN}</p>
+
+                        <a className={CardStyle.myLink} href="/info">
+                            <button className={CardStyle.cBtn}>立即購票</button>
+                        </a>
+
+                    </div>
                 </div>
-            </div>
 
+
+            </>
         );
     }
+
+
 }
 
 

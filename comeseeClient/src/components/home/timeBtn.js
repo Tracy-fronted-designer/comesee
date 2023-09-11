@@ -7,7 +7,7 @@ class TimeBtn extends Component {
     verStyle = {
         width: "110px",
         height: "40px",
-        
+
         border: "1.5px solid #F1EFE9",
         borderRadius: "5px",
         backgroundColor: "rgba(0, 0, 0, 0.0)",
@@ -26,10 +26,16 @@ class TimeBtn extends Component {
 
     render() {
 
+        var { label } = this.props;
+        
         return (
 
-            <button style={this.verStyle} >
-                15 : 00{ }
+            <button style={this.verStyle}
+                type="button"
+                data-bs-toggle="modal"
+                data-bs-target="#Modal"
+            >
+                {label}
             </button>
 
         );
