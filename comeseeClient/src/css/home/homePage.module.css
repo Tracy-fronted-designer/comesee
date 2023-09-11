@@ -64,10 +64,10 @@
     width: 250px;
     height: 53px;
 
-    padding: 12px 30px;
+    padding: 12px 15px;
     margin: 0 auto 30px;
 
-    /* font-family: "Noto Sans TC"; */
+    font-family: "Noto Sans TC";
     font-size: 20px;
     font-style: normal;
     font-weight: 400;
@@ -84,6 +84,92 @@
     color: #2F2F2F;
 }
 
+.quickBtn {
+    width: 160px;
+    height: 50px;
+
+    border: 2px solid #F1EFE9;
+    border-radius: 15px;
+    background-color: #000000;
+
+    color: #F1EFE9;
+    text-align: center;
+    font-family: "Noto Sans TC";
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 25px;
+}
+
+.quickBtn:hover {
+    color: #F1EFE9;
+    border: "none";
+    background-color: #B6B995;
+}
+
+.modalcontent {
+    width: 400px;
+    height: 200px;
+    background-color: #d9d9d9;
+    border-radius: 15px;
+}
+
+.modalheader {
+    display: flex;
+    justify-content: flex-end;
+    padding: 15px;
+}
+
+.modalbody {
+    border: #000000;
+    padding: 0 35px 0;
+}
+
+.modalfooter {
+    display: flex;
+    justify-content: flex-end;
+    padding: 15px;
+}
+
+.modaltitle {
+    color: #2F2F2F;
+    font-family: "Noto Sans TC";
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 120%;
+}
+
+.modaltext {
+    margin-bottom: 0;
+    color: #2F2F2F;
+    font-family: "Noto Sans TC";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    /* line-height: 100%; */
+}
+
+.modalcheck {
+    width: 80px;
+    height: 30px;
+    color: #F1EFE9;
+    border: none;
+    border-radius: 15px;
+    background-color: #AE1914;
+
+    font-family: "Noto Sans TC";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 140%;
+}
+
+.modalcheck:hover {
+    background-color: #F1EFE9;
+    color: #AE1914;
+}
+
 /* //////////////////////////////////////////////////////// */
 
 .bar {
@@ -92,6 +178,7 @@
     align-items: baseline;
     padding: 40px 170px;
     z-index: 100;
+    position: relative;
 }
 
 .more {
@@ -125,13 +212,12 @@
     text-align: center;
     position: absolute;
     user-select: none;
+    line-height: 100%;
 }
 
 .List {
     padding: 20px 0 100px;
 }
-
-
 
 .listSlide {
     background: #F1EFE9;

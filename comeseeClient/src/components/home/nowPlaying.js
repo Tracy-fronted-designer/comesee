@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 
-// Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/free-mode';
 import 'swiper/css/navigation';
@@ -10,12 +9,29 @@ import { Navigation, FreeMode } from 'swiper/modules';
 import HS from '../../css/home/homePage.module.css';
 
 class NowPlaying extends Component {
-    render() {
 
-        const Img = 'https://s.yimg.com/ny/api/res/1.2/HM0VvYQbSiUijkEIxFNaJQ--/YXBwaWQ9aGlnaGxhbmRlcjt3PTY0MDtoPTk0OA--/https://media.zenfs.com/ko/mirrormedia.mg/153bbf3dd7a3ee6b68f94ca88253faee';
+    state = {
+        movie: [
+            {
+                "id": 1,
+                "imageUrl": "https://s.yimg.com/ny/api/res/1.2/HM0VvYQbSiUijkEIxFNaJQ--/YXBwaWQ9aGlnaGxhbmRlcjt3PTY0MDtoPTk0OA--/https://media.zenfs.com/ko/mirrormedia.mg/153bbf3dd7a3ee6b68f94ca88253faee"
+            },
+            {
+                "id": 2,
+                "imageUrl": "https://s.yimg.com/ny/api/res/1.2/HM0VvYQbSiUijkEIxFNaJQ--/YXBwaWQ9aGlnaGxhbmRlcjt3PTY0MDtoPTk0OA--/https://media.zenfs.com/ko/mirrormedia.mg/153bbf3dd7a3ee6b68f94ca88253faee"
+            },
+            {
+                "id": 3,
+                "imageUrl": "https://s.yimg.com/ny/api/res/1.2/HM0VvYQbSiUijkEIxFNaJQ--/YXBwaWQ9aGlnaGxhbmRlcjt3PTY0MDtoPTk0OA--/https://media.zenfs.com/ko/mirrormedia.mg/153bbf3dd7a3ee6b68f94ca88253faee"
+            }
+        ]
+    }
+
+    render() {
 
         return (
             <>
+            
                 <div className={HS.bar} >
                     <h1 className={HS.title}>現正熱映 ::</h1>
                     <Link to="/list"><div className={HS.more}>
@@ -41,21 +57,26 @@ class NowPlaying extends Component {
                 <div className={HS.box}>
                     <Swiper
                         slidesPerView={5}
-                        spaceBetween={30}
+                        spaceBetween={50}
                         freeMode={true}
                         navigation={true}
                         modules={[Navigation, FreeMode]}
                         className="ListSwiper"
                     >
-                        <SwiperSlide><img className={HS.listSlide} src={Img} alt=' ' /></SwiperSlide>
-                        <SwiperSlide><img className={HS.listSlide} src={Img} alt=' ' /></SwiperSlide>
-                        <SwiperSlide><img className={HS.listSlide} src={Img} alt=' ' /></SwiperSlide>
-                        <SwiperSlide><img className={HS.listSlide} src={Img} alt=' ' /></SwiperSlide>
-                        <SwiperSlide><img className={HS.listSlide} src={Img} alt=' ' /></SwiperSlide>
-                        <SwiperSlide><img className={HS.listSlide} src={Img} alt=' ' /></SwiperSlide>
-                        <SwiperSlide><img className={HS.listSlide} src={Img} alt=' ' /></SwiperSlide>
-                        <SwiperSlide><img className={HS.listSlide} src={Img} alt=' ' /></SwiperSlide>
-                        <SwiperSlide><img className={HS.listSlide} src={Img} alt=' ' /></SwiperSlide>
+
+                        {
+                            this.state.movie.map(filmPoster =>
+
+                                <SwiperSlide>
+                                    <Link to="/info">
+                                        <img className={HS.listSlide}
+                                            src={filmPoster.imageUrl} alt=' ' />
+                                    </Link>
+                                </SwiperSlide>
+
+                            )
+                        }
+
                     </Swiper>
                     <p className={HS.Btext}>NOW PLAYING</p>
                 </div>
