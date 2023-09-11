@@ -20,15 +20,6 @@ class TicketType extends Component {
   render() {
     const { state } = this.context;
     
-    
-    // 只選擇select
-    // const selectedSeats = state.selectedSeats.filter(seat => seat.seatStatus === "select");
-    // 第幾排第幾位的格式
-    // const seatInfo = state.selectedSeats.map((seat, index) => {
-    //   return `第 ${seat.rowNumber} 排 ${seat.seatNumber} 位`;
-    // }).join(', ');
-
-
     return (
       <div className={DT.mainBg}>
         <div className={"container " + DT.contentBackground}>
@@ -65,7 +56,7 @@ class TicketType extends Component {
                 </div>
                 <div className={DT.contentTitle}>
                   張數
-                  <span className={DT.content}> : {state.seatCount}</span>
+                  <span className={DT.content}> : {state.maxSelectedSeats}</span>
                 </div>
                 <div className={DT.contentTitle}>
                   座位
@@ -100,7 +91,7 @@ class TicketType extends Component {
                 <div className={"col " + DT.discountList}>
                   <div>
                     <NumButton
-                      maxValue={state.seatCount}
+                      maxValue={state.maxSelectedSeats}
                       value={state.adultTickets}
                       onChange={(value) =>
                         this.ticketsNum("adultTickets", value)
@@ -109,7 +100,7 @@ class TicketType extends Component {
                   </div>
                   <div>
                     <NumButton
-                      maxValue={state.seatCount}
+                      maxValue={state.maxSelectedSeats}
                       value={state.studentTickets}
                       onChange={(value) =>
                         this.ticketsNum("studentTickets", value)
@@ -136,7 +127,7 @@ class TicketType extends Component {
                 <div className={"col " + DT.discountList}>
                   <div>
                     <NumButton
-                      maxValue={state.seatCount}
+                      maxValue={state.maxSelectedSeats}
                       value={state.popcornL}
                       onChange={(value) => {
                         this.ticketPopcorn("popcornL", value);
@@ -145,7 +136,7 @@ class TicketType extends Component {
                   </div>
                   <div>
                     <NumButton
-                      maxValue={state.seatCount}
+                      maxValue={state.maxSelectedSeats}
                       value={state.popcornS}
                       onChange={(value) => {
                         this.ticketPopcorn("popcornS", value);
@@ -154,7 +145,7 @@ class TicketType extends Component {
                   </div>
                   <div>
                     <NumButton
-                      maxValue={state.seatCount}
+                      maxValue={state.maxSelectedSeats}
                       value={state.colaL}
                       onChange={(value) => {
                         this.ticketCola("colaL", value);
@@ -163,7 +154,7 @@ class TicketType extends Component {
                   </div>
                   <div>
                     <NumButton
-                      maxValue={state.seatCount}
+                      maxValue={state.maxSelectedSeats}
                       value={state.colaS}
                       onChange={(value) => {
                         this.ticketCola("colaS", value);
@@ -196,13 +187,13 @@ class TicketType extends Component {
     // console.log(value) // 幾張
     // console.log(typeof value)
     var numValue = parseInt(value, 10); //10進位
-    var { adultTickets, studentTickets, seatCount } = this.context.state;
+    var { adultTickets, studentTickets, maxSelectedSeats } = this.context.state;
     let otherTickets = field === "adultTickets" ? studentTickets : adultTickets;
 
     // console.log(adultTickets);
 
 
-    if (numValue + otherTickets > seatCount) {
+    if (numValue + otherTickets > maxSelectedSeats) {
       alert("請輸入正確的電影票張數");
       return;
     }
@@ -214,12 +205,12 @@ class TicketType extends Component {
   // 爆米花種類數量限制
   ticketPopcorn = (field, value) => {
     let numValue = parseInt(value, 10); //10進位.
-    let { popcornL, popcornS, seatCount } = this.context.state;
+    let { popcornL, popcornS, maxSelectedSeats } = this.context.state;
     let otherPopcorn = field === "popcornL" ? popcornS : popcornL;
     // console.log(popcornL);
     // console.log(popcornS);
 
-    if (otherPopcorn + numValue > seatCount) {
+    if (otherPopcorn + numValue > maxSelectedSeats) {
       // this.setState({ popcornL: 0, popcornS: 0 });
       // 超過總票數跳出提醒
       alert("爆米花總數量不能超過電影票張數");
@@ -234,10 +225,10 @@ class TicketType extends Component {
   // 可樂種類數量限制
   ticketCola = (field, value) => {
     let numValue = parseInt(value, 10); //10進位
-    let { colaL, colaS, seatCount } = this.context.state;
+    let { colaL, colaS, maxSelectedSeats } = this.context.state;
     let otherCola = field === "colaL" ? colaS : colaL;
 
-    if (otherCola + numValue > seatCount) {
+    if (otherCola + numValue > maxSelectedSeats) {
       // 超過總票數跳出提醒
       alert("可樂總數量不能超過電影票張數");
       return;
@@ -277,15 +268,15 @@ class TicketType extends Component {
   };
 
   checkIfCanProceed = (index, value) => {
-    const { adultTickets, studentTickets, seatCount } = this.context.state;
+    const { adultTickets, studentTickets, maxSelectedSeats } = this.context.state;
     const totalTickets = adultTickets + studentTickets + 1;
 
     // console.log(adultTickets)
     // console.log(studentTickets)
-    // console.log(seatCount)
+    // console.log(maxSelectedSeats)
     // console.log(totalTickets);
 
-    if (totalTickets === seatCount) {
+    if (totalTickets === maxSelectedSeats) {
       this.context.setState({ canProceed: true });
     } else {
       this.context.setState({ canProceed: false });

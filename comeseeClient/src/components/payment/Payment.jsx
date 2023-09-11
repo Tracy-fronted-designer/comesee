@@ -325,11 +325,16 @@ class Payment extends Component {
     const { state } = this.context;
     // console.log("Context state:", state);
     const dataToBeSent = {
-      userID: 2,
+      userID: state.userID,
       showtimeID: state.showtimeID,
-      seatID: 4,
       date: state.date,
-      price: state.total
+      price: state.total,
+      bonus:state.usePoint,
+      couponID: state.selectedCoupon,
+      seat:state.seatNumber,
+      adult:state.adultTickets,
+      student:state.studentTickets,
+
     };
 
     axios.post('http://localhost:2407/orderlist/create', dataToBeSent)

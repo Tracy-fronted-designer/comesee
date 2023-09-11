@@ -41,7 +41,6 @@ class App extends Component {
             <Route path="/List" component={ListPage} />
             <Route path="/Info" component={InfoPage} />
             <Route path="/SupportCenter/:page" component={SupportCenter} />
-            <Route path="/PaymentCompleted" component={PaymentCompleted} />
             <Route path="/Collectionpage" component={Collectionpage} />
             <Route path="/Fee" component={Fee} />
             <Route path="/Member" component={Member} />
@@ -63,6 +62,7 @@ class App extends Component {
               <Route path="/discount" component={Discount} />
               <Route path="/Confirm" component={Confirm} />
               <Route path="/payment" component={Payment} />
+              <Route path="/PaymentCompleted" component={PaymentCompleted} />
               <Route path="/memberinformation" component={MemberInformation} />
             </TicketProvider>
           </Switch>

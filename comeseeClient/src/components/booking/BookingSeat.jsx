@@ -1,116 +1,52 @@
 import React, { Component } from "react";
+import axios from "axios";
 
 import styles from "../../css/booking/bookingSeat.module.css";
 
-import SwitchBtn from "../payment/SwitchBtn";
-import Sidebar from "../payment/Sidebar";
+import SwitchBtn from "./SwitchBtn";
+// import Sidebar from "../payment/Sidebar";
+import Sidebar from "./Sidebar";
 import SeatSelectorClass from "./SeatSelectorClass";
 
 import TicketContext from "../../TicketContext";
 
 class BookingSeat extends Component {
-
-  static contextType = TicketContext //設定使用context
+  static contextType = TicketContext;
 
   state = {
     seatinfo: [],
-    // seatinfo: [
-    //   { rowNumber: 1, seatNumber: 1, seatStatus: "empty" },
-    //   { rowNumber: 1, seatNumber: 2, seatStatus: "sold" },
-    //   { rowNumber: 1, seatNumber: 3, seatStatus: "empty" },
-    //   { rowNumber: 1, seatNumber: 4, seatStatus: "empty" },
-    //   { rowNumber: 1, seatNumber: 5, seatStatus: "empty" },
-    //   { rowNumber: 1, seatNumber: 6, seatStatus: "empty" },
-    //   { rowNumber: 1, seatNumber: 7, seatStatus: "empty" },
-    //   { rowNumber: 1, seatNumber: 8, seatStatus: "empty" },
-    //   { rowNumber: 1, seatNumber: 9, seatStatus: "empty" },
-    //   { rowNumber: 1, seatNumber: 10, seatStatus: "sold" },
-    //   { rowNumber: 2, seatNumber: 1, seatStatus: "empty" },
-    //   { rowNumber: 2, seatNumber: 2, seatStatus: "sold" },
-    //   { rowNumber: 2, seatNumber: 3, seatStatus: "empty" },
-    //   { rowNumber: 2, seatNumber: 4, seatStatus: "empty" },
-    //   { rowNumber: 2, seatNumber: 5, seatStatus: "empty" },
-    //   { rowNumber: 2, seatNumber: 6, seatStatus: "empty" },
-    //   { rowNumber: 2, seatNumber: 7, seatStatus: "empty" },
-    //   { rowNumber: 2, seatNumber: 8, seatStatus: "empty" },
-    //   { rowNumber: 2, seatNumber: 9, seatStatus: "empty" },
-    //   { rowNumber: 2, seatNumber: 10, seatStatus: "sold" },
-    //   { rowNumber: 3, seatNumber: 1, seatStatus: "empty" },
-    //   { rowNumber: 3, seatNumber: 2, seatStatus: "sold" },
-    //   { rowNumber: 3, seatNumber: 3, seatStatus: "empty" },
-    //   { rowNumber: 3, seatNumber: 4, seatStatus: "empty" },
-    //   { rowNumber: 3, seatNumber: 5, seatStatus: "empty" },
-    //   { rowNumber: 3, seatNumber: 6, seatStatus: "empty" },
-    //   { rowNumber: 3, seatNumber: 7, seatStatus: "empty" },
-    //   { rowNumber: 3, seatNumber: 8, seatStatus: "empty" },
-    //   { rowNumber: 3, seatNumber: 9, seatStatus: "empty" },
-    //   { rowNumber: 3, seatNumber: 10, seatStatus: "sold" },
-    // ],
+    numberOfEmptySeats: 0, //empty的座位有幾個
+  };
+
+  //更新剩餘幾個座位
+  setNumberOfEmptySeats = (numberOfEmptySeats) => {
+    this.setState({ numberOfEmptySeats: numberOfEmptySeats });
   };
 
   componentDidMount() {
-    this.setState({
-      seatinfo: [
-        { rowNumber: 1, seatNumber: 1, seatStatus: "empty" },
-        { rowNumber: 1, seatNumber: 2, seatStatus: "empty" },
-        { rowNumber: 1, seatNumber: 3, seatStatus: "empty" },
-        { rowNumber: 1, seatNumber: 4, seatStatus: "empty" },
-        { rowNumber: 1, seatNumber: 5, seatStatus: "empty" },
-        { rowNumber: 1, seatNumber: 6, seatStatus: "empty" },
-        { rowNumber: 1, seatNumber: 7, seatStatus: "empty" },
-        { rowNumber: 1, seatNumber: 8, seatStatus: "empty" },
-        { rowNumber: 1, seatNumber: 9, seatStatus: "empty" },
-        { rowNumber: 1, seatNumber: 10, seatStatus: "sold" },
-        { rowNumber: 2, seatNumber: 1, seatStatus: "empty" },
-        { rowNumber: 2, seatNumber: 2, seatStatus: "empty" },
-        { rowNumber: 2, seatNumber: 3, seatStatus: "empty" },
-        { rowNumber: 2, seatNumber: 4, seatStatus: "empty" },
-        { rowNumber: 2, seatNumber: 5, seatStatus: "empty" },
-        { rowNumber: 2, seatNumber: 6, seatStatus: "empty" },
-        { rowNumber: 2, seatNumber: 7, seatStatus: "empty" },
-        { rowNumber: 2, seatNumber: 8, seatStatus: "empty" },
-        { rowNumber: 2, seatNumber: 9, seatStatus: "empty" },
-        { rowNumber: 2, seatNumber: 10, seatStatus: "empty" },
-        { rowNumber: 3, seatNumber: 1, seatStatus: "empty" },
-        { rowNumber: 3, seatNumber: 2, seatStatus: "sold" },
-        { rowNumber: 3, seatNumber: 3, seatStatus: "empty" },
-        { rowNumber: 3, seatNumber: 4, seatStatus: "empty" },
-        { rowNumber: 3, seatNumber: 5, seatStatus: "empty" },
-        { rowNumber: 3, seatNumber: 6, seatStatus: "empty" },
-        { rowNumber: 3, seatNumber: 7, seatStatus: "empty" },
-        { rowNumber: 3, seatNumber: 8, seatStatus: "empty" },
-        { rowNumber: 3, seatNumber: 9, seatStatus: "empty" },
-        { rowNumber: 3, seatNumber: 10, seatStatus: "sold" },
-        { rowNumber: 4, seatNumber: 1, seatStatus: "empty" },
-        { rowNumber: 4, seatNumber: 2, seatStatus: "sold" },
-        { rowNumber: 4, seatNumber: 3, seatStatus: "empty" },
-        { rowNumber: 4, seatNumber: 4, seatStatus: "empty" },
-        { rowNumber: 4, seatNumber: 5, seatStatus: "empty" },
-        { rowNumber: 4, seatNumber: 6, seatStatus: "empty" },
-        { rowNumber: 4, seatNumber: 7, seatStatus: "empty" },
-        { rowNumber: 4, seatNumber: 8, seatStatus: "empty" },
-        { rowNumber: 4, seatNumber: 9, seatStatus: "empty" },
-        { rowNumber: 4, seatNumber: 10, seatStatus: "empty" },
-        { rowNumber: 5, seatNumber: 1, seatStatus: "empty" },
-        { rowNumber: 5, seatNumber: 2, seatStatus: "empty" },
-        { rowNumber: 5, seatNumber: 3, seatStatus: "empty" },
-        { rowNumber: 5, seatNumber: 4, seatStatus: "empty" },
-        { rowNumber: 5, seatNumber: 5, seatStatus: "empty" },
-        { rowNumber: 5, seatNumber: 6, seatStatus: "empty" },
-        { rowNumber: 5, seatNumber: 7, seatStatus: "empty" },
-        { rowNumber: 5, seatNumber: 8, seatStatus: "empty" },
-        { rowNumber: 5, seatNumber: 9, seatStatus: "empty" },
-        { rowNumber: 5, seatNumber: 10, seatStatus: "sold" },
-      ],
-    });
+    //獲取該場次1的所有位置資訊
+    axios
+      .get("http://localhost:2407/seat/1") //場次應該由props或context獲取
+      .then((response) => {
+        // console.log(response.data);
+        this.setState({ ...this.state, seatinfo: response.data });
+
+        //以下為找出empty的座位有幾個，並更新
+        // 使用filter方法過濾出seatStatus為'empty'的紀錄
+        let emptySeats = response.data.filter(
+          (seat) => seat.seatStatus === "empty"
+        );
+        let numberOfEmptySeats = emptySeats.length; //座位為空的有幾個
+        this.setNumberOfEmptySeats(numberOfEmptySeats); //使用函式設定numberOfEmptySeats
+      })
+      .catch((error) => {
+        // 在這裡處理錯誤
+        console.error("位置讀取錯誤:", error);
+      });
   }
 
   updateSeatStatus = (rowNumber, seatNumber, newStatus) => {
-    // console.log(rowNumber) //第幾列
-    // console.log(seatNumber) //第幾欄
-    // console.log(newStatus) //selected
     const updatedSeatinfo = this.state.seatinfo.map((seat) => {
-      // console.log(seat)//列出每一列資訊
       if (seat.rowNumber === rowNumber && seat.seatNumber === seatNumber) {
         return { ...seat, seatStatus: newStatus };
       }
@@ -121,18 +57,21 @@ class BookingSeat extends Component {
     // console.log(this.state.seatinfo);
   };
 
-  // componentDidUpdate(prevProps, prevState) {
-  //   console.log(prevProps.location);
-  //   console.log(this.props.location);
-  //   console.log("123"); // 打印 "123" 到控制台
-  //   if (prevProps.location !== this.props.location) {
-  //     window.scrollTo(0, 0); // 将页面滚动到顶部
-  //     console.log("123"); // 再次打印 "123" 到控制台
-  //   }
-  // }
+  //判斷已選擇的座位數是否與最大座位應該選擇的數量相等
+  handleNextStepClick = () => {
+    const { selectedSeats, maxSelectedSeats } = this.context.state;
+
+    // console.log(selectedSeats);
+
+    // 如果已選擇的座位數等於maxSelectedSeats回傳true 不等於回傳false
+    if (selectedSeats.length === maxSelectedSeats) {
+      return true;
+    } else {
+      return false;
+    }
+  };
 
   render() {
-    const { state } = this.context;
     return (
       <div className={styles.main}>
         {/* 灰底 */}
@@ -142,7 +81,7 @@ class BookingSeat extends Component {
             {/* 電影圖 */}
             <div className={`${styles.movieImage} col-3`}>
               <img
-                src={state.img}
+                src="https://movies.yahoo.com.tw/i/o/production/movies/May2023/Qc1HYHrRQcOf5Vc49EK2-1024x1622.jpg"
                 alt="movieImage"
               />
             </div>
@@ -151,33 +90,33 @@ class BookingSeat extends Component {
             <div className={`${styles.info} col-9`}>
               {/* 電影中英標題 */}
               <div className="title">
-                <span className={styles.cnTitle}>{state.nameC}</span>
-                <span className={styles.grade}>{state.grade}</span>
-                <p className={styles.enTitle}>{state.nameE}</p>
+                <span className={styles.cnTitle}>奧本海默</span>
+                <span className={styles.grade}>普 0+</span>
+                <p className={styles.enTitle}>Oppenheimer</p>
               </div>
 
               {/* 電影詳細資訊 */}
               <div className={styles.movieInfo}>
                 <div>
                   <span>上映日期 : </span>
-                  <span>{state.releaseDate}</span>
+                  <span>2023-07-21</span>
                 </div>
                 <div>
                   <span>片長 : </span>
-                  <span>{state.movieLength}</span>
+                  <span>03時00分</span>
                 </div>
                 <div>
                   <span>類型 : </span>
-                  <span>{state.movieType}</span>
+                  <span>歷史/傳記,劇情</span>
                 </div>
                 <div>
                   <span>導演 : </span>
-                  <span>{state.director}</span>
+                  <span>克里斯多福諾蘭(ChristopherNolan)</span>
                 </div>
                 <div className={styles.actorList}>
                   <span>演員 : </span>
                   <span>
-                    {state.actor}
+                    席尼墨菲(CillianMurphy)、艾蜜莉布朗(EmilyBlunt)、麥特戴蒙(MattDamon)、小勞勃道尼(RobertDowneyJr.)、佛蘿倫絲普伊(FlorencePugh)、蓋瑞歐德曼(GaryOldman)、肯尼斯布萊納(KennethBranagh)、詹姆斯瑞馬(JamesRemar)、傑克奎德(JackQuaid)、雷米馬利克(RamiMalek)、喬許哈奈特(JoshHartnett)、高斯塔夫史卡司加德(GustafSkarsgård)、馬提亞斯史維克福(MatthiasSchweighöfer)、奧莉薇雅朵比(OliviaThirlby)
                   </span>
                 </div>
               </div>
@@ -186,25 +125,28 @@ class BookingSeat extends Component {
               <div className={styles.bookingInfo}>
                 <div>
                   <span>影城 : </span>
-                  <span>{state.cinemaName}</span>
+                  <span>台中影城</span>
                 </div>
                 <div>
                   <span>影廳 : </span>
-                  <span>{state.theaterName}</span>
+                  <span>數位</span>
                 </div>
                 <div>
                   <span>時段 : </span>
-                  <span>{state.date}</span>&nbsp;
-                  <span>{state.day}</span>&nbsp;
-                  <span>{state.startTime}</span>
+                  <span>2023-08-18</span>&nbsp;
+                  <span>星期五</span>&nbsp;
+                  <span>12:00</span>
                 </div>
                 <div>
                   <span>張數 : </span>
-                  <span>{state.currentTickets}</span>
+                  <span>2</span>
                 </div>
               </div>
             </div>
           </div>
+
+          {/* 中間白線 */}
+          {/* <div className={styles.line}></div> */}
 
           {/* 下半部 */}
           <div className={`${styles.down} row`}>
@@ -214,12 +156,16 @@ class BookingSeat extends Component {
             </div>
             {/* 右邊訂票區 */}
             <div className={`col-9 ${styles.seatArea}`}>
-              <div className={styles.seatText}>剩餘_個空位可選</div>
+              <div
+                className={styles.seatText}
+              >{`剩餘 ${this.state.numberOfEmptySeats} 個空位可選`}</div>
               <div className={styles.screen}>screen</div>
               {/* 座位區 */}
               <SeatSelectorClass
                 seatinfo={this.state.seatinfo}
                 updateSeatStatus={this.updateSeatStatus}
+                numberOfEmptySeats={this.state.numberOfEmptySeats} //剩餘幾個座位
+                setNumberOfEmptySeats={this.setNumberOfEmptySeats} //用來更新剩餘幾個座位
               />
               {/* 標示 */}
               <div className={styles.sample}>
@@ -248,7 +194,7 @@ class BookingSeat extends Component {
             </div>
           </div>
           {/* 換頁按鈕 */}
-          <SwitchBtn next="/TicketType" />
+          <SwitchBtn next="/TicketType" seatflag={this.handleNextStepClick()} />
         </div>
       </div>
     );
