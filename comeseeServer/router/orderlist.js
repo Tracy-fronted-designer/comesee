@@ -13,12 +13,12 @@ orderlist.get("/:orderID([0-9]+)", function (req, res) {
 });
 
 orderlist.post("/create", function (req, res) {
-  const { userID, showtimeID, seatID, date, price } = req.body; // 假設客戶端發送的訂單數據数在請求的 body 中
+  const { userID, showtimeID, date, price, bonus,couponID,seat,adult, student } = req.body; // 假設客戶端發送的訂單數據数在請求的 body 中
   console.log(req.body);
   // 新增到資料庫
   db.exec(
-    "INSERT INTO orderlist (userID, showtimeID,seatID,date,price) VALUES (?,?,?,?,?)",
-    [userID, showtimeID, seatID, date, price],
+    "INSERT INTO orderlist (userID, showtimeID, date, price, bonus,couponID,seat,adult, student) VALUES (?,?,?,?,?,?,?,?,?)",
+    [userID, showtimeID, date, price, bonus,couponID,seat,adult, student],
     function (results, fields) {
       if (results.insertId) {
         res.send("successfully : " + JSON.stringify(results));

@@ -10,7 +10,10 @@ export class TicketProvider extends Component {
     this.state = {
       ...savedState,
 
+      userID: 2,
+
       // 電影資訊
+      movieID: 3,
       releaseDate: "2023-07-21",
       movieLength: "03時00分",
       movieType: "歷史/傳記,劇情",
@@ -40,7 +43,8 @@ export class TicketProvider extends Component {
       ticketName: ["全票", "學生票"],
       ticketNum: ["1", "1"],
       ticketMoney: ["350", "300"],
-      seatCount: 2,
+      //maxSelectedSeats由選則人數(首頁開始)頁面更新，預設應為0
+      maxSelectedSeats: 5,
       seatNumber: "4A, 3A",
       foodName: ["爆米花(大)", "爆米花(小)", "可樂(大)", "可樂(小)"],
       foodNum: ["1", "1", "1", "1"],
@@ -52,12 +56,12 @@ export class TicketProvider extends Component {
       usePoint: 0,
 
       // 優惠券
-      couponID: ["無", "超級優惠 50元", "普通優惠 20元"],
+      couponID: ["無", "超級優惠券 100元", "普通優惠券 50元"],
       selectedCoupon: "無", //預設
       couponDiscountMapping: {
         無: 0,
-        "超級優惠 50元": 50,
-        "普通優惠 20元": 20,
+        "超級優惠券 100元": 100,
+        "普通優惠券 50元": 50,
       },
       couponDiscount: 0, //預設
 
@@ -79,8 +83,6 @@ export class TicketProvider extends Component {
       //選擇座位頁面以選擇的座位，訂單頁面需要從selectedSeats拿取選到的位置
       selectedSeats: [],
 
-      //maxSelectedSeats由選則人數頁面更新，預設應為0
-      maxSelectedSeats: 5,
 
       //若選擇的座位等於maxSelectedSeats則seatflag = true
       seatflag: false,
