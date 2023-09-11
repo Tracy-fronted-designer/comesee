@@ -25,6 +25,16 @@ class SeatSelectorClass extends Component {
       this.context.setState({
         selectedSeats: this.state.selectedSeats,
       });
+
+      // console.log(this.context.state.selectedSeats);
+
+      //若selectedSeats有被放入新的選擇到的位置則讓bookingseat.jsx的numberOfEmptySeats-1
+      //若selectedSeats將已放入位置去除則讓bookingseat.jsx的numberOfEmptySeats +1
+      if (prevState.selectedSeats.length < this.state.selectedSeats.length) {
+        this.props.setNumberOfEmptySeats(this.props.numberOfEmptySeats - 1);
+      } else {
+        this.props.setNumberOfEmptySeats(this.props.numberOfEmptySeats + 1);
+      }
     }
   }
 

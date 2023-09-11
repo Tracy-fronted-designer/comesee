@@ -15,15 +15,29 @@ class BookingSeat extends Component {
 
   state = {
     seatinfo: [],
+    numberOfEmptySeats: 0, //empty的座位有幾個
+  };
+
+  //更新剩餘幾個座位
+  setNumberOfEmptySeats = (numberOfEmptySeats) => {
+    this.setState({ numberOfEmptySeats: numberOfEmptySeats });
   };
 
   componentDidMount() {
     //獲取該場次1的所有位置資訊
     axios
-      .get("http://localhost:2407/seat/1")
+      .get("http://localhost:2407/seat/1") //場次應該由props或context獲取
       .then((response) => {
         // console.log(response.data);
         this.setState({ ...this.state, seatinfo: response.data });
+
+        //以下為找出empty的座位有幾個，並更新
+        // 使用filter方法過濾出seatStatus為'empty'的紀錄
+        let emptySeats = response.data.filter(
+          (seat) => seat.seatStatus === "empty"
+        );
+        let numberOfEmptySeats = emptySeats.length; //座位為空的有幾個
+        this.setNumberOfEmptySeats(numberOfEmptySeats); //使用函式設定numberOfEmptySeats
       })
       .catch((error) => {
         // 在這裡處理錯誤
@@ -142,12 +156,16 @@ class BookingSeat extends Component {
             </div>
             {/* 右邊訂票區 */}
             <div className={`col-9 ${styles.seatArea}`}>
-              <div className={styles.seatText}>剩餘_個空位可選</div>
+              <div
+                className={styles.seatText}
+              >{`剩餘 ${this.state.numberOfEmptySeats} 個空位可選`}</div>
               <div className={styles.screen}>screen</div>
               {/* 座位區 */}
               <SeatSelectorClass
                 seatinfo={this.state.seatinfo}
                 updateSeatStatus={this.updateSeatStatus}
+                numberOfEmptySeats={this.state.numberOfEmptySeats} //剩餘幾個座位
+                setNumberOfEmptySeats={this.setNumberOfEmptySeats} //用來更新剩餘幾個座位
               />
               {/* 標示 */}
               <div className={styles.sample}>

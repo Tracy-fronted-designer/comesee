@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import SocialStyle from "../../css/personalSocialPage/social.module.css";
-import BtnLarge from "../socialpage/btnLarge";
+// import BtnLarge from "../socialpage/btnLarge";
 import Tabb from "../../css/personalSocialPage/Tab.module.css";
 import StaticStart from "./StaticStart";
 import SmartMasonry from "react-smart-masonry"; // 引入 react-smart-masonry
