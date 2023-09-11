@@ -7,6 +7,7 @@ import HomePageCover from './homePageCover';
 import QuickOrder from './quickOrder';
 import NowPlaying from './nowPlaying';
 import ComingSoon from './comingSoon';
+import Recommend from './recommend';
 
 class HomePage extends Component {
     state = {}
@@ -26,6 +27,10 @@ class HomePage extends Component {
 
                 <div className={HS.List}>
                     <ComingSoon />
+                </div>
+
+                <div className={HS.List}>
+                    <Recommend />
                 </div>
 
             </div>

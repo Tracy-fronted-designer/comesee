@@ -50,6 +50,12 @@
     font-weight: 400;
 }
 
+.tips {
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+}
+
 /* //////////////////////////////////////////////////////// */
 
 .Order {
@@ -220,6 +226,6 @@
 }
 
 .listSlide {
-    background: #F1EFE9;
-    height: 450px;
+    /* background: #F1EFE9; */
+    width: 100%;
 }
