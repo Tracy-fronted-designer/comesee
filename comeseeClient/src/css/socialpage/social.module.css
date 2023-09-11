@@ -96,13 +96,14 @@
   margin-bottom: 0px;
 }
 
-.star {
-  /* flex-basis: 300px; */
-  /* float: right; */
-  /* flex-shrink: 3; */
-  /* position: relative; */
-  /* top: -40px; */
-}
+/*.star {
+  flex-basis: 300px; 
+  float: right; 
+  flex-shrink: 3; 
+  position: relative;
+  top: -40px; 
+}*/
+
 .star svg {
   margin-left: 40px;
   /* float: right; */
