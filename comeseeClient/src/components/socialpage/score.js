@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import IS from '../../css/home/infoPage.module.css';
+import IS from '../../css/socialpage/infoPage.module.css';
 
 class Score extends Component {
 
