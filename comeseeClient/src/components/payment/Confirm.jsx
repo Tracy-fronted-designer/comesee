@@ -14,13 +14,6 @@ class Confirm extends Component {
   render() {
     const { state } = this.context;
 
-    // 只選擇select
-    // const selectedSeats = state.selectedSeats.filter(seat => seat.seatStatus === "select");
-    // 第幾排第幾位的格式
-    // const seatInfo = selectedSeats.map((seat, index) => {
-    //   return `第 ${seat.rowNumber} 排 ${seat.seatNumber} 位`;
-    // }).join(', ');
-
     return (
       <div className={CPC.mainBg}>
         <div className={"container " + CPC.contentBackground}>
@@ -52,7 +45,7 @@ class Confirm extends Component {
                   張數<span className={CPC.content}> : 全票 {state.adultTickets} 張 , 學生票 {state.studentTickets} 張</span>
                 </div>
                 <div className={CPC.contentTitle}>
-                  座位<span className={CPC.content}> :2</span>
+                  座位<span className={CPC.content}> : {state.seatNumber}</span>
                 </div>
                 <div className={CPC.contentTitle}>
                   加購

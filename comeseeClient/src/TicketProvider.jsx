@@ -100,6 +100,18 @@ export class TicketProvider extends Component {
   }
 
   setStateValue = (newState) => {
+
+     // 狀態如果是 selectedSeats
+  if ('selectedSeats' in newState) {
+    const { selectedSeats } = newState;
+    const seatNumbers = selectedSeats.map((seat) => {
+    return `${seat.rowNumber}排${seat.seatNumber}位`;
+    });
+    // selectedSeats 輸出的格式放入seatNumber
+    newState.seatNumber = seatNumbers.join(', ');
+  }
+
+
     this.setState(newState);
   };
 

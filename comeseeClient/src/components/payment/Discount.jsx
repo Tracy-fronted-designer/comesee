@@ -34,14 +34,6 @@ class Discount extends Component {
     const maxValue = Math.min(state.myPoint, 2000);
 
 
-    // 只選擇select
-    // const selectedSeats = state.selectedSeats.filter(seat => seat.seatStatus === "select");
-    // 第幾排第幾位的格式
-    // const seatInfo = selectedSeats.map((seat, index) => {
-    //   return `第 ${seat.rowNumber} 排 ${seat.seatNumber} 位`;
-    // }).join(', ');
-
-
     return (
       <div className={DT.mainBg}>
         <div className={"container " + DT.contentBackground}>
@@ -88,7 +80,7 @@ class Discount extends Component {
                 </div>
                 <div className={DT.contentTitle}>
                   座位
-                  <span className={DT.content}> :2</span>
+                  <span className={DT.content}> : {state.seatNumber}</span>
                 </div>
                 <div className={DT.contentTitle}>
                   加購

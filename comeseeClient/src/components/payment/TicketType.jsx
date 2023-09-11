@@ -60,7 +60,7 @@ class TicketType extends Component {
                 </div>
                 <div className={DT.contentTitle}>
                   座位
-                  <span className={DT.content}> :2</span>
+                  <span className={DT.content}> : {state.seatNumber}</span>
                 </div>
               </div>
             </div>
