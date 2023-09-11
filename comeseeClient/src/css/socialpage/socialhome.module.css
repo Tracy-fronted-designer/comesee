@@ -4,7 +4,6 @@
 }
 
 .body {
-    min-height: 100vh;
     margin-top: 94px;
     background: rgba(47, 47, 47, 0.50);
 
@@ -21,31 +20,26 @@
 }
 
 .findmov {
-    width: 1018px;
+    width: auto;
     display: flex;
+    gap: 70px;
+    justify-content: center;
     margin-top: 30px;
-    margin-left: 120px;
 }
 
 .findmovinput {
-    width: 219.828px;
     height: 40px;
-    border-radius: 15px;
+    border-radius: 8px;
     flex-direction: column;
     justify-content: center;
     flex-shrink: 0;
     color: #A6A79B !important;
     font-family: Noto Sans TC;
     font-size: 16px;
+    width: 306px !important;
 }
 
 .findmovinput::placeholder {
-    width: 219.828px;
-    height: 40px;
-    border-radius: 15px;
-    flex-direction: column;
-    justify-content: center;
-    flex-shrink: 0;
     color: #B6B995 !important;
     font-family: Noto Sans TC;
     font-size: 16px;
@@ -59,7 +53,6 @@
     align-items: flex-start;
     align-self: stretch;
     color: #B6B995;
-    margin-left: 50px;
 }
 
 .movieview {
@@ -225,8 +218,11 @@
 }
 
 .ratingword {
-    background-color: #F1EFE9;
+    background-color: #424242;
     width: 30%;
+    padding-top: 50px;
+    padding-left: 35px;
+
 }
 
 .inside {
@@ -355,4 +351,45 @@
     height: 30px;
     border: 2px solid #F1EFE9;
     background-color: transparent;
+}
+
+.ratingtitle {
+    color: var(--primary-mint, #F1EFE9);
+    font-family: Noto Sans TC;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 140%;
+    /* 33.6px */
+}
+
+.ratingMN {
+    color: var(--primary-mint, #F1EFE9);
+    font-family: Noto Sans TC;
+    font-size: 46px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 140%;
+    padding-top: 17px;
+    /* 64.4px */
+}
+
+.ratingMEN {
+    color: var(--primary-mint, #F1EFE9);
+    font-family: Noto Sans TC;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 140%;
+    /* 28px */
+}
+
+.ratingSC {
+    padding-top: 80px;
+}
+
+.rotated {
+    transform: rotate(90deg);
+    transition: transform 0.3s ease;
+    /* 添加过渡效果 */
 }
