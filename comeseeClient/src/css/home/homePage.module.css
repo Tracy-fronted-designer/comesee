@@ -155,7 +155,6 @@
     font-size: 16px;
     font-style: normal;
     font-weight: 400;
-    /* line-height: 100%; */
 }
 
 .modalcheck {
@@ -232,6 +231,5 @@
 }
 
 .listSlide {
-    /* background: #F1EFE9; */
     width: 100%;
 }
