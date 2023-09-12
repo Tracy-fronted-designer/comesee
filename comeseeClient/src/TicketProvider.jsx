@@ -48,7 +48,7 @@ export class TicketProvider extends Component {
 
       // 優惠券
       couponID: ["無", "超級優惠券 100元", "普通優惠券 50元"],
-      selectedCoupon: "無", //預設
+      selectedCoupon: "", //預設
       couponDiscountMapping: {
         無: 0,
         "超級優惠券 100元": 100,
