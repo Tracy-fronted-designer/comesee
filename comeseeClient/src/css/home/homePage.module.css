@@ -231,5 +231,7 @@
 }
 
 .listSlide {
-    width: 100%;
+    max-width: 340px;
+    height: 485px;
+    overflow: hidden;
 }
