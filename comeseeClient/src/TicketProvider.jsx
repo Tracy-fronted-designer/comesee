@@ -32,21 +32,12 @@ export class TicketProvider extends Component {
 
       img: "https://movies.yahoo.com.tw/i/o/production/movies/May2023/Qc1HYHrRQcOf5Vc49EK2-1024x1622.jpg",
       activeRow1: null,
-      nameC: "小美人魚",
-      grade: "普 0+",
-      rank: "icon_6",
-      nameE: "The Little Mermaid",
-      cinemaName: "台中大遠百威秀影城",
-      theaterName: "2D",
-      date: "2023-08-18",
-      day: "星期五",
-      startTime: "09:45",
       ticketName: ["全票", "學生票"],
       ticketNum: ["1", "1"],
       ticketMoney: ["350", "300"],
       //maxSelectedSeats由選則人數(首頁開始)頁面更新，預設應為0
       maxSelectedSeats: 5,
-      seatNumber: "4A, 3A",
+      seatNumber: "",
       foodName: ["爆米花(大)", "爆米花(小)", "可樂(大)", "可樂(小)"],
       foodNum: ["1", "1", "1", "1"],
       foodMoney: ["120", "80", "50", "35"],
@@ -82,6 +73,7 @@ export class TicketProvider extends Component {
       //浩維選位頁面需要
       //選擇座位頁面以選擇的座位，訂單頁面需要從selectedSeats拿取選到的位置
       selectedSeats: [],
+
 
       //若選擇的座位等於maxSelectedSeats則seatflag = true
       seatflag: false,

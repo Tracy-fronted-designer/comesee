@@ -58,36 +58,47 @@ class Discount extends Component {
         <div className={"container " + DT.contentBackground}>
           {/* 上半部 */}
           <div className={"row " + DT.movieInfo}>
-            <div className={"col-3 " + DT.movieImage}>
+            <div className={"col-4 " + DT.movieImage}>
               {/* 電影圖片 */}
-              <img src={state.img} alt="電影圖片" />
+              <img src={state.bookingInfo.imageUrl} alt="電影圖片" />
             </div>
-            <div className={"col-9 " + DT.movieIfon}>
+            <div className={"col-8 " + DT.movieIfon}>
               <div className={DT.movieName}>
                 {/* 電影中文名 */}
-                <span className={DT.movieNameC}>{state.nameC}</span>
+                <span className={DT.movieNameC}>{state.bookingInfo.movieNameCN}</span>
                 {/* 普 0+ */}
-                <Rank rank={state.rank}/>
+                <Rank rank={state.bookingInfo.rank}/>
                 {/* 電影英文名 */}
-                <p className={DT.movieNameE}>{state.nameE}</p>
+                <p className={DT.movieNameE}>{state.bookingInfo.movieNameEN}</p>
               </div>
               <div className={DT.movieContent}>
                 <div className={DT.contentTitle}>
                   影城
-                  <span className={DT.content}> : {state.cinemaName}</span>
+                  <span className={DT.content}> : {state.bookingInfo.cinemaName}</span>
                 </div>
                 <div className={DT.contentTitle}>
                   影廳
                   <span className={DT.content}>
                     {" "}
-                    : {state.theaterName}
+                    : {state.bookingInfo.theater}
                   </span>
                 </div>
                 <div className={DT.contentTitle}>
                   時段
                   <span className={DT.content}>
                     {" "}
-                    : {state.date} {state.day} {state.startTime}
+                    :{" "}
+                    <span>{this.targetLocalDate(state.bookingInfo.date)}</span>
+                    &nbsp;
+                    {/* 星期幾 */}
+                    <span>
+                      {this.targetWeek(
+                        this.targetLocalDate(state.bookingInfo.date)
+                      )}
+                    </span>
+                    &nbsp;
+                    {/* 時間 */}
+                    <span>{state.bookingInfo.startTime}</span>
                   </span>
                 </div>
                 <div className={DT.contentTitle}>
@@ -182,6 +193,51 @@ class Discount extends Component {
       </div>
     );
   }
+
+    //轉成localTime，傳入utc字串
+    targetLocalDate = (utcStr) => {
+      if (utcStr === undefined) {
+        return;
+      }
+      // console.log(utcStr);
+  
+      // 將 UTC 字串轉換成 JavaScript 的 Date 物件
+      let utcDate = new Date(utcStr);
+      // console.log(utcDate);
+  
+      // 指定目標時區的偏移量（以分鐘為單位）
+      let targetTimezoneOffset = 480; // 假設目標時區是 UTC+08:00
+  
+      // 計算目標時區的本地時間
+      let targetLocal = new Date(
+        utcDate.getTime() + targetTimezoneOffset * 60000
+      );
+  
+      let date = targetLocal.toISOString().split("T")[0]; //格式為2023-08-23
+  
+      return date;
+    };
+  
+    //將日期轉為星期
+    targetWeek = (dateString) => {
+      let date = new Date(dateString);
+  
+      // 獲取星期幾的數字，0代表星期日，1代表星期一，以此類推
+      const dayOfWeek = date.getDay();
+  
+      const daysOfWeek = [
+        "星期日",
+        "星期一",
+        "星期二",
+        "星期三",
+        "星期四",
+        "星期五",
+        "星期六",
+      ];
+      const dayOfWeekText = daysOfWeek[dayOfWeek];
+  
+      return dayOfWeekText;
+    };
 
   numBtnChange = (newValue) => {
     // console.log( newValue);
