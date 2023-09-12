@@ -3,10 +3,10 @@ var db = require("../db");
 var bonus = express.Router();
 
 
-// 確認可以取得資料
+// 確認可以取得資料=>紅利點數
 bonus.get("/:userID([0-9]+)", function (req, res) {
   db.exec(
-    "SELECT * FROM bonus WHERE userID = ?",
+    "SELECT SUM(point) - SUM(used) AS myPoint FROM bonus WHERE userID = ?",
     [req.params.userID],
     function (results, fields) {
       res.send(JSON.stringify(results));

@@ -4,10 +4,15 @@ import DT from "../../css/payment/discount_tickettype.module.css";
 import NumButton from "./NumButton";
 import Sidebar from "./Sidebar";
 import SwitchBtn from "./SwitchBtn";
+import axios from 'axios';
 
 import TicketContext from "../../TicketContext";
 
 class Discount extends Component {
+
+  state = {
+    myPoint: 0,
+  }
 
   static contextType = TicketContext //設定使用context
 
@@ -16,6 +21,16 @@ class Discount extends Component {
     // 在 componentDidMount 中設定 total 的值為 subtotal
     const { subtotal } = this.context.state;
     this.setState({ total: subtotal });
+
+    // 獲得後端的紅利
+    axios.get( `http://localhost:2407/bonus/${this.context.state.userID}`)
+    .then(response => {
+      this.setState({ myPoint: response.data[0].myPoint });
+    })
+    .catch(error => {
+      console.error('myPoint:', error);
+    });
+
   }
 
   // 更新總計金額
@@ -30,8 +45,11 @@ class Discount extends Component {
   render() {
     const { state } = this.context;
 
+    // 渲染後端紅利
+    const { myPoint } = this.state;
+
     // 設定最多只能只用幾點紅利點數
-    const maxValue = Math.min(state.myPoint, 2000);
+    const maxValue = Math.min(myPoint, 2000);
 
 
     return (
@@ -111,7 +129,7 @@ class Discount extends Component {
                 <div className={"col " + DT.discountList}>
                   <div className={DT.pLogoBg}>P</div>
                   <div className={DT.pointsP}>
-                    目前點數 {state.myPoint} 點
+                    目前點數 {myPoint} 點
                   </div>
                   <div>
                     本次使用&emsp;

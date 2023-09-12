@@ -52,7 +52,6 @@ export class TicketProvider extends Component {
 
       // 紅利點數
       discount: 0,
-      myPoint: 0,
       usePoint: 0,
 
       // 優惠券
