@@ -8,11 +8,11 @@ var quickorder = express.Router();
 //     res.end();
 // });
 
-// 取得影城 
+// 取得影城
 quickorder.get("/", function (req, res) {
-    db.exec("SELECT * FROM cinema", [], function (results, fields) {
-        res.send(JSON.stringify(results));
-    });
+  db.exec("SELECT * FROM cinema", [], function (results, fields) {
+    res.send(JSON.stringify(results));
+  });
 });
 
 // 取得影片 v1
@@ -25,37 +25,45 @@ quickorder.get("/", function (req, res) {
 
 // 取得影片 v2
 quickorder.get("/movielist/:cinemaID", function (req, res) {
-    let cinemaID = req.params.cinemaID
-    db.exec("SELECT DISTINCT CONCAT(movieNameCN, '(', version, ')') AS movieName, movieID, t.theaterID  FROM (SELECT movieID, movieNameCN, theaterID FROM showTime AS s LEFT JOIN movie AS m ON s.movieID = m.id WHERE cinemaID = ?) AS aa LEFT JOIN theater AS t ON aa.theaterID = t.theaterID;", [cinemaID], function (results, fields) {
-        res.send(JSON.stringify(results));
-    });
+  let cinemaID = req.params.cinemaID;
+  db.exec(
+    "SELECT DISTINCT CONCAT(movieNameCN, '(', version, ')') AS movieName, movieID, t.theaterID  FROM (SELECT movieID, movieNameCN, theaterID FROM showTime AS s LEFT JOIN movie AS m ON s.movieID = m.id WHERE cinemaID = ?) AS aa LEFT JOIN theater AS t ON aa.theaterID = t.theaterID;",
+    [cinemaID],
+    function (results, fields) {
+      res.send(JSON.stringify(results));
+    }
+  );
 });
-
 
 // 取得日期
 quickorder.post("/getDate", function (req, res) {
-    let movieID = req.body.movieID;
-    let cinemaID = req.body.cinemaID;
-    let theaterID = req.body.theaterID;
-    db.exec("SELECT DISTINCT date FROM(SELECT date FROM showtime WHERE movieID = ? AND cinemaID = ? AND theaterID =?) as aa", [movieID, cinemaID, theaterID], function (results, fields) {
-        res.send(JSON.stringify(results));
-    });
+  let movieID = req.body.movieID;
+  let cinemaID = req.body.cinemaID;
+  let theaterID = req.body.theaterID;
+  db.exec(
+    "SELECT DISTINCT date FROM(SELECT date FROM showtime WHERE movieID = ? AND cinemaID = ? AND theaterID =?) as aa",
+    [movieID, cinemaID, theaterID],
+    function (results, fields) {
+      res.send(JSON.stringify(results));
+    }
+  );
 });
 
 // 取得場次時間
 quickorder.post("/getStartTime", function (req, res) {
-    let movieID = req.body.movieID;
-    let cinemaID = req.body.cinemaID;
-    let date = req.body.date;
-    db.exec("SELECT startTime FROM showtime WHERE movieID = ? AND cinemaID = ? AND DATE(date) = ?", [movieID, cinemaID, date], function (results, fields) {
-        res.send(JSON.stringify(results));
-    });
+  let movieID = req.body.movieID;
+  let cinemaID = req.body.cinemaID;
+  let date = req.body.date;
+  db.exec(
+    "SELECT startTime FROM showtime WHERE movieID = ? AND cinemaID = ? AND DATE(date) = ?",
+    [movieID, cinemaID, date],
+    function (results, fields) {
+      res.send(JSON.stringify(results));
+    }
+  );
 });
 
-
-
-
-
+// 取得座位資訊
 
 
 
