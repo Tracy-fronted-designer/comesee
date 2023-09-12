@@ -9,6 +9,7 @@ var user = require("./router/user");
 var quickorder = require("./router/quickorder");
 var booking = require("./router/booking");
 var bonus = require("./router/bonus");
+var coupon = require("./router/coupon");
 var cors = require("cors");
 
 //解析json資料
@@ -29,6 +30,7 @@ app.use("/playlist", playlist);
 app.use("/quickorder", quickorder);
 app.use("/booking", booking);
 app.use("/bonus", bonus);
+app.use("/coupon", coupon);
 
 app.listen(2407, function () {
   console.log("伺服器啟動中");
