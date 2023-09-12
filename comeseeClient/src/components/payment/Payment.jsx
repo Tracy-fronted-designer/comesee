@@ -190,7 +190,7 @@ class Payment extends Component {
                         ref={this.phone}
                         onKeyDown={(e) => this.keyEnter(e, this.email)}
                         onChange={(e) => this.setState({ phone: e.target.value })}
-                        
+
                       />
                     </div>
                     <div className={CPC.memEmail}>
@@ -329,24 +329,41 @@ class Payment extends Component {
       showtimeID: state.showtimeID,
       date: state.date,
       price: state.total,
-      bonus:state.usePoint,
+      bonus: state.discount,
       couponID: state.selectedCoupon,
-      seat:state.seatNumber,
-      adult:state.adultTickets,
-      student:state.studentTickets,
+      seat: state.seatNumber,
+      adult: state.adultTickets,
+      student: state.studentTickets,
 
     };
 
+    // 新增訂單資料
     axios.post('http://localhost:2407/orderlist/create', dataToBeSent)
       .then(res => {
         // console.log("Data sent successfully:", res.data);
-        this.props.history.push("./PaymentCompleted");
-        window.scrollTo(0, 0);
+
+
+        // 新增紅利資料
+        const bonusToBeSent = {
+          userID: state.userID,
+          point: state.total,
+          used: state.usePoint,
+        };
+        axios.post('http://localhost:2407/bonus/create', bonusToBeSent)
+          .then(res => {
+            this.props.history.push("./PaymentCompleted");
+            window.scrollTo(0, 0);
+          })
+          .catch(error => {
+            console.log("Error sending data:", error);
+          });
       })
+
       .catch(error => {
-        console.log("Error sending data:", error);
+        console.log("Error sending orderlist data:", error);
       });
-  };
+  }
+
 
   componentDidMount() {
     axios.get(`http://localhost:2407/user/${this.context.state.userID}`)
@@ -359,10 +376,10 @@ class Payment extends Component {
           email: useremail,
         });
 
-        if(userphone === undefined){
-          this.setState({phone: "尚未登入",}) 
-        }else if (useremail === undefined){
-          this.setState({email: "尚未登入",})
+        if (userphone === undefined) {
+          this.setState({ phone: "尚未登入", })
+        } else if (useremail === undefined) {
+          this.setState({ email: "尚未登入", })
         }
       })
       .catch((error) => {

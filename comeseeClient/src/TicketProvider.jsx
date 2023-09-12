@@ -51,8 +51,8 @@ export class TicketProvider extends Component {
       foodMoney: ["120", "80", "50", "35"],
 
       // 紅利點數
-      discount: 100,
-      myPoint: 4000,
+      discount: 0,
+      myPoint: 0,
       usePoint: 0,
 
       // 優惠券
