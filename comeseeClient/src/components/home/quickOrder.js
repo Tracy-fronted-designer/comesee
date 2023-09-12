@@ -32,6 +32,10 @@ const QuickOrder = () => {
   // 影城選擇事件處理
   function handleCinemaChange(e) {
     setSelectedCinema(e.target.value);
+    setSelectedMovie("");
+    setSelectedDate("");
+    setSelectedShowtime("");
+    setSelectedNumber("");
   }
 
   // 篩選影片選項
@@ -48,29 +52,32 @@ const QuickOrder = () => {
   // 影片選擇事件處理
   function handleMovieChange(e) {
     setSelectedMovie(e.target.value);
+    setSelectedDate("");
+    setSelectedShowtime("");
+    setSelectedNumber("");
   }
 
   // 篩選日期選項
   useEffect(() => {
+    let mt = selectedMovie.split(',')
+    console.log(mt);
+
     axios.post('http://localhost:2407/quickorder/getDate', {
-      movieID: selectedMovie,
-      cinemaID: selectedCinema
+      movieID: parseInt(mt[0]),
+      cinemaID: selectedCinema,
+      theaterID: parseInt(mt[1])
     })
       .then(res => {
         // 刪除res.data多餘的內容
         // "date": "2023-09-02T16:00:00.000Z" => 刪去T之後的字串
         // 再map出新的modifiedData 去設置orderDate的state
         const modifiedData = res.data.map(item => {
-
           // 將原始日期字串轉換成 JavaScript 的日期物件
           const originalDate = new Date(item.date);
-
           // 將日期加一天
           originalDate.setDate(originalDate.getDate() + 1);
-
           // 取得加一天後的日期字串
           const nextDayDate = originalDate.toISOString().split("T")[0];
-
           return {
             date: nextDayDate
           };
@@ -86,6 +93,8 @@ const QuickOrder = () => {
   // 日期選擇事件處理
   function handleDateChange(e) {
     setSelectedDate(e.target.value);
+    setSelectedShowtime("");
+    setSelectedNumber("");
   }
 
   // 篩選場次選項
@@ -108,6 +117,7 @@ const QuickOrder = () => {
   // 場次選擇事件處理
   function handleShowtimeChange(e) {
     setSelectedShowtime(e.target.value);
+    setSelectedNumber("");
   }
 
   // 人數選擇事件處理
@@ -130,8 +140,12 @@ const QuickOrder = () => {
         <div className={HS.subtitle} style={{ marginBottom: "40px" }}>快速訂票</div>
 
         {/* 選擇影城 */}
-        <select className={HS.mySelect} onChange={handleCinemaChange}>
-          <option selected>請選擇影城</option>
+        <select
+          value={selectedCinema}
+          className={HS.mySelect}
+          onChange={handleCinemaChange}
+        >
+          <option value="" >請選擇影城</option>
           {/* map options */}
           {orderCinema.map((orderItem, index) =>
             <option
@@ -145,13 +159,17 @@ const QuickOrder = () => {
 
 
         {/* 選擇影片 */}
-        <select className={HS.mySelect} onChange={handleMovieChange}>
-          <option selected>請選擇影片</option>
+        <select
+          value={selectedMovie}
+          className={HS.mySelect}
+          onChange={handleMovieChange}
+        >
+          <option value="" >請選擇影片</option>
           {/* map options */}
           {orderMovieList.map((orderItem, index) =>
             <option
               key={index}
-              value={orderItem.movieID}
+              value={orderItem.movieID + "," + orderItem.theaterID}
             >
               {orderItem.movieName}
             </option>
@@ -160,8 +178,12 @@ const QuickOrder = () => {
         </select>
 
         {/* 選擇日期 */}
-        <select className={HS.mySelect} onChange={handleDateChange}>
-          <option selected>請選擇日期</option>
+        <select
+          value={selectedDate}
+          className={HS.mySelect}
+          onChange={handleDateChange}
+        >
+          <option value="" >請選擇日期</option>
           {/* map options */}
           {orderDate.map((orderItem, index) =>
             <option
@@ -175,8 +197,12 @@ const QuickOrder = () => {
         </select>
 
         {/* 選擇場次 */}
-        <select className={HS.mySelect} onChange={handleShowtimeChange}>
-          <option selected>請選擇場次</option>
+        <select
+          value={selectedShowtime}
+          className={HS.mySelect}
+          onChange={handleShowtimeChange}
+        >
+          <option value="" >請選擇場次</option>
           {/* map options */}
           {orderShowTime.map((orderItem, index) =>
             <option
@@ -189,8 +215,12 @@ const QuickOrder = () => {
           }
         </select>
 
-        <select className={HS.mySelect}>
-          <option selected>請選擇人數</option>
+        <select
+          value={selectedNumber}
+          className={HS.mySelect}
+          onChange={handleNumberChange}
+        >
+          <option value="" >請選擇人數</option>
           <option value="1">1</option>
           <option value="2">2</option>
           <option value="3">3</option>
