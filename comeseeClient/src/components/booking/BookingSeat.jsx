@@ -27,7 +27,7 @@ class BookingSeat extends Component {
   componentDidMount() {
     //獲取傳入場次的相關資料放入bookingInfo
     axios
-      .get("http://localhost:2407/booking/info/1")
+      .get("http://localhost:2407/booking/info/2")
       .then((response) => {
         this.setState({ bookingInfo: response.data[0] });
       })
@@ -83,6 +83,51 @@ class BookingSeat extends Component {
     }
   };
 
+  //轉成localTime，傳入utc字串
+  targetLocalDate = (utcStr) => {
+    if (utcStr === undefined) {
+      return;
+    }
+    // console.log(utcStr);
+
+    // 將 UTC 字串轉換成 JavaScript 的 Date 物件
+    let utcDate = new Date(utcStr);
+    // console.log(utcDate);
+
+    // 指定目標時區的偏移量（以分鐘為單位）
+    let targetTimezoneOffset = 480; // 假設目標時區是 UTC+08:00
+
+    // 計算目標時區的本地時間
+    let targetLocal = new Date(
+      utcDate.getTime() + targetTimezoneOffset * 60000
+    );
+
+    let date = targetLocal.toISOString().split("T")[0]; //格式為2023-08-23
+
+    return date;
+  };
+
+  //將日期轉為星期
+  targetWeek = (dateString) => {
+    let date = new Date(dateString);
+
+    // 獲取星期幾的數字，0代表星期日，1代表星期一，以此類推
+    const dayOfWeek = date.getDay();
+
+    const daysOfWeek = [
+      "星期日",
+      "星期一",
+      "星期二",
+      "星期三",
+      "星期四",
+      "星期五",
+      "星期六",
+    ];
+    const dayOfWeekText = daysOfWeek[dayOfWeek];
+
+    return dayOfWeekText;
+  };
+
   render() {
     return (
       <div className={styles.main}>
@@ -112,7 +157,10 @@ class BookingSeat extends Component {
               <div className={styles.movieInfo}>
                 <div>
                   <span>上映日期 : </span>
-                  <span>{this.state.bookingInfo.releaseDate}</span>
+                  <span>
+                    {this.targetLocalDate(this.state.bookingInfo.releaseDate)}
+                  </span>
+                  {/* <span>{this.state.bookingInfo.releaseDate}</span> */}
                 </div>
                 <div>
                   <span>片長 : </span>
@@ -144,13 +192,25 @@ class BookingSeat extends Component {
                 </div>
                 <div>
                   <span>時段 : </span>
-                  <span>{this.state.bookingInfo.date}</span>&nbsp;
-                  <span>星期五</span>&nbsp;
+                  {/* 日期 */}
+                  <span>
+                    {this.targetLocalDate(this.state.bookingInfo.date)}
+                  </span>
+                  &nbsp;
+                  {/* <span>{this.state.bookingInfo.date}</span>&nbsp; */}
+                  {/* 星期幾 */}
+                  <span>
+                    {this.targetWeek(
+                      this.targetLocalDate(this.state.bookingInfo.date)
+                    )}
+                  </span>
+                  &nbsp;
+                  {/* 時間 */}
                   <span>{this.state.bookingInfo.startTime}</span>
                 </div>
                 <div>
                   <span>張數 : </span>
-                  <span>2</span>
+                  <span>{this.context.state.maxSelectedSeats}</span>
                 </div>
               </div>
             </div>

@@ -23,8 +23,8 @@
 .grade {
   margin-left: 15px;
   border-radius: 10px;
-  background-color: #7DCA84CC;
-  color: #F1EFE9;
+  background-color: #7dca84cc;
+  color: #f1efe9;
   text-align: center;
   font-family: "Noto Sans TC";
   font-size: 18px;
@@ -34,7 +34,6 @@
   justify-content: center;
   padding: 5px 15px 5px 15px;
 }
-
 
 .top {
   margin-left: 100px;
