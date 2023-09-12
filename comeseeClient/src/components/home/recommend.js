@@ -33,31 +33,15 @@ class Recommend extends Component {
                         <h1 className={HS.title}>為您推薦 ::</h1>
                         <h5 className={HS.tips}>根據您喜歡的類型，您可能會喜歡</h5>
                     </div>
-                    <Link to="/list"><h2 className={HS.more}>
-                        看更多
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width={20}
-                            height={20}
-                            fill="currentColor"
-                            className="bi bi-chevron-right"
-                            viewBox="0 0 16 16"
-                        >
-                            <path
-                                fillRule="evenodd"
-                                d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"
-                            />
-                        </svg>
-                    </h2></Link>
                 </div>
 
 
 
                 <div className={HS.box}>
-                    <div className={HS.Btext}>YOU MAY ALSO LIKE</div>
+                    <div className={HS.Btext} style={{fontSize:"225px"}}>YOU MAY ALSO LIKE</div>
                     <Swiper
                         slidesPerView={5}
-                        spaceBetween={30}
+                        spaceBetween={50}
                         freeMode={true}
                         navigation={true}
                         modules={[Navigation, FreeMode]}

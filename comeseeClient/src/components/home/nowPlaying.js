@@ -12,18 +12,13 @@ class NowPlaying extends Component {
 
     state = {
         movie: [
-            {
-                "id": 1,
-                "imageUrl": "https://s.yimg.com/ny/api/res/1.2/HM0VvYQbSiUijkEIxFNaJQ--/YXBwaWQ9aGlnaGxhbmRlcjt3PTY0MDtoPTk0OA--/https://media.zenfs.com/ko/mirrormedia.mg/153bbf3dd7a3ee6b68f94ca88253faee"
-            },
-            {
-                "id": 2,
-                "imageUrl": "https://s.yimg.com/ny/api/res/1.2/HM0VvYQbSiUijkEIxFNaJQ--/YXBwaWQ9aGlnaGxhbmRlcjt3PTY0MDtoPTk0OA--/https://media.zenfs.com/ko/mirrormedia.mg/153bbf3dd7a3ee6b68f94ca88253faee"
-            },
-            {
-                "id": 3,
-                "imageUrl": "https://s.yimg.com/ny/api/res/1.2/HM0VvYQbSiUijkEIxFNaJQ--/YXBwaWQ9aGlnaGxhbmRlcjt3PTY0MDtoPTk0OA--/https://media.zenfs.com/ko/mirrormedia.mg/153bbf3dd7a3ee6b68f94ca88253faee"
-            }
+            { "imageUrl": "https://s.yimg.com/ny/api/res/1.2/HM0VvYQbSiUijkEIxFNaJQ--/YXBwaWQ9aGlnaGxhbmRlcjt3PTY0MDtoPTk0OA--/https://media.zenfs.com/ko/mirrormedia.mg/153bbf3dd7a3ee6b68f94ca88253faee" },
+            { "imageUrl": "https://s.yimg.com/ny/api/res/1.2/HM0VvYQbSiUijkEIxFNaJQ--/YXBwaWQ9aGlnaGxhbmRlcjt3PTY0MDtoPTk0OA--/https://media.zenfs.com/ko/mirrormedia.mg/153bbf3dd7a3ee6b68f94ca88253faee" },
+            { "imageUrl": "https://s.yimg.com/ny/api/res/1.2/HM0VvYQbSiUijkEIxFNaJQ--/YXBwaWQ9aGlnaGxhbmRlcjt3PTY0MDtoPTk0OA--/https://media.zenfs.com/ko/mirrormedia.mg/153bbf3dd7a3ee6b68f94ca88253faee" },
+            { "imageUrl": "https://s.yimg.com/ny/api/res/1.2/HM0VvYQbSiUijkEIxFNaJQ--/YXBwaWQ9aGlnaGxhbmRlcjt3PTY0MDtoPTk0OA--/https://media.zenfs.com/ko/mirrormedia.mg/153bbf3dd7a3ee6b68f94ca88253faee" },
+            { "imageUrl": "https://s.yimg.com/ny/api/res/1.2/HM0VvYQbSiUijkEIxFNaJQ--/YXBwaWQ9aGlnaGxhbmRlcjt3PTY0MDtoPTk0OA--/https://media.zenfs.com/ko/mirrormedia.mg/153bbf3dd7a3ee6b68f94ca88253faee" },
+            { "imageUrl": "https://s.yimg.com/ny/api/res/1.2/HM0VvYQbSiUijkEIxFNaJQ--/YXBwaWQ9aGlnaGxhbmRlcjt3PTY0MDtoPTk0OA--/https://media.zenfs.com/ko/mirrormedia.mg/153bbf3dd7a3ee6b68f94ca88253faee" },
+
         ]
     }
 
@@ -31,7 +26,7 @@ class NowPlaying extends Component {
 
         return (
             <>
-            
+
                 <div className={HS.bar} >
                     <h1 className={HS.title}>現正熱映 ::</h1>
                     <Link to="/list"><div className={HS.more}>
@@ -64,18 +59,14 @@ class NowPlaying extends Component {
                         className="ListSwiper"
                     >
 
-                        {
-                            this.state.movie.map(filmPoster =>
-
-                                <SwiperSlide>
-                                    <Link to="/info">
-                                        <img className={HS.listSlide}
-                                            src={filmPoster.imageUrl} alt=' ' />
-                                    </Link>
-                                </SwiperSlide>
-
-                            )
-                        }
+                        {this.state.movie.map(filmPoster =>
+                            <SwiperSlide>
+                                <Link to="/info">
+                                    <img className={HS.listSlide}
+                                        src={filmPoster.imageUrl} alt=' ' />
+                                </Link>
+                            </SwiperSlide>
+                        )}
 
                     </Swiper>
                     <p className={HS.Btext}>NOW PLAYING</p>

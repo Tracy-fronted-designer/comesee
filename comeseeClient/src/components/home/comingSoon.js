@@ -50,7 +50,7 @@ class ComingSoon extends Component {
                     <div className={HS.Btext}>COMING SOON</div>
                     <Swiper
                         slidesPerView={5}
-                        spaceBetween={30}
+                        spaceBetween={50}
                         freeMode={true}
                         navigation={true}
                         modules={[Navigation, FreeMode]}
