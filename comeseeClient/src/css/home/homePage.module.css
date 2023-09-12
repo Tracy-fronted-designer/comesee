@@ -124,6 +124,7 @@
     display: flex;
     justify-content: flex-end;
     padding: 15px;
+    border: none;
 }
 
 .modalbody {
@@ -135,6 +136,7 @@
     display: flex;
     justify-content: flex-end;
     padding: 15px;
+    border: none;
 }
 
 .modaltitle {
@@ -172,8 +174,12 @@
 }
 
 .modalcheck:hover {
-    background-color: #F1EFE9;
-    color: #AE1914;
+    border: 1px solid #F1EFE9;
+}
+
+.modalcheck:active {
+    background-color: #AE1914;
+    color: #d9d9d9;
 }
 
 /* //////////////////////////////////////////////////////// */
