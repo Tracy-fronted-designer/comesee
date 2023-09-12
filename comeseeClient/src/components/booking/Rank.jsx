@@ -13,6 +13,7 @@ function Rank(props) {
     lineHeight: "22.5px",
     justifyContent: "center",
     padding: "5px 15px 5px 15px",
+    whiteSpace: "nowrap",
   };
 
   const rankList = {
