@@ -10,6 +10,8 @@ import SeatSelectorClass from "./SeatSelectorClass";
 
 import TicketContext from "../../TicketContext";
 
+import Rank from "./Rank";
+
 class BookingSeat extends Component {
   static contextType = TicketContext;
 
@@ -24,20 +26,21 @@ class BookingSeat extends Component {
     this.setState({ numberOfEmptySeats: numberOfEmptySeats });
   };
 
-  componentDidMount() {
+  async componentDidMount() {
     //獲取傳入場次的相關資料放入bookingInfo
-    axios
-      .get("http://localhost:2407/booking/info/2")
+    await axios
+      .get("http://localhost:2407/booking/info/1")
       .then((response) => {
         this.setState({ bookingInfo: response.data[0] });
       })
       .catch((error) => {
         // 在這裡處理錯誤
         console.error("位置讀取錯誤:", error);
+        // console.log("123546");
       });
 
     //獲取該場次1的所有位置資訊
-    axios
+    await axios
       .get("http://localhost:2407/seat/1") //場次應該由props或context獲取
       .then((response) => {
         // console.log(response.data);
@@ -141,13 +144,14 @@ class BookingSeat extends Component {
             </div>
 
             {/* 電影資訊 */}
-            <div className={`${styles.info} col-9`}>
+            <div className={`${styles.info} col-8`}>
               {/* 電影中英標題 */}
               <div className="title">
                 <span className={styles.cnTitle}>
                   {this.state.bookingInfo.movieNameCN}
                 </span>
-                <span className={styles.grade}>普 0+</span>
+                {/* <span className={styles.grade}>普 0+</span> */}
+                <Rank rank={this.state.bookingInfo.rank} />
                 <p className={styles.enTitle}>
                   {this.state.bookingInfo.movieNameEN}
                 </p>
