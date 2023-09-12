@@ -34,7 +34,7 @@ export class TicketProvider extends Component {
       activeRow1: null,
       nameC: "小美人魚",
       grade: "普 0+",
-      rank:'icon_6',
+      rank: "icon_6",
       nameE: "The Little Mermaid",
       cinemaName: "台中大遠百威秀影城",
       theaterName: "2D",
@@ -83,9 +83,13 @@ export class TicketProvider extends Component {
       //選擇座位頁面以選擇的座位，訂單頁面需要從selectedSeats拿取選到的位置
       selectedSeats: [],
 
-
       //若選擇的座位等於maxSelectedSeats則seatflag = true
       seatflag: false,
+
+      //----------------------------------------------------------------------
+
+      //訂票資訊
+      bookingInfo: [],
     };
 
     this.setStateValue = this.setStateValue.bind(this);
@@ -100,17 +104,15 @@ export class TicketProvider extends Component {
   }
 
   setStateValue = (newState) => {
-
-     // 狀態如果是 selectedSeats
-  if ('selectedSeats' in newState) {
-    const { selectedSeats } = newState;
-    const seatNumbers = selectedSeats.map((seat) => {
-    return `${seat.rowNumber}排${seat.seatNumber}位`;
-    });
-    // selectedSeats 輸出的格式放入seatNumber
-    newState.seatNumber = seatNumbers.join(', ');
-  }
-
+    // 狀態如果是 selectedSeats
+    if ("selectedSeats" in newState) {
+      const { selectedSeats } = newState;
+      const seatNumbers = selectedSeats.map((seat) => {
+        return `${seat.rowNumber}排${seat.seatNumber}位`;
+      });
+      // selectedSeats 輸出的格式放入seatNumber
+      newState.seatNumber = seatNumbers.join(", ");
+    }
 
     this.setState(newState);
   };

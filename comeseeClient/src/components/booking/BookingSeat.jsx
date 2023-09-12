@@ -32,6 +32,7 @@ class BookingSeat extends Component {
       .get("http://localhost:2407/booking/info/1")
       .then((response) => {
         this.setState({ bookingInfo: response.data[0] });
+        this.context.setState({ bookingInfo: response.data[0] });
       })
       .catch((error) => {
         // 在這裡處理錯誤
