@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import CPC from '../../css/payment/cpc.module.css';
 import Sidebar from "./Sidebar";
 import SwitchBtn from "./SwitchBtn";
+import Rank from "./Rank";
 
 import TicketContext from "../../TicketContext";
 
@@ -26,7 +27,7 @@ class Confirm extends Component {
                 {/* 電影中文名 */}
                 <span className={CPC.movieNameC}>{state.nameC}</span>
                 {/* 普 0+ */}
-                <span className={CPC.grade}>{state.grade}</span>
+                <Rank rank={state.rank}/>
                 {/* 電影英文名 */}
                 <p className={CPC.movieNameE}>{state.nameE}</p>
               </div>

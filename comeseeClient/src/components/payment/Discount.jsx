@@ -5,6 +5,7 @@ import NumButton from "./NumButton";
 import Sidebar from "./Sidebar";
 import SwitchBtn from "./SwitchBtn";
 import axios from 'axios';
+import Rank from "./Rank";
 
 import TicketContext from "../../TicketContext";
 
@@ -66,7 +67,7 @@ class Discount extends Component {
                 {/* 電影中文名 */}
                 <span className={DT.movieNameC}>{state.nameC}</span>
                 {/* 普 0+ */}
-                <span className={DT.grade}>{state.grade}</span>
+                <Rank rank={state.rank}/>
                 {/* 電影英文名 */}
                 <p className={DT.movieNameE}>{state.nameE}</p>
               </div>

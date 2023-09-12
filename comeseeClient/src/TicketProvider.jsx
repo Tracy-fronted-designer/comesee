@@ -34,6 +34,7 @@ export class TicketProvider extends Component {
       activeRow1: null,
       nameC: "小美人魚",
       grade: "普 0+",
+      rank:'icon_6',
       nameE: "The Little Mermaid",
       cinemaName: "台中大遠百威秀影城",
       theaterName: "2D",
