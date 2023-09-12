@@ -26,7 +26,7 @@ class Discount extends Component {
     // 獲得後端的紅利
     axios.get( `http://localhost:2407/bonus/${this.context.state.userID}`)
     .then(response => {
-      this.setState({ myPoint: response.data[0].myPoint });
+      this.setState({ myPoint: response.data[0].myPoint || 0});
     })
     .catch(error => {
       console.error('myPoint:', error);
