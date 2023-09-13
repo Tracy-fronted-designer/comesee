@@ -11,6 +11,8 @@ var booking = require("./router/booking");
 var bonus = require("./router/bonus");
 var coupon = require("./router/coupon");
 var filmlist = require("./router/filmlist");
+var socialhome = require("./router/socialhome")
+
 var cors = require("cors");
 
 //解析json資料
@@ -33,6 +35,8 @@ app.use("/booking", booking);
 app.use("/bonus", bonus);
 app.use("/coupon", coupon);
 app.use("/filmlist", filmlist);
+app.use("/socialhome", socialhome);
+
 
 app.listen(2407, function () {
   console.log("伺服器啟動中");
