@@ -323,6 +323,9 @@ class Payment extends Component {
 
   confirmCheckout = () => {
     const { state } = this.context;
+
+    const selectedCouponValue = state.selectedCoupon || null;
+
     // console.log("Context state:", state);
     const dataToBeSent = {
       userID: state.userID,
@@ -330,7 +333,7 @@ class Payment extends Component {
       date: state.date,
       price: state.total,
       bonus: state.discount,
-      couponID: state.selectedCoupon,
+      couponID: selectedCouponValue,
       seat: state.seatNumber,
       adult: state.adultTickets,
       student: state.studentTickets,
