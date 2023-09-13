@@ -11,6 +11,7 @@ var booking = require("./router/booking");
 var bonus = require("./router/bonus");
 var coupon = require("./router/coupon");
 var filmlist = require("./router/filmlist");
+var filminfo = require("./router/filminfo");
 var socialhome = require("./router/socialhome")
 
 var cors = require("cors");
@@ -35,6 +36,7 @@ app.use("/booking", booking);
 app.use("/bonus", bonus);
 app.use("/coupon", coupon);
 app.use("/filmlist", filmlist);
+app.use("/filminfo", filminfo);
 app.use("/socialhome", socialhome);
 
 
