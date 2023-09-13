@@ -1,13 +1,32 @@
 import React, { useState, useEffect } from 'react';
 import Socialhomestyle from '../../css/socialpage/socialhome.module.css';
-import { Users } from './moviedata';
-
+// import { Users } from './moviedata';
+import axios from 'axios';
 
 function Accordion({ searchTerm, selectedFilter }) {
-    const itemsPerPage = 5; // 每页显示的项目数量
+
+    const [movie, setMovie] = useState([]);
+    // const [orderMovieList, setOrderMovieList] = useState([]);
+    // const [orderDate, setOrderDate] = useState([]);
+    const itemsPerPage = 15; // 每页显示的项目数量
     const [activeItem, setActiveItem] = useState(null);
     const [currentPage, setCurrentPage] = useState(1);
-    const totalPages = Math.ceil(Users.length / itemsPerPage);
+    const [totalPages, setTotalPages] = useState(0);
+    // const totalPages = Math.ceil(Users.length / itemsPerPage);
+
+    useEffect(() => {
+        axios.get('http://localhost:2407/socialhome')
+            .then(res => {
+                setMovie(res.data);
+                setTotalPages(Math.ceil(res.data.length / itemsPerPage));
+            })
+            .catch(err => {
+                console.log(err.response);
+            })
+    }, [])
+
+
+
 
 
 
@@ -16,7 +35,7 @@ function Accordion({ searchTerm, selectedFilter }) {
             case '1': // 上映60天内
                 return users.filter(user => {
                     const currentDate = new Date();
-                    const movieDate = new Date(user.date);
+                    const movieDate = new Date(user.releaseDate);
                     const diffTime = Math.abs(currentDate - movieDate);
                     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
                     return diffDays <= 60;
@@ -24,25 +43,25 @@ function Accordion({ searchTerm, selectedFilter }) {
             case '2': // 上映120天内
                 return users.filter(user => {
                     const currentDate = new Date();
-                    const movieDate = new Date(user.date);
+                    const movieDate = new Date(user.releaseDate);
                     const diffTime = Math.abs(currentDate - movieDate);
                     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
                     return diffDays <= 120;
                 });
             case '3': // 2023年
-                return users.filter(user => user.date.includes('2023'));
+                return users.filter(user => user.releaseDate.includes('2023'));
             case '4': // 2022年
-                return users.filter(user => user.date.includes('2022'));
+                return users.filter(user => user.releaseDate.includes('2022'));
             case '5': // 2021年
-                return users.filter(user => user.date.includes('2021'));
+                return users.filter(user => user.releaseDate.includes('2021'));
             case '6': // 2020年
-                return users.filter(user => user.date.includes('2020'));
+                return users.filter(user => user.releaseDate.includes('2020'));
             default:
                 return users;
         }
     };
-    const filteredUsers = filterUsersByDate(Users, selectedFilter)
-        .filter((user) => user.moviename.includes(searchTerm));
+    const filteredUsers = filterUsersByDate(movie, selectedFilter)
+        .filter((user) => user.movieNameCN.includes(searchTerm));
 
 
 
@@ -103,9 +122,10 @@ function Accordion({ searchTerm, selectedFilter }) {
                                     d="M15 7.26795C16.3333 8.03775 16.3333 9.96225 15 10.7321L3 17.6603C1.66667 18.4301 0 17.4678 0 15.9282V2.0718C0 0.532197 1.66667 -0.430054 3 0.339746L15 7.26795Z"
                                     fill="#F1EFE9" />
                             </svg>
-                            <div className={Socialhomestyle.accordion123 + " col-4"}>{user.moviename}</div>
-                            <div className={Socialhomestyle.accordion123 + " col-4"}>{user.date}</div>
-                            <div className={Socialhomestyle.accordion123 + " col-3"}>{user.star}</div>
+                            <div className={Socialhomestyle.accordion123 + " col-3"}>{user.movieNameCN}</div>
+                            <div className={Socialhomestyle.accordion123 + " col-4"}>
+                                {new Date(user.releaseDate).toISOString().split('T')[0]}</div>
+                            <div className={Socialhomestyle.accordion123 + " col-4"}>{ }</div>
                         </button>
                     </h2>
                     <div
@@ -115,17 +135,17 @@ function Accordion({ searchTerm, selectedFilter }) {
                         data-bs-parent="#accordionFlushExample"
                     >
                         <div className={"accordion-body " + Socialhomestyle.accordionbody}>
-                            <div className="col-2"></div>
-                            <img className={Socialhomestyle.poster + " col-2"} src={user.poster} height="230px" alt=""></img>
                             <div className="col-1"></div>
-                            <div className={Socialhomestyle.usercomment + " col-4"}>
-                                {user.comment.map((comment, index) => (
+                            <img className={Socialhomestyle.poster + " col-2"} src={user.imageUrl} height="230px" alt=""></img>
+                            <div className="col-1"></div>
+                            <div className={Socialhomestyle.usercomment + " col-6"}>
+                                {/* {user.comment.map((comment, index) => (
                                     <div key={index}>
-                                        <p className={Socialhomestyle.usercontent}>{comment}</p>
+                                        <p className={Socialhomestyle.usercontent}>{ }</p>
 
                                         {index !== user.comment.length - 1 && <br />}
                                     </div>
-                                ))}
+                                ))} */}
                             </div>
 
                         </div>

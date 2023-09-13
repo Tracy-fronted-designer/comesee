@@ -116,9 +116,9 @@ class Socialhome extends Component {
                     </div>
                     <div>
                         <div className={Socialhomestyle.movieview}>
-                            <h5 className={Socialhomestyle.myh51}>電影名稱</h5>
-                            <h5 className={Socialhomestyle.myh5}>上映日期</h5>
-                            <h5 className={Socialhomestyle.myh5}>網友評分</h5>
+                            <h5 className={"col-4 " + Socialhomestyle.myh51}>電影名稱</h5>
+                            <h5 className={"col-4 " + Socialhomestyle.myh5}>上映日期</h5>
+                            <h5 className={"col-4 " + Socialhomestyle.myh5}>網友評分</h5>
                         </div>
                         <div className={Socialhomestyle.moviecomment}>
                             <Accordion
