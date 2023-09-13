@@ -3,13 +3,31 @@ import React, { Component } from 'react';
 import OthersComment from './comment';
 
 import SortBtn from './sortBtn';
-import Stars from './stars';
+import Star from './star';
 
 import CMS from '../../css/home/comment.module.css';
 
 class CommentTabs extends Component {
 
-    state = {}
+    state = {
+        inputValue: '',
+        comments: [],
+    }
+
+    handleInputChange = (e) => {
+        this.setState({ inputValue: e.target.value });
+    }
+
+    handleSubmit = () => {
+        const newComment = {
+            inputValue: this.state.inputValue,
+        };
+
+        this.setState((prevState) => ({
+            comments: [...prevState.comments, newComment],
+            inputValue: '',
+        }));
+    }
 
     render() {
 
@@ -31,12 +49,16 @@ class CommentTabs extends Component {
 
                     <div>
                         {/* 星星跟留言框 */}
-                        <Stars />
-                        <input type="text" className={CMS.text} />
+                        <Star />
+                        <input type="text"
+                            className={CMS.text}
+                            value={this.state.inputValue}
+                            onChange={this.handleInputChange}
+                        />
                     </div>
 
                     {/* 送出按鈕 */}
-                    <button className={CMS.scb}>送出</button>
+                    <button className={CMS.scb} onClick={this.handleSubmit}>送出</button>
                 </div>
 
             </div>
@@ -53,9 +75,9 @@ class CommentTabs extends Component {
                 </div>
 
                 {/* 其他人的評論 */}
-                <OthersComment />
-                <OthersComment />
-                
+                {this.state.comments.map((comment, index) => (
+                    <OthersComment key={index} commentData={comment} />
+                ))}
             </div>
 
         </>);

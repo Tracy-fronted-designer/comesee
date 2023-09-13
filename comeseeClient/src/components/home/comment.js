@@ -12,6 +12,8 @@ class OthersComment extends Component {
     render() {
         const Img = 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/Twemoji_1f600.svg/1200px-Twemoji_1f600.svg.png';
 
+        const inputValue = this.props.commentData ? this.props.commentData.inputValue : '';
+
         return (<>
 
             {/* 他人評論區域 */}
@@ -23,7 +25,7 @@ class OthersComment extends Component {
                 {/* 文字區域 */}
                 <div className={CMS.tb}>
                     <div className={CMS.name}>暱稱{ }</div>
-                    <div className={CMS.comm}>內容{ }</div>
+                    <div className={CMS.comm}>{inputValue}</div>
                     {/* 點讚 / 回覆? */}
                     <CommentFoot />
                 </div>
