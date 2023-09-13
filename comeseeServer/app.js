@@ -12,7 +12,8 @@ var bonus = require("./router/bonus");
 var coupon = require("./router/coupon");
 var filmlist = require("./router/filmlist");
 var filminfo = require("./router/filminfo");
-var socialhome = require("./router/socialhome")
+var socialhome = require("./router/socialhome");
+var commentlist = require("./router/commentlist");
 
 var cors = require("cors");
 
@@ -38,7 +39,7 @@ app.use("/coupon", coupon);
 app.use("/filmlist", filmlist);
 app.use("/filminfo", filminfo);
 app.use("/socialhome", socialhome);
-
+app.use("/commentlist", commentlist);
 
 app.listen(2407, function () {
   console.log("伺服器啟動中");

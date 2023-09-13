@@ -6,15 +6,28 @@ import StaticStart from "./StaticStart";
 import SmartMasonry from "react-smart-masonry"; // 引入 react-smart-masonry
 
 import PlayListArea from "./PlayListArea";
+import axios from "axios";
 
 function Tabs(props) {
   const [toggleState, setToggleState] = useState(1); // tab的紀錄值
+  const [commentsData, setCommentsData] = useState([]);
 
   const { userID } = props; //取得social.js傳來的prop
 
-  //測試userID用
   useEffect(() => {
-    console.log(userID);
+    axios
+      .get(`http://localhost:2407/commentlist/${userID}`)
+      .then((response) => {
+        if (response.status !== 404) {
+          // console.log(respo  nse.data);
+          setCommentsData(response.data);
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+
+    // console.log(commentsData);
   }, [userID]);
 
   // 更改tab的紀錄值
@@ -22,128 +35,152 @@ function Tabs(props) {
     setToggleState(index);
   };
 
-  const commentsData = [
-    {
-      movieNameCN: "奧本海默",
-      pictureName: "photo.jpg",
-      userName: "tracy",
-      sendTime: "2023-5-28",
-      score: 5,
-      text: "Lorem ipsum dolor sit amet.",
-    },
-    {
-      movieNameCN: "蜘蛛人",
-      pictureName: "photo.jpg",
-      userName: "tracy",
-      sendTime: "2023-5-28",
-      score: 4,
-      text: "Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.",
-    },
-    {
-      movieNameCN: "蝙蝠俠",
-      pictureName: "photo.jpg",
-      userName: "tracy",
-      sendTime: "2023-5-28",
-      score: 2,
-      text: "Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.",
-    },
-    {
-      movieNameCN: "奧本海默",
-      pictureName: "photo.jpg",
-      userName: "tracy",
-      sendTime: "2023-5-28",
-      score: 5,
-      text: "Lorem ipsum dolor sit amet.",
-    },
-    {
-      movieNameCN: "蜘蛛人",
-      pictureName: "photo.jpg",
-      userName: "tracy",
-      sendTime: "2023-5-28",
-      score: 4,
-      text: "Lorem ipsum dolor sit amer sit amet.",
-    },
-    {
-      movieNameCN: "蝙蝠俠",
-      pictureName: "photo.jpg",
-      userName: "tracy",
-      sendTime: "2023-5-28",
-      score: 2,
-      text: "Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.",
-    },
-    {
-      movieNameCN: "奧本海默",
-      pictureName: "photo.jpg",
-      userName: "tracy",
-      sendTime: "2023-5-28",
-      score: 5,
-      text: "Lorem ipsum dolor sit amet.",
-    },
-    {
-      movieNameCN: "蜘蛛人",
-      pictureName: "photo.jpg",
-      userName: "tracy",
-      sendTime: "2023-5-28",
-      score: 4,
-      text: "Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.",
-    },
-    {
-      movieNameCN: "蝙蝠俠",
-      pictureName: "photo.jpg",
-      userName: "tracy",
-      sendTime: "2023-5-28",
-      score: 2,
-      text: "Lorem  sit amet.Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.",
-    },
-    {
-      movieNameCN: "奧本海默",
-      pictureName: "photo.jpg",
-      userName: "tracy",
-      sendTime: "2023-5-28",
-      score: 5,
-      text: "Lorem ipsum dolor sit amet.",
-    },
-    {
-      movieNameCN: "蜘蛛人",
-      pictureName: "photo.jpg",
-      userName: "tracy",
-      sendTime: "2023-5-28",
-      score: 4,
-      text: "Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.",
-    },
-    {
-      movieNameCN: "蝙蝠俠",
-      pictureName: "photo.jpg",
-      userName: "tracy",
-      sendTime: "2023-5-28",
-      score: 2,
-      text: "Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.",
-    },
-    {
-      movieNameCN: "奧本海默",
-      pictureName: "photo.jpg",
-      userName: "tracy",
-      sendTime: "2023-5-28",
-      score: 5,
-      text: "Lorem ipsum dolor sit amet.",
-    },
-    {
-      movieNameCN: "蜘蛛人",
-      pictureName: "photo.jpg",
-      userName: "tracy",
-      sendTime: "2023-5-28",
-      score: 4,
-      text: "Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.",
-    },
-    {
-      movieNameCN: "蝙蝠俠",
-      pictureName: "photo.jpg",
-      userName: "tracy",
-      sendTime: "2023-5-28",
-      score: 2,
-      text: "Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.",
-    },
-  ];
+  //轉成localTime，傳入utc字串
+  const targetLocalDate = (utcStr) => {
+    if (utcStr === undefined) {
+      return;
+    }
+    // console.log(utcStr);
+
+    // 將 UTC 字串轉換成 JavaScript 的 Date 物件
+    let utcDate = new Date(utcStr);
+    // console.log(utcDate);
+
+    // 指定目標時區的偏移量（以分鐘為單位）
+    let targetTimezoneOffset = 480; // 假設目標時區是 UTC+08:00
+
+    // 計算目標時區的本地時間
+    let targetLocal = new Date(
+      utcDate.getTime() + targetTimezoneOffset * 60000
+    );
+
+    let date = targetLocal.toISOString().split("T")[0]; //格式為2023-08-23
+
+    return date;
+  };
+
+  // const commentsData = [
+  //   {
+  //     movieNameCN: "奧本海默",
+  //     pictureName: "photo.jpg",
+  //     userName: "tracy",
+  //     sendTime: "2023-5-28",
+  //     score: 5,
+  //     text: "Lorem ipsum dolor sit amet.",
+  //   },
+  //   {
+  //     movieNameCN: "蜘蛛人",
+  //     pictureName: "photo.jpg",
+  //     userName: "tracy",
+  //     sendTime: "2023-5-28",
+  //     score: 4,
+  //     text: "Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.",
+  //   },
+  //   {
+  //     movieNameCN: "蝙蝠俠",
+  //     pictureName: "photo.jpg",
+  //     userName: "tracy",
+  //     sendTime: "2023-5-28",
+  //     score: 2,
+  //     text: "Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.",
+  //   },
+  //   {
+  //     movieNameCN: "奧本海默",
+  //     pictureName: "photo.jpg",
+  //     userName: "tracy",
+  //     sendTime: "2023-5-28",
+  //     score: 5,
+  //     text: "Lorem ipsum dolor sit amet.",
+  //   },
+  //   {
+  //     movieNameCN: "蜘蛛人",
+  //     pictureName: "photo.jpg",
+  //     userName: "tracy",
+  //     sendTime: "2023-5-28",
+  //     score: 4,
+  //     text: "Lorem ipsum dolor sit amer sit amet.",
+  //   },
+  //   {
+  //     movieNameCN: "蝙蝠俠",
+  //     pictureName: "photo.jpg",
+  //     userName: "tracy",
+  //     sendTime: "2023-5-28",
+  //     score: 2,
+  //     text: "Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.",
+  //   },
+  //   {
+  //     movieNameCN: "奧本海默",
+  //     pictureName: "photo.jpg",
+  //     userName: "tracy",
+  //     sendTime: "2023-5-28",
+  //     score: 5,
+  //     text: "Lorem ipsum dolor sit amet.",
+  //   },
+  //   {
+  //     movieNameCN: "蜘蛛人",
+  //     pictureName: "photo.jpg",
+  //     userName: "tracy",
+  //     sendTime: "2023-5-28",
+  //     score: 4,
+  //     text: "Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.",
+  //   },
+  //   {
+  //     movieNameCN: "蝙蝠俠",
+  //     pictureName: "photo.jpg",
+  //     userName: "tracy",
+  //     sendTime: "2023-5-28",
+  //     score: 2,
+  //     text: "Lorem  sit amet.Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.",
+  //   },
+  //   {
+  //     movieNameCN: "奧本海默",
+  //     pictureName: "photo.jpg",
+  //     userName: "tracy",
+  //     sendTime: "2023-5-28",
+  //     score: 5,
+  //     text: "Lorem ipsum dolor sit amet.",
+  //   },
+  //   {
+  //     movieNameCN: "蜘蛛人",
+  //     pictureName: "photo.jpg",
+  //     userName: "tracy",
+  //     sendTime: "2023-5-28",
+  //     score: 4,
+  //     text: "Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.",
+  //   },
+  //   {
+  //     movieNameCN: "蝙蝠俠",
+  //     pictureName: "photo.jpg",
+  //     userName: "tracy",
+  //     sendTime: "2023-5-28",
+  //     score: 2,
+  //     text: "Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.",
+  //   },
+  //   {
+  //     movieNameCN: "奧本海默",
+  //     pictureName: "photo.jpg",
+  //     userName: "tracy",
+  //     sendTime: "2023-5-28",
+  //     score: 5,
+  //     text: "Lorem ipsum dolor sit amet.",
+  //   },
+  //   {
+  //     movieNameCN: "蜘蛛人",
+  //     pictureName: "photo.jpg",
+  //     userName: "tracy",
+  //     sendTime: "2023-5-28",
+  //     score: 4,
+  //     text: "Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.",
+  //   },
+  //   {
+  //     movieNameCN: "蝙蝠俠",
+  //     pictureName: "photo.jpg",
+  //     userName: "tracy",
+  //     sendTime: "2023-5-28",
+  //     score: 2,
+  //     text: "Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.",
+  //   },
+  // ];
 
   const breakpoints = {
     mobile: 0, // 手機寬度
@@ -219,7 +256,8 @@ function Tabs(props) {
                         <img
                           className="img-fluid rounded-circle"
                           // src={require("photo.jpg")}
-                          src={require(`../../img/${comment.pictureName}`)}
+                          // src={require(`../../img/${comment.pictureName}`)}
+                          src={require(`../../img/photo.jpg`)}
                           alt="userPhoto"
                         />
                       </div>
@@ -228,14 +266,16 @@ function Tabs(props) {
                         <p className={SocialStyle.username1}>
                           {comment.userName}
                         </p>
-                        <p className={SocialStyle.date}>{comment.sendTime}</p>
+                        <p className={SocialStyle.date}>
+                          {targetLocalDate(comment.sendTime)}
+                        </p>
                       </div>
                     </div>
                     {/* star */}
                     <StaticStart rating={comment.score} />
                   </div>
 
-                  <p className={SocialStyle.text1}>{comment.text}</p>
+                  <p className={SocialStyle.text1}>{comment.comment}</p>
                 </div>
               </div>
             ))}
