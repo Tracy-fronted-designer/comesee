@@ -58,7 +58,6 @@
 .movieview {
     display: flex;
     justify-content: left;
-    gap: 300px;
     flex-shrink: 0;
     color: var(--primary-mint, #F1EFE9);
     font-family: Noto Sans TC;
