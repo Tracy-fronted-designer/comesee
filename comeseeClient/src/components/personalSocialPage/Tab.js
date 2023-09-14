@@ -19,7 +19,7 @@ function Tabs(props) {
       .get(`http://localhost:2407/commentlist/${userID}`)
       .then((response) => {
         if (response.status !== 404) {
-          // console.log(respo  nse.data);
+          // console.log(response.data);
           setCommentsData(response.data);
         }
       })
@@ -29,6 +29,35 @@ function Tabs(props) {
 
     // console.log(commentsData);
   }, [userID]);
+
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     // try {
+  //     //   const response = await axios.get(
+  //     //     `http://localhost:2407/commentlist/${userID}`
+  //     //   );
+  //     //   if (response.status !== 404) {
+  //     //     // console.log(response.data);
+  //     //     setCommentsData(response.data);
+  //     //   }
+  //     // } catch (error) {
+  //     //   // console.error("Error fetching data:", error);
+  //     //   console.log(error.response.status);
+  //     // }
+
+  //     const response = await axios.get(
+  //       `http://localhost:2407/commentlist/${userID}`
+  //     );
+  //     if (response.data.length > 0) {
+  //       // console.log(response.data);
+  //       setCommentsData(response.data);
+  //     } else {
+  //       console.log("123");
+  //     }
+  //   };
+
+  //   fetchData();
+  // }, [userID]);
 
   // 更改tab的紀錄值
   const toggleTab = (index) => {
@@ -214,71 +243,75 @@ function Tabs(props) {
             gap={{ mobile: 20, tablet: 20, desktop: 20 }}
             autoArrange={true} // 啟用自動排列
           >
-            {commentsData.map((comment, index) => (
-              <div key={index} className={SocialStyle.content1}>
-                {/* 攝影機小圖 + 電影名稱 */}
-                <div>
-                  {/* 攝影機小圖 */}
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="46"
-                    height="23"
-                    viewBox="0 0 46 23"
-                    fill="none"
-                  >
-                    <rect
-                      x="1"
-                      y="1"
-                      width="33"
-                      height="21"
-                      rx="3"
-                      stroke="#F1EFE9"
-                      strokeWidth="2"
-                    />
-                    <path
-                      d="M34 16.0312L45 19V4L34 7.4375"
-                      stroke="#F1EFE9"
-                      strokeWidth="2"
-                    />
-                  </svg>
-                  <span className={SocialStyle.moviename}>
-                    {comment.movieNameCN}
-                  </span>
-                </div>
-
-                {/* 除了攝影機小圖 + 電影名稱以外的部分 */}
-                <div className={SocialStyle.user}>
-                  <div className="d-flex justify-content-between">
-                    {/* 包含個人頭像 & userName + 發送日期 */}
-                    <div className="d-flex ">
-                      {/* 個人頭像 */}
-                      <div className={SocialStyle.userphoto}>
-                        <img
-                          className="img-fluid rounded-circle"
-                          // src={require("photo.jpg")}
-                          // src={require(`../../img/${comment.pictureName}`)}
-                          src={require(`../../img/photo.jpg`)}
-                          alt="userPhoto"
-                        />
-                      </div>
-                      {/* userName + 發送日期 */}
-                      <div className={SocialStyle.userinfo}>
-                        <p className={SocialStyle.username1}>
-                          {comment.userName}
-                        </p>
-                        <p className={SocialStyle.date}>
-                          {targetLocalDate(comment.sendTime)}
-                        </p>
-                      </div>
-                    </div>
-                    {/* star */}
-                    <StaticStart rating={comment.score} />
+            {commentsData.length !== 0 ? (
+              commentsData.map((comment, index) => (
+                <div key={index} className={SocialStyle.content1}>
+                  {/* 攝影機小圖 + 電影名稱 */}
+                  <div>
+                    {/* 攝影機小圖 */}
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="46"
+                      height="23"
+                      viewBox="0 0 46 23"
+                      fill="none"
+                    >
+                      <rect
+                        x="1"
+                        y="1"
+                        width="33"
+                        height="21"
+                        rx="3"
+                        stroke="#F1EFE9"
+                        strokeWidth="2"
+                      />
+                      <path
+                        d="M34 16.0312L45 19V4L34 7.4375"
+                        stroke="#F1EFE9"
+                        strokeWidth="2"
+                      />
+                    </svg>
+                    <span className={SocialStyle.moviename}>
+                      {comment.movieNameCN}
+                    </span>
                   </div>
 
-                  <p className={SocialStyle.text1}>{comment.comment}</p>
+                  {/* 除了攝影機小圖 + 電影名稱以外的部分 */}
+                  <div className={SocialStyle.user}>
+                    <div className="d-flex justify-content-between">
+                      {/* 包含個人頭像 & userName + 發送日期 */}
+                      <div className="d-flex ">
+                        {/* 個人頭像 */}
+                        <div className={SocialStyle.userphoto}>
+                          <img
+                            className="img-fluid rounded-circle"
+                            // src={require("photo.jpg")}
+                            // src={require(`../../img/${comment.pictureName}`)}
+                            src={require(`../../img/photo.jpg`)}
+                            alt="userPhoto"
+                          />
+                        </div>
+                        {/* userName + 發送日期 */}
+                        <div className={SocialStyle.userinfo}>
+                          <p className={SocialStyle.username1}>
+                            {comment.userName}
+                          </p>
+                          <p className={SocialStyle.date}>
+                            {targetLocalDate(comment.sendTime)}
+                          </p>
+                        </div>
+                      </div>
+                      {/* star */}
+                      <StaticStart rating={comment.score} />
+                    </div>
+
+                    <p className={SocialStyle.text1}>{comment.comment}</p>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))
+            ) : (
+              <div style={{ color: "red", fontSize: "20px" }}>尚未進行評論</div>
+            )}
           </SmartMasonry>
         </div>
 

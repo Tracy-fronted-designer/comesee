@@ -11,28 +11,13 @@ commentlist.get("/:userID([0-9]+)", function (req, res) {
     function (results, fields) {
       if (results.length > 0) {
         res.send(JSON.stringify(results));
-      } else {
-        res.status(404).json({ error: "該user尚未撰寫過評論" });
       }
+      // else {
+      //   res.status(404).json({ error: "該user尚未撰寫過評論" });
+      // }
     }
   );
 });
-
-// //以userID
-// commentlist.get("/:userID([0-9]+)", function (req, res) {
-//   let userID = req.params.userID;
-//   db.exec(
-//     "SELECT * FROM commentlist WHERE userID = ?",
-//     [userID],
-//     function (results, fields) {
-//       if (results.length > 0) {
-//         res.send(JSON.stringify(results));
-//       } else {
-//         res.status(404).json({ error: "該user尚未撰寫過評論" });
-//       }
-//     }
-//   );
-// });
 
 //這個路由匯出以後是app.js使用
 module.exports = commentlist;
