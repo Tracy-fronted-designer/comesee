@@ -352,18 +352,32 @@ class Payment extends Component {
           point: state.total,
           used: state.usePoint,
         };
+
         axios.post('http://localhost:2407/bonus/create', bonusToBeSent)
           .then(res => {
+
+            // 如果有選用優惠券 就更新使用狀態
+            if (selectedCouponValue) {
+              axios.put(`http://localhost:2407/coupon/update`, {userID:state.userID, couponID:selectedCouponValue})
+                .then(res => {
+                  console.log("更新成功:", res.data);
+                })
+                .catch(error => {
+                  console.log("更新失敗:", error);
+                });
+            }
+  
+            // 下一頁
             this.props.history.push("./PaymentCompleted");
             window.scrollTo(0, 0);
           })
           .catch(error => {
-            console.log("Error sending data:", error);
+            console.log("紅利新增失敗:", error);
           });
       })
 
       .catch(error => {
-        console.log("Error sending orderlist data:", error);
+        console.log("訂單傳送失敗:", error);
       });
   }
 
