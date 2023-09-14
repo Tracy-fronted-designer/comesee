@@ -113,6 +113,12 @@
     background-color: #B6B995;
 }
 
+.quickBtn:active {
+    color: #F1EFE9;
+    border: "none";
+    background-color: #A6A79B;
+}
+
 .modalcontent {
     width: 400px;
     height: 200px;

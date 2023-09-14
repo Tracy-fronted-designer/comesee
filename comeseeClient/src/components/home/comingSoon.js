@@ -68,6 +68,7 @@ const ComingSoon = () => {
                             <Link to="/info">
                                 <img
                                     className={HS.listSlide}
+                                    id={filmPoster.id}
                                     key={filmPoster.id}
                                     src={filmPoster.imageUrl} alt=' ' />
                             </Link>
