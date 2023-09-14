@@ -28,7 +28,7 @@
   .title {
       font-family: "Noto Sans TC";
       color: #F1EFE9;
-      font-size: 16px;
+      font-size: 18px;
       text-decoration: none;
       line-height: 100%;
       overflow: hidden;
@@ -39,12 +39,13 @@
   .text {
       font-family: "Noto Sans TC";
       color: #F1EFE9;
-      font-size: 12px;
+      font-size: 14px;
       text-decoration: none;
       line-height: 100%;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
+      margin-bottom: 15px;
   }
 
   .myLink {
@@ -71,4 +72,10 @@
   .cBtn:hover {
       border: 2px solid #B6B995;
       background-color: #B6B995;
+  }
+
+  .cBtn:active {
+      color: #B6B995;
+      border: 2px solid #F1EFE9;
+      background-color: #F1EFE9;
   }
