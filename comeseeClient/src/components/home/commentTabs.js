@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import axios from 'axios';
+
 
 import OthersComment from './comment';
 
@@ -7,26 +9,22 @@ import Star from './star';
 
 import CMS from '../../css/home/comment.module.css';
 
+
 class CommentTabs extends Component {
 
     state = {
-        inputValue: '',
-        comments: [],
-    }
+        comment: [],
+    };
 
-    handleInputChange = (e) => {
-        this.setState({ inputValue: e.target.value });
-    }
-
-    handleSubmit = () => {
-        const newComment = {
-            inputValue: this.state.inputValue,
-        };
-
-        this.setState((prevState) => ({
-            comments: [...prevState.comments, newComment],
-            inputValue: '',
-        }));
+    componentDidMount() {
+        // Fetch comments from your server
+        axios.get('http://localhost:2407/comment') // Assuming your server exposes the comments via '/api/comments'
+            .then((response) => {
+                this.setState({ comment: response.data });
+            })
+            .catch((error) => {
+                console.error('Error fetching comments:', error);
+            });
     }
 
     render() {
@@ -50,15 +48,11 @@ class CommentTabs extends Component {
                     <div>
                         {/* 星星跟留言框 */}
                         <Star />
-                        <input type="text"
-                            className={CMS.text}
-                            value={this.state.inputValue}
-                            onChange={this.handleInputChange}
-                        />
+                        <input type="text" className={CMS.text} />
                     </div>
 
                     {/* 送出按鈕 */}
-                    <button className={CMS.scb} onClick={this.handleSubmit}>送出</button>
+                    <button className={CMS.scb}>送出</button>
                 </div>
 
             </div>
@@ -75,9 +69,8 @@ class CommentTabs extends Component {
                 </div>
 
                 {/* 其他人的評論 */}
-                {this.state.comments.map((comment, index) => (
-                    <OthersComment key={index} commentData={comment} />
-                ))}
+                <OthersComment comment={this.state.comment} />
+
             </div>
 
         </>);
