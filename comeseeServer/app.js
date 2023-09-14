@@ -1,12 +1,25 @@
 var express = require("express");
 var app = express();
 var bodyParser = require("body-parser");
+var orderlist = require("./router/orderlist");
 var recommend = require("./router/recommend");
 var playlist = require("./router/playlist");
 var seat = require("./router/seat");
 var user = require("./router/user");
-var cors = require("cors");
+var quickorder = require("./router/quickorder");
+var booking = require("./router/booking");
+var bonus = require("./router/bonus");
+var coupon = require("./router/coupon");
+var filmlist = require("./router/filmlist");
+var filminfo = require("./router/filminfo");
+var socialhome = require("./router/socialhome");
+var commentlist = require("./router/commentlist");
+var login = require("./router/login")
+var register = require("./router/register")
+var comment = require("./router/comment");
 
+
+var cors = require("cors");
 
 //解析json資料
 app.use(bodyParser.json());
@@ -23,7 +36,22 @@ app.use("/recommend", recommend);
 app.use("/user", user);
 app.use("/seat", seat);
 app.use("/playlist", playlist);
+app.use("/quickorder", quickorder);
+app.use("/booking", booking);
+app.use("/bonus", bonus);
+app.use("/coupon", coupon);
+app.use("/filmlist", filmlist);
+app.use("/filminfo", filminfo);
+app.use("/socialhome", socialhome);
+app.use("/commentlist", commentlist);
+app.use("/login", login);
+app.use("/register", register);
+app.use("/comment", comment);
+app.use("/orderlist", orderlist);
+
 
 app.listen(2407, function () {
   console.log("伺服器啟動中");
 });
+
+

@@ -27,6 +27,7 @@ orderlist.patch("/orders/:orderID", (req, res) => {
         res.status(404).json({ message: "該訂單已被取消" });}
     });
 
+    
  orderlist.post("/create", function (req, res) {
   const { userID, showtimeID, date, price, bonus,couponID,seat,adult, student } = req.body; // 假設客戶端發送的訂單數據数在請求的 body 中
   console.log(req.body);
