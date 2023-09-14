@@ -2,7 +2,7 @@ var express = require("express");
 var db = require("../db");
 var seat = express.Router();
 
-//新增座位
+//新增座位(使用postman body->x-www-form-urlencoded  傳入theaterID,cinemaID,showtimeID,seatCount)
 seat.post("/", async function (req, res) {
   try {
     let body = req.body;
@@ -54,8 +54,6 @@ seat.get("/:showtimeID([0-9]+)", function (req, res) {
 // seat.put('/:showtimeID([0-9]+)',function(req, res){
 //   let showtimeID = req.params.showtimeID;
 //   let body = req.body;
-
-
 
 // })
 

@@ -190,7 +190,7 @@ class Payment extends Component {
                         ref={this.phone}
                         onKeyDown={(e) => this.keyEnter(e, this.email)}
                         onChange={(e) => this.setState({ phone: e.target.value })}
-                        
+
                       />
                     </div>
                     <div className={CPC.memEmail}>
@@ -323,25 +323,64 @@ class Payment extends Component {
 
   confirmCheckout = () => {
     const { state } = this.context;
+
+    const selectedCouponValue = state.selectedCoupon || null;
+
     // console.log("Context state:", state);
     const dataToBeSent = {
-      userID: 2,
+      userID: state.userID,
       showtimeID: state.showtimeID,
-      seatID: 4,
       date: state.date,
-      price: state.total
+      price: state.total,
+      bonus: state.discount,
+      couponID: selectedCouponValue,
+      seat: state.seatNumber,
+      adult: state.adultTickets,
+      student: state.studentTickets,
+
     };
 
+    // 新增訂單資料
     axios.post('http://localhost:2407/orderlist/create', dataToBeSent)
       .then(res => {
         // console.log("Data sent successfully:", res.data);
-        this.props.history.push("./PaymentCompleted");
-        window.scrollTo(0, 0);
+
+
+        // 新增紅利資料
+        const bonusToBeSent = {
+          userID: state.userID,
+          point: state.total,
+          used: state.usePoint,
+        };
+
+        axios.post('http://localhost:2407/bonus/create', bonusToBeSent)
+          .then(res => {
+
+            // 如果有選用優惠券 就更新使用狀態
+            if (selectedCouponValue) {
+              axios.put(`http://localhost:2407/coupon/update`, {userID:state.userID, couponID:selectedCouponValue})
+                .then(res => {
+                  console.log("更新成功:", res.data);
+                })
+                .catch(error => {
+                  console.log("更新失敗:", error);
+                });
+            }
+  
+            // 下一頁
+            this.props.history.push("./PaymentCompleted");
+            window.scrollTo(0, 0);
+          })
+          .catch(error => {
+            console.log("紅利新增失敗:", error);
+          });
       })
+
       .catch(error => {
-        console.log("Error sending data:", error);
+        console.log("訂單傳送失敗:", error);
       });
-  };
+  }
+
 
   componentDidMount() {
     axios.get(`http://localhost:2407/user/${this.context.state.userID}`)
@@ -354,10 +393,10 @@ class Payment extends Component {
           email: useremail,
         });
 
-        if(userphone === undefined){
-          this.setState({phone: "尚未登入",}) 
-        }else if (useremail === undefined){
-          this.setState({email: "尚未登入",})
+        if (userphone === undefined) {
+          this.setState({ phone: "尚未登入", })
+        } else if (useremail === undefined) {
+          this.setState({ email: "尚未登入", })
         }
       })
       .catch((error) => {

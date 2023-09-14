@@ -10,19 +10,33 @@ class Social extends Component {
     return (
       <div className={SocialStyle.all}>
         <div className={"container " + SocialStyle.body}>
+          {/* 外框 */}
           <div className={SocialStyle.info}>
-            <div className={SocialStyle.img}>{}</div>
+            {/* 左半部 */}
             <div className={SocialStyle.intro}>
-              <div className={SocialStyle.user}>
+              {/* 大頭貼 */}
+              <div className={SocialStyle.img}>
+                <img
+                  className="img-fluid h-100 rounded-circle"
+                  // src={require("photo.jpg")}
+                  src={require(`../../img/carouselimg.jpg`)}
+                  alt="userPhoto"
+                />
+              </div>
+              {/* username與email */}
+              <div className={SocialStyle.headuser}>
                 <p className={SocialStyle.username}>Tracy{}</p>
                 <p className={SocialStyle.userid}>@d98098dew{}</p>
+                {/* 自我介紹 */}
+                <p className={SocialStyle.newintro}>新增自我介紹{}</p>
               </div>
-              <p className={SocialStyle.newintro}>新增自我介紹{}</p>
             </div>
+            {/* 右半部 */}
             <div className={SocialStyle.A2}>
+              {/* 已觀看外框 */}
               <div className={SocialStyle.collect1}>
                 <p>已觀看</p>
-                <svg
+                {/* <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="63"
                   height="96"
@@ -34,11 +48,13 @@ class Social extends Component {
                     stroke="#D9D9D9"
                     strokeWidth="4"
                   />
-                </svg>
+                </svg> */}
+                <div className={SocialStyle.number}>7</div>
               </div>
+              {/* 已收藏外框 */}
               <div className={SocialStyle.collect2}>
                 <p>已收藏</p>
-                <svg
+                {/* <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="63"
                   height="96"
@@ -50,7 +66,8 @@ class Social extends Component {
                     stroke="#F1EFE9"
                     strokeWidth="4"
                   />
-                </svg>
+                </svg> */}
+                <div className={SocialStyle.number}>5</div>
               </div>
             </div>
           </div>

@@ -2,14 +2,27 @@ import React, { Component } from 'react';
 import Socialhomestyle from '../../css/socialpage/socialhome.module.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap';
-import BtnLarge from './btnLarge';
 import Accordion from './accordion';
-
+import Score from './score';
 
 class Socialhome extends Component {
 
     state = {}
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            searchTerm: '', // 新添加的搜索词状态
+            selectedFilter: '0',
+        };
+    }
+
+    handleSearchChange = (e) => {
+        this.setState({ searchTerm: e.target.value });
+    };
+
     render() {
+        const { searchTerm } = this.state; // 获取搜索词
         return (
             <div className={Socialhomestyle.all}>
                 <div className={"container " + Socialhomestyle.body}>
@@ -23,19 +36,38 @@ class Socialhome extends Component {
                             <div className={"carousel-item active " + Socialhomestyle.inside}>
                                 <div className={Socialhomestyle.ratingchampion}>
                                     <img className={Socialhomestyle.ratingpost} src={require("../../img/carouselimg.jpg")} alt=""></img>
-                                    <div className={Socialhomestyle.ratingword}></div>
+                                    <div className={Socialhomestyle.ratingword}>
+                                        <p className={Socialhomestyle.ratingtitle}>本週評分最高</p>
+                                        <h1 className={Socialhomestyle.ratingMN}>奧本海默</h1>
+                                        <h5 className={Socialhomestyle.ratingMEN}>Oppenheimer</h5>
+                                        <div className={Socialhomestyle.ratingSC}>
+                                            <Score score="4.6" /></div>
+                                    </div>
                                 </div>
                             </div>
                             <div className={"carousel-item " + Socialhomestyle.inside}>
                                 <div className={Socialhomestyle.ratingchampion}>
                                     <img className={Socialhomestyle.ratingpost} src={require("../../img/THEEQUALIZER3.jpg")} alt=""></img>
-                                    <div className={Socialhomestyle.ratingword}></div>
+                                    <div className={Socialhomestyle.ratingword}>
+                                        <p className={Socialhomestyle.ratingtitle}>本週最多人評分</p>
+                                        <h1 className={Socialhomestyle.ratingMN}>私刑教育3</h1>
+                                        <h5 className={Socialhomestyle.ratingMEN}>THEEQUALIZER3</h5>
+                                        <div className={Socialhomestyle.ratingSC}>
+                                            <Score score="4.3" /></div>
+
+                                    </div>
                                 </div>
                             </div>
                             <div className={"carousel-item " + Socialhomestyle.inside}>
                                 <div className={Socialhomestyle.ratingchampion}>
                                     <img className={Socialhomestyle.ratingpost} src={require("../../img/GranTurismo.jpg")} alt=""></img>
-                                    <div className={Socialhomestyle.ratingword}></div>
+                                    <div className={Socialhomestyle.ratingword}>
+                                        <p className={Socialhomestyle.ratingtitle}>本週留言次數最多</p>
+                                        <h1 className={Socialhomestyle.ratingMN}>GT:跨界玩家</h1>
+                                        <h5 className={Socialhomestyle.ratingMEN}>GranTurismo</h5>
+                                        <div className={Socialhomestyle.ratingSC}>
+                                            <Score score="4.7" /></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -50,10 +82,23 @@ class Socialhome extends Component {
                     </div>
                     <div className="arr5">
                         <div className={Socialhomestyle.findmov}>
-                            <input type="text" className={Socialhomestyle.findmovinput} placeholder="  請輸入電影名稱" aria-label="請輸入電影名稱" aria-describedby="button-addon2"></input>
-                            <BtnLarge label="搜尋" />
-                            <select className={"form-select " + Socialhomestyle.formselect} aria-label="Default select example">
-                                <option selected>查詢範圍</option>
+                            <input
+                                type="text"
+                                className={Socialhomestyle.findmovinput}
+                                placeholder="  請輸入電影名稱"
+                                aria-label="請輸入電影名稱"
+                                aria-describedby="button-addon2"
+                                value={this.state.searchTerm}
+                                onChange={this.handleSearchChange}
+                            >
+                            </input>
+                            <select
+                                value={this.state.selectedFilter}
+                                className={"form-select " + Socialhomestyle.formselect}
+                                aria-label="Default select example"
+                                onChange={(e) => this.setState({ selectedFilter: e.target.value })}
+                            >
+                                <option value="0">查詢範圍</option>
                                 <option value="1">上映60天內</option>
                                 <option value="2">上映120天內</option>
                                 <option value="3">2023</option>
@@ -61,8 +106,8 @@ class Socialhome extends Component {
                                 <option value="5">2021</option>
                                 <option value="6">2020</option>
                             </select>
-                            <select className={"form-select " + Socialhomestyle.formselect} aria-label="Default select example">
-                                <option selected>排序</option>
+                            <select defaultValue="0" className={"form-select " + Socialhomestyle.formselect} aria-label="Default select example">
+                                <option value="0">排序</option>
                                 <option value="1">依喜好度排序</option>
                                 <option value="2">依評分人數排序</option>
                                 <option value="3">依上映日期排序</option>
@@ -71,12 +116,15 @@ class Socialhome extends Component {
                     </div>
                     <div>
                         <div className={Socialhomestyle.movieview}>
-                            <h5 className={Socialhomestyle.myh51}>電影名稱</h5>
-                            <h5 className={Socialhomestyle.myh5}>上映日期</h5>
-                            <h5 className={Socialhomestyle.myh5}>網友評分</h5>
+                            <h5 className={"col-4 " + Socialhomestyle.myh51}>電影名稱</h5>
+                            <h5 className={"col-4 " + Socialhomestyle.myh5}>上映日期</h5>
+                            <h5 className={"col-4 " + Socialhomestyle.myh5}>網友評分</h5>
                         </div>
                         <div className={Socialhomestyle.moviecomment}>
-                            <Accordion />
+                            <Accordion
+                                searchTerm={searchTerm}
+                                selectedFilter={this.state.selectedFilter}
+                            />
                         </div>
                     </div>
                 </div >

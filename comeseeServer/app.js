@@ -5,8 +5,6 @@ var recommend = require("./router/recommend");
 var playlist = require("./router/playlist");
 var seat = require("./router/seat");
 var user = require("./router/user");
-var coupon = require("./router/coupon");
-const orderlist = require("./router/orderlist");
 var cors = require("cors");
 
 
@@ -25,7 +23,6 @@ app.use("/recommend", recommend);
 app.use("/user", user);
 app.use("/seat", seat);
 app.use("/playlist", playlist);
-app.use("/coupon", coupon);
 
 app.listen(2407, function () {
   console.log("伺服器啟動中");

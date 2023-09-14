@@ -1,15 +1,36 @@
 import React, { Component } from 'react';
+import axios from 'axios';
+
 
 import OthersComment from './comment';
 
 import SortBtn from './sortBtn';
-import Stars from './stars';
+import Star from './star';
 
 import CMS from '../../css/home/comment.module.css';
 
+
 class CommentTabs extends Component {
 
-    state = {}
+    state = {
+        comment: [],
+    };
+
+    componentDidMount() {
+        // 使用电影名称作为查询参数传递给后端
+        axios
+            .get('http://localhost:2407/comment', {
+                params: {
+                    movieNameCN: this.props.filmInfo.movieNameCN  // 传递电影名称
+                }
+            })
+            .then((response) => {
+                this.setState({ comment: response.data });
+            })
+            .catch((error) => {
+                console.error('Error fetching comments:', error);
+            });
+    }
 
     render() {
 
@@ -27,11 +48,11 @@ class CommentTabs extends Component {
                 <div className={CMS.selfBox}>
 
                     {/* 自己的頭貼 */}
-                    <img className={CMS.user} src={Img} alt=' ' />
+                    <a href={`/personalSocialPage/${this.userID}`}><img className={CMS.user} src={Img} alt='頭像' /></a>
 
                     <div>
                         {/* 星星跟留言框 */}
-                        <Stars />
+                        <Star />
                         <input type="text" className={CMS.text} />
                     </div>
 
@@ -53,9 +74,8 @@ class CommentTabs extends Component {
                 </div>
 
                 {/* 其他人的評論 */}
-                <OthersComment />
-                <OthersComment />
-                
+                <OthersComment comment={this.state.comment} />
+
             </div>
 
         </>);

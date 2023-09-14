@@ -34,40 +34,41 @@ class App extends Component {
   render() {
     return (
       <BrowserRouter>
-        <Navbar />
-        <div>
-          <Switch>
-            <Route path="/" component={HomePage} exact />
-            <Route path="/List" component={ListPage} />
-            <Route path="/Info" component={InfoPage} />
-            <Route path="/SupportCenter/:page" component={SupportCenter} />
-            <Route path="/PaymentCompleted" component={PaymentCompleted} />
-            <Route path="/Collectionpage" component={Collectionpage} />
-            <Route path="/Fee" component={Fee} />
-            <Route path="/Member" component={Member} />
-            <Route path="/Socialhome" component={Socialhome} />
-            {/* <Route path="/Social" component={Social} /> */}
-            <Route
-              path="/personalSocialPage/:userID"
-              component={personalSocialPage}
-            />
+        <TicketProvider>
+          <Navbar />
+          <div>
+            <Switch>
+              <Route path="/" component={HomePage} exact />
+              <Route path="/List" component={ListPage} />
+              {/* <Route path="/Info" component={InfoPage} /> */}
+              <Route path="/Info/:id" component={InfoPage} />
+              <Route path="/SupportCenter/:page" component={SupportCenter} />
+              <Route path="/Collectionpage" component={Collectionpage} />
+              <Route path="/Fee" component={Fee} />
+              <Route path="/Member" component={Member} />
+              <Route path="/Socialhome" component={Socialhome} />
+              {/* <Route path="/Social" component={Social} /> */}
+              <Route
+                path="/personalSocialPage/:userID"
+                component={personalSocialPage}
+              />
 
-            <Route path="/ForgotPassword" component={ForgotPasswordPage} />
-            <Route path="/login" component={Login} />
-            <Route path="/Register" component={Register} />
-            {/* {/* <Route path="/ChangePassword" component={ChangePassword} /> */}
-            <Route path="/UserMessage" component={UserMessage} />
-            <TicketProvider>
+              <Route path="/ForgotPassword" component={ForgotPasswordPage} />
+              {/* {/* <Route path="/ChangePassword" component={ChangePassword} /> */}
+              <Route path="/UserMessage" component={UserMessage} />
+              <Route path="/Register" component={Register} />
+              <Route path="/login" component={Login} />
               <Route path="/BookingSeat" component={BookingSeat} />
               <Route path="/TicketType" component={TicketType} />
               <Route path="/discount" component={Discount} />
               <Route path="/Confirm" component={Confirm} />
               <Route path="/payment" component={Payment} />
+              <Route path="/PaymentCompleted" component={PaymentCompleted} />
               <Route path="/memberinformation" component={MemberInformation} />
-            </TicketProvider>
-          </Switch>
-        </div>
-        <Footer />
+            </Switch>
+          </div>
+          <Footer />
+        </TicketProvider>
       </BrowserRouter>
     );
   }
