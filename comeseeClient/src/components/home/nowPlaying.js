@@ -62,13 +62,15 @@ const NowPlaying = () => {
                 >
 
                     {slideData.map(filmPoster =>
-                        <SwiperSlide>
-                            <Link to="/info">
-                                <img
-                                    className={HS.listSlide}
-                                    key={filmPoster.id}
-                                    src={filmPoster.imageUrl} alt=' ' />
-                            </Link>
+                        <SwiperSlide className={HS.imgContainer}>
+                            <img
+                                className={HS.listSlide}
+                                key={filmPoster.id}
+                                src={filmPoster.imageUrl} alt=' ' />
+                            <div className={HS.btnblock}>
+                                <button className={HS.imgBtn} >立即訂票</button>
+                                <Link to={`/info/${filmPoster.id}`}><button className={HS.imgBtn} >電影介紹</button></Link>
+                            </div>
                         </SwiperSlide>
                     )}
 
