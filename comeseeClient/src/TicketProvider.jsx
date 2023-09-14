@@ -47,7 +47,7 @@ export class TicketProvider extends Component {
       usePoint: 0,
 
       // 優惠券
-      couponID: ["無", "超級優惠券 100元", "普通優惠券 50元"],
+      couponID: [],
       selectedCoupon: '', //預設
       coupons: [
         {
@@ -56,9 +56,19 @@ export class TicketProvider extends Component {
           type: "fixed", // 一般金額的折扣類型
         },
         {
-          couponID: "88折優惠 折抵12%",
+          couponID: "95折優惠",
           discountPercentage: 5, // 百分比的折扣
           type: "percentage", // 百分比的折扣類型
+        },
+        {
+          couponID: "88折優惠",
+          discountPercentage: 12, // 百分比的折扣
+          type: "percentage", // 百分比的折扣類型
+        },
+        {
+          couponID: "免費電影票一張(全票)",
+          discountAmount: 350, // 百分比的折扣
+          type: "fixed", // 百分比的折扣類型
         },
       ],
       couponDiscount: 0, //預設
