@@ -17,8 +17,13 @@ class CommentTabs extends Component {
     };
 
     componentDidMount() {
-        // Fetch comments from your server
-        axios.get('http://localhost:2407/comment') // Assuming your server exposes the comments via '/api/comments'
+        // 使用电影名称作为查询参数传递给后端
+        axios
+            .get('http://localhost:2407/comment', {
+                params: {
+                    movieNameCN: this.props.filmInfo.movieNameCN  // 传递电影名称
+                }
+            })
             .then((response) => {
                 this.setState({ comment: response.data });
             })
