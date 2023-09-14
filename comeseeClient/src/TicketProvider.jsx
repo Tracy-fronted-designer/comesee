@@ -47,13 +47,30 @@ export class TicketProvider extends Component {
       usePoint: 0,
 
       // 優惠券
-      couponID: ["無", "超級優惠券 100元", "普通優惠券 50元"],
-      selectedCoupon:'', //預設
-      couponDiscountMapping: {
-        無: 0,
-        "入會禮 50元": 50,
-        "普通優惠券 50元": 50,
-      },
+      couponID: [],
+      selectedCoupon: '', //預設
+      coupons: [
+        {
+          couponID: "入會禮 折抵50元",
+          discountAmount: 50, // 一般金額的折扣
+          type: "fixed", // 一般金額的折扣類型
+        },
+        {
+          couponID: "95折優惠",
+          discountPercentage: 5, // 百分比的折扣
+          type: "percentage", // 百分比的折扣類型
+        },
+        {
+          couponID: "88折優惠",
+          discountPercentage: 12, // 百分比的折扣
+          type: "percentage", // 百分比的折扣類型
+        },
+        {
+          couponID: "免費電影票一張(全票)",
+          discountAmount: 350, // 百分比的折扣
+          type: "fixed", // 百分比的折扣類型
+        },
+      ],
       couponDiscount: 0, //預設
 
       // 折扣加總
@@ -119,13 +136,29 @@ export class TicketProvider extends Component {
 
   // 優惠券
   setSelectedCoupon = (selectedCoupon) => {
-    const couponDiscount =
-      this.state.couponDiscountMapping[selectedCoupon] || 0;
-    // console.log(couponDiscount)
+    const { subtotal } = this.state;
+    var couponDiscount = 0;
+
+    if (selectedCoupon) {
+      // 根據選擇的優惠券類型計算折扣金額
+      const selectedCouponData = this.state.coupons.find(
+        (coupon) => coupon.couponID === selectedCoupon
+      );
+
+      if (selectedCouponData) {
+        if (selectedCouponData.type === "fixed") {
+          // 一般金額的折扣
+          couponDiscount = selectedCouponData.discountAmount;
+        } else if (selectedCouponData.type === "percentage") {
+          // 百分比的折扣
+          couponDiscount = Math.round((selectedCouponData.discountPercentage / 100) * subtotal);
+        }
+      }
+    }
+
     this.setState({ selectedCoupon, couponDiscount }, () => {
       this.updateAllDiscount();
     });
-    // console.log(`coupon: ${selectedCoupon}, Discount: ${couponDiscount}`);
   };
 
   // 優惠總額

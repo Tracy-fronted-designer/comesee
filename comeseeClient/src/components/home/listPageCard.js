@@ -10,7 +10,7 @@ class ListPageCard extends Component {
             <>
                 <div className={`${CardStyle.film} card col-3`}>
 
-                    <a href="/info"><img src={this.props.imageUrl} className={CardStyle.myImg} alt='' /></a>
+                    <a href={`/info/${this.props.id}`}><img src={this.props.imageUrl} className={CardStyle.myImg} alt='' /></a>
 
                     <div className={CardStyle.myCard}>
 
@@ -19,7 +19,7 @@ class ListPageCard extends Component {
                         <h2 className={CardStyle.title}>{this.props.movieNameCN}</h2>
                         <p className={CardStyle.text}>{this.props.movieNameEN}</p>
 
-                        <a className={CardStyle.myLink} href="/info">
+                        <a className={CardStyle.myLink} href={`/info/${this.props.id}`}>
                             <button className={CardStyle.cBtn}>立即購票</button>
                         </a>
 

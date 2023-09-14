@@ -2,12 +2,6 @@ var express = require("express");
 var db = require("../db");
 var quickorder = express.Router();
 
-// quickorder.get('/', function (req, res) {
-//     res.send({
-//     });
-//     res.end();
-// });
-
 // 取得影城
 quickorder.get("/", function (req, res) {
   db.exec("SELECT * FROM cinema", [], function (results, fields) {
@@ -64,15 +58,6 @@ quickorder.post("/getStartTime", function (req, res) {
 });
 
 // 取得座位資訊
-
-
-
-
-
-
-
-
-
 
 //這個路由匯出以後是app.js使用
 module.exports = quickorder;

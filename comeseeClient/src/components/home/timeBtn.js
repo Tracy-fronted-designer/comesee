@@ -27,13 +27,13 @@ class TimeBtn extends Component {
     render() {
 
         var { label } = this.props;
-        
+
         return (
 
             <button style={this.verStyle}
                 type="button"
                 data-bs-toggle="modal"
-                data-bs-target="#Modal"
+                data-bs-target="#checkModal"
             >
                 {label}
             </button>

@@ -6,26 +6,11 @@ import ListPageCard from './listPageCard';
 
 const ListPage = () => {
 
-    // const [movieData, setMovieData] = useState([]);
     const [releasedData, setReleasedData] = useState([]);
     const [comingData, setComingData] = useState([]);
 
     const [tabReleased, setTabReleased] = useState(true);
     const [tabComingSoon, setTabComingSoon] = useState(0);
-
-
-    // 後端抓取電影資料
-    // useEffect(() => {
-    //     axios
-    //         .get("http://localhost:2407/filmlist")
-    //         .then((res) => {
-    //             setMovieData(res.data);
-    //         })
-    //         .catch((err) => {
-    //             console.log(err.response);
-    //         });
-    // }, []);
-
 
     // 選擇上映中標籤
     function handleReleaseChange(e) {
@@ -65,14 +50,9 @@ const ListPage = () => {
 
 
 
-
-
-
-
     return (
         <div className={LS.List} >
             <div className="container">
-
 
 
                 <nav className={LS.myNav}>
@@ -107,6 +87,7 @@ const ListPage = () => {
                         </button>
                     </div>
                 </nav>
+                
 
                 <div className={`${LS.myContent} tab-content`} id="nav-tabContent">
 
@@ -149,11 +130,9 @@ const ListPage = () => {
                 </div>
 
 
-
             </div>
         </div>
     );
 }
-
 
 export default ListPage;

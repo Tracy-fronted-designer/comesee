@@ -8,12 +8,6 @@ var filmlist = express.Router();
 // 列表頁: 現正熱映 & 即將上映
 // → movieID / imageUrl / movieNameCN / movieNameEN
 
-// 資訊頁: 設定url // !未完
-// movieID / imageUrl / movieNameCN / movieNameEN
-// releaseDate / movieLength / movieType / director / actor
-// score / like?
-// story / 影片url
-
 filmlist.get("/", function (req, res) {
     db.exec("SELECT * FROM movie", [], function (results, fields) {
         res.send(JSON.stringify(results));
