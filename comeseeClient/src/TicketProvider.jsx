@@ -57,7 +57,7 @@ export class TicketProvider extends Component {
         },
         {
           couponID: "88折優惠 折抵12%",
-          discountPercentage: 12, // 百分比的折扣
+          discountPercentage: 5, // 百分比的折扣
           type: "percentage", // 百分比的折扣類型
         },
       ],
@@ -141,7 +141,7 @@ export class TicketProvider extends Component {
           couponDiscount = selectedCouponData.discountAmount;
         } else if (selectedCouponData.type === "percentage") {
           // 百分比的折扣
-          couponDiscount = (selectedCouponData.discountPercentage / 100) * subtotal;
+          couponDiscount = Math.round((selectedCouponData.discountPercentage / 100) * subtotal);
         }
       }
     }
