@@ -48,7 +48,7 @@ export class TicketProvider extends Component {
 
       // 優惠券
       couponID: [],
-      selectedCoupon: '', //預設
+      selectedCoupon: "", //預設
       coupons: [
         {
           couponID: "入會禮 折抵50元",
@@ -91,7 +91,6 @@ export class TicketProvider extends Component {
       //選擇座位頁面以選擇的座位，訂單頁面需要從selectedSeats拿取選到的位置
       selectedSeats: [],
 
-
       //若選擇的座位等於maxSelectedSeats則seatflag = true
       seatflag: false,
 
@@ -99,6 +98,12 @@ export class TicketProvider extends Component {
 
       //訂票資訊
       bookingInfo: [],
+
+      //----------------------------------------------------------------------
+      //JWT相關
+      //從localstorage獲取令牌和過期时间
+      token: localStorage.getItem("token") || null,
+      exp: localStorage.getItem("exp") || null,
     };
 
     this.setStateValue = this.setStateValue.bind(this);
@@ -106,6 +111,37 @@ export class TicketProvider extends Component {
     this.setSelectedCoupon = this.setSelectedCoupon.bind(this);
     this.setSubtotal = this.setSubtotal.bind(this);
   }
+
+  //JWT相關函式以下
+  // 檢查令牌是否過期
+  checkTokenExpiration = () => {
+    if (this.state.exp) {
+      console.log("1111");
+      const now = Date.now() / 1000;
+      if (now > this.state.exp) {
+        // 令牌已過期
+        console.log("2222");
+        this.setState({ token: null, exp: null });
+        localStorage.removeItem("token");
+        localStorage.removeItem("exp");
+      }
+    }
+  };
+
+  // 登入時將token, exp放入localStorage，context也更新
+  login = (token, exp) => {
+    this.setState({ token, exp });
+    localStorage.setItem("token", token);
+    localStorage.setItem("exp", exp);
+  };
+
+  //登出時將token, exp從localStorage移除，context也更新
+  logout = () => {
+    this.setState({ token: null, exp: null });
+    localStorage.removeItem("token");
+    localStorage.removeItem("exp");
+  };
+  //JWT相關函式以上
 
   componentDidUpdate() {
     // 更新後，將state保存在本地端
@@ -151,7 +187,9 @@ export class TicketProvider extends Component {
           couponDiscount = selectedCouponData.discountAmount;
         } else if (selectedCouponData.type === "percentage") {
           // 百分比的折扣
-          couponDiscount = Math.round((selectedCouponData.discountPercentage / 100) * subtotal);
+          couponDiscount = Math.round(
+            (selectedCouponData.discountPercentage / 100) * subtotal
+          );
         }
       }
     }
@@ -190,6 +228,9 @@ export class TicketProvider extends Component {
           setSelectedCoupon: this.setSelectedCoupon,
           setSubtotal: this.setSubtotal,
           setTotal: this.setTotal,
+          checkTokenExpiration: this.checkTokenExpiration,
+          login: this.login,
+          logout: this.logout,
         }}
       >
         {this.props.children}
