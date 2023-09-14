@@ -1,119 +1,142 @@
-import React, { useEffect, useState } from "react";
+import React, { useState,useEffect,useCallback} from "react";
 import member from "../../css/member/member.module.css";
-import Axios from "axios";
 
-const Order = () => {
-  const[orderstate,setOrderstate]=useState("取消訂單");
-  const changeOrderstate=()=>{
-    setOrderstate("重新訂購");
-  }
+const Order = ({ orderdetail, onCancelOrder }) => {
+  const [orderstate, setOrderstate] = useState("取消訂單");
+  const [countdown, setCountdownDays] = useState(null);
 
-  const [orderdetail, setOrderdetail] = useState({
-    movie: 'showtimeID',
-    cinema: 'showtimeID/cinemaID',
-    theater: 'showtimeID/theaterID',
-    showtime: 'showtimeID/date/startID/week(轉)',
-    orderlist: '缺',
-    seatID: 'seatID',
-  });
+  const calculateCountdown = useCallback(() => {
+    //useCallback=>減少子元件重新再計算渲染
 
-  const updateOrderStatus = () => {
-    Axios.post('/api/update-order-status', { newStatus: orderstate })
-      .then(response => {
-        console.log("成功更新訂單狀態");
-      })
-      .catch(error => {
-        console.log("更新訂單狀態失敗", error);
-      });
+    // 電影播放日期
+    const showtimeDate = new Date(orderdetail.showtimeDate);
+    // 今日日期
+    const today = new Date();
+    // 差距
+    const difference = showtimeDate - today;
+    // 剩餘的天數
+    const daysRemaining = Math.floor(difference / (1000 * 60 * 60 * 24));
+
+    if (daysRemaining < 0) {
+      // 觀看紀錄=>???
+      setCountdownDays("已觀看");
+    } else {
+      setCountdownDays(daysRemaining);
+    }
+  },[orderdetail.showtimeDate]);
+
+
+  useEffect(() => {
+    // 計算觀看倒數
+    calculateCountdown();
+  }, [calculateCountdown]);
+
+  const changeOrderstate = (canceledOrder) => {
+    setOrderstate("cancel");
+    onCancelOrder(canceledOrder); //確認可以抓到ID
+    //console.log(canceledOrder)
   };
 
-  // 後端抓資料
-  useEffect(() => {
-    Axios({ url: '' })
-      .then(response => {
-        setOrderstate(response.data);
-        console.log("成功獲得資料");
-      })
-      .catch(error => {
-        console.log(error);
-      });
-      updateOrderStatus();
-  }, [orderstate]);
+
 
   return (
     <div className={member.order}>
       <div>
-        <img className={member.film} src={require("../../img/carouselimg.jpg")} alt=""></img>
+        <img
+          className={member.film}
+          src={orderdetail.imageUrl}
+          alt=""
+        />
       </div>
       <div className={member.orderdetail}>
         <div>
-          <table className={member.desc} style={{ lineHeight: "170%" }}>
-            <tbody>
+          <table className={member.desc} style={{ lineHeight: "180%" }}>
+            <tbody className={member.movie}>
               <tr>
-                <th scope="row">電影</th>
+                <th style={{ width:"50px" }} scope="row">電影</th>
                 <td style={{ paddingLeft: "20px" }}>
-                  <span style={{ textDecoration: "underline" }}>
-                  {orderdetail ? orderdetail.movie : "err"}
+                  <span>
+                    {orderdetail.movieNameCN}({orderdetail.movieNameEN})
                   </span>
                 </td>
               </tr>
               <tr>
                 <th scope="row">影城</th>
                 <td style={{ paddingLeft: "20px" }}>
-                  <span style={{ textDecoration: "underline" }}>
-                  {orderdetail ? orderdetail.cinema : "123"}</span>
+                  <span>{orderdetail.cinemaName}</span>
                 </td>
               </tr>
               <tr>
                 <th scope="row">影廳</th>
                 <td style={{ paddingLeft: "20px" }}>
-                  <span style={{ textDecoration: "underline" }}>{orderdetail ? orderdetail.theater : "err"}</span>
+                  <span>
+                    {orderdetail.theaterName}
+                  </span>
                 </td>
               </tr>
               <tr>
                 <th scope="row">時段</th>
                 <td style={{ paddingLeft: "20px" }}>
-                  <span style={{ textDecoration: "underline" }}>{orderdetail ? orderdetail.showtime.date : "err"}</span>
-                  <span style={{ textDecoration: "underline" }}>{orderdetail ? orderdetail.showtime.weeks : "err"}</span>
-                  <span style={{ textDecoration: "underline" }}>{orderdetail ? orderdetail.showtime.startTime : "err"}</span>
+                  <span>
+                  {orderdetail.showtimeDate}
+                  </span>
+                  &nbsp;&nbsp;
+                  <span>
+                    ({orderdetail.dayOfWeek})
+                  </span>
                 </td>
               </tr>
               <tr>
                 <th scope="row">張數</th>
                 <td style={{ paddingLeft: "20px" }}>
-                  全票:<span style={{ textDecoration: "underline" }}>缺</span>
+                  全票:
+                  <span>
+                    {orderdetail.adult}張
+                  </span>
                   &nbsp;&nbsp;學生票:
-                  <span style={{ textDecoration: "underline" }}>缺</span>
+                  <span>
+                    {orderdetail.student}張
+                  </span>
                 </td>
               </tr>
               <tr>
                 <th scope="row">座位</th>
                 <td style={{ paddingLeft: "20px" }}>
-                  <span style={{ textDecoration: "underline" }}>{orderdetail ? orderdetail.orderlist.seatID : ""}</span>&nbsp;
-                  <span style={{ textDecoration: "underline" }}>{orderdetail ? orderdetail.orderlist.seatID : ""}</span>
+                  <span>
+                    {orderdetail.seat}
+                  </span>
+                  &nbsp;
                 </td>
               </tr>
               <tr>
                 <th scope="row">優惠</th>
                 <td style={{ paddingLeft: "20px" }}>
                   紅利點數折抵
-                  <span style={{ textDecoration: "underline" }}>缺</span>元
+                  <span style={{ textDecoration: "underline" }}>
+                    {orderdetail.bonus}
+                  </span>
+                  元
                 </td>
               </tr>
               <tr>
                 <th />
                 <td style={{ paddingLeft: "20px" }}>
                   優惠卷&nbsp;
-                  <span style={{ textDecoration: "underline" }}>無</span>
+                  <span style={{ textDecoration: "underline" }}>
+                    {orderdetail.couponID}
+                  </span>
                 </td>
               </tr>
             </tbody>
-          </table>
+          </table >
         </div>
         <div className={member.rightcontent}>
           <div>觀看倒數</div>
-          <div className={member.number}>7</div>
-          <button onClick={changeOrderstate} className={member.button}>
+          <div className={member.number}>
+            {countdown === "已觀看" ? countdown : `${countdown}`}
+            <span className={member.text}>天</span>
+          </div>
+          <button onClick={() => changeOrderstate(orderdetail)} className={member.button}>
             {orderstate}
           </button>
         </div>
