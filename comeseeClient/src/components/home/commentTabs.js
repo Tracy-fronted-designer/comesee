@@ -17,11 +17,10 @@ class CommentTabs extends Component {
     };
 
     componentDidMount() {
-        // 使用电影名称作为查询参数传递给后端
         axios
             .get('http://localhost:2407/comment', {
                 params: {
-                    movieNameCN: this.props.filmInfo.movieNameCN  // 传递电影名称
+                    movieID: this.props.filmInfo.id  // 传递电影 ID
                 }
             })
             .then((response) => {
@@ -31,6 +30,7 @@ class CommentTabs extends Component {
                 console.error('Error fetching comments:', error);
             });
     }
+
 
     render() {
 
@@ -74,7 +74,7 @@ class CommentTabs extends Component {
                 </div>
 
                 {/* 其他人的評論 */}
-                <OthersComment comment={this.state.comment} />
+                <OthersComment comment={this.state.comment} filmInfo={this.props.filmInfo} />
 
             </div>
 

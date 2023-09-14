@@ -12,15 +12,18 @@ class OthersComment extends Component {
     render() {
         const Img = 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/Twemoji_1f600.svg/1200px-Twemoji_1f600.svg.png';
 
+        // 使用 filmInfo.id 筛选评论
+        const filteredComments = this.props.comment.filter(comment => comment.movieID === this.props.filmInfo.id);
+
         return (
             <div>
-                {this.props.comment.map((comment, index) => (
+                {filteredComments.map((comment, index) => (
                     <div className={CMS.ocb} key={index}>
                         {/* Your comment rendering logic */}
                         <img className={CMS.user} src={Img} alt=' ' />
                         <div className={CMS.tb}>
                             <div className={CMS.name}>{comment.userID}</div>
-                            <div className={CMS.comm}>{comment.comment}</div>
+                            <div class Name={CMS.comm}>{comment.comment}</div>
                             <CommentFoot />
                         </div>
                         <div>
