@@ -45,7 +45,7 @@ class CommentTabs extends Component {
                 <div className={CMS.selfBox}>
 
                     {/* 自己的頭貼 */}
-                    <img className={CMS.user} src={Img} alt=' ' />
+                    <a href={`/personalSocialPage/${this.userID}`}><img className={CMS.user} src={Img} alt='頭像' /></a>
 
                     <div>
                         {/* 星星跟留言框 */}
