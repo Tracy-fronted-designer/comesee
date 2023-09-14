@@ -8,20 +8,19 @@
   align-items: center;
   gap: 20px;
 }
-.topbutton > a {
+/* .topbutton > a {
   text-decoration: none;
-}
+} */
 .booking {
   color: #f1efe9;
   text-decoration: none;
   text-align: center;
   width: 122px;
 }
-.booking:hover {
-  /* button-md/button-md */
+/*.booking:hover {
   font-style: normal;
   font-weight: 700;
-  line-height: 100%; /* 20.25px */
+  line-height: 100%;
   color: #2f2f2f;
 
   display: flex;
@@ -32,7 +31,7 @@
   align-items: center;
   background-color: #f1efe9;
   border-radius: 30px;
-}
+} */
 .delete {
   color: #f1efe9;
   text-decoration: none;
@@ -171,6 +170,8 @@
   background: #b6b995;
   text-decoration: none;
   color: #f1efe9;
+  border-style: none;
+
 }
 
 .button2 {
@@ -182,6 +183,7 @@
   background-color: #d9d9d9;
   text-decoration: none;
   border-radius: 15px;
+  border-style: none;
 
   color: var(--primary-default, #2f2f2f);
   text-align: center;

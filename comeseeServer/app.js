@@ -47,8 +47,11 @@ app.use("/commentlist", commentlist);
 app.use("/login", login);
 app.use("/register", register);
 app.use("/comment", comment);
+app.use("/orderlist", orderlist);
 
 
 app.listen(2407, function () {
   console.log("伺服器啟動中");
 });
+
+
