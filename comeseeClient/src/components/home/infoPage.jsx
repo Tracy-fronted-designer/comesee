@@ -159,7 +159,8 @@ const InfoPage = (props) => {
                             aria-labelledby="comment-tab"
                         >
                             <CommentTabs
-                                id={filmInfo.id} />
+                                // id={filmInfo.id}
+                                filmInfo={filmInfo} />
                         </div>
 
                     </div>

@@ -14,8 +14,10 @@ var filmlist = require("./router/filmlist");
 var filminfo = require("./router/filminfo");
 var socialhome = require("./router/socialhome");
 var commentlist = require("./router/commentlist");
-var login = require("./router/login")
-var register = require("./router/register")
+var login = require("./router/login");
+var register = require("./router/register");
+var comment = require("./router/comment");
+var movieCollection = require("./router/movieCollection");
 
 var cors = require("cors");
 
@@ -44,6 +46,9 @@ app.use("/socialhome", socialhome);
 app.use("/commentlist", commentlist);
 app.use("/login", login);
 app.use("/register", register);
+app.use("/comment", comment);
+app.use("/orderlist", orderlist);
+app.use("/movieCollection", movieCollection);
 
 app.listen(2407, function () {
   console.log("伺服器啟動中");
