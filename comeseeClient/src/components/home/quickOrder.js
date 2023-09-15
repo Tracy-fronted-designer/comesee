@@ -224,6 +224,7 @@ const QuickOrder = () => {
           type="button"
           className={HS.quickBtn}
           onClick={openModal}
+        // 原本的modal綁定
         // data-bs-toggle="modal"
         // data-bs-target="#Modal"
         >
