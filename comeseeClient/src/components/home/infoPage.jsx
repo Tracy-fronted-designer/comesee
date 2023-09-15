@@ -17,6 +17,7 @@ const InfoPage = (props) => {
 
     // 指定電影資訊
     useEffect(() => {
+        window.scrollTo(0, 0);
         axios
             .get(`http://localhost:2407/filminfo/${id}`)
             .then((res) => {
@@ -57,7 +58,7 @@ const InfoPage = (props) => {
                 <div className="info-top row">
 
                     <div className="col-3">
-                        <img className={IS.poster} src={filmInfo.imageUrl} alt='132' />
+                        <img className={IS.poster} src={filmInfo.imageUrl} alt='poster' />
                     </div>
 
                     <div className="col-6 px-4 py-3">

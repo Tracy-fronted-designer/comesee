@@ -6,7 +6,7 @@ var movieCollection = express.Router();
 movieCollection.get("/:userID([0-9]+)", function (req, res) {
   let userID = req.params.userID;
   let sql =
-    "SELECT COUNT(*) FROM movieinplaylist AS mip LEFT JOIN playlist as p ON mip.playlistID = p.playlistID WHERE userID = ?";
+    "SELECT COUNT(*) AS count FROM movieinplaylist AS mip LEFT JOIN playlist as p ON mip.playlistID = p.playlistID WHERE userID = ?";
   db.exec(sql, [userID], function (results, fields) {
     res.send(JSON.stringify(results));
   });

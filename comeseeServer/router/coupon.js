@@ -12,11 +12,17 @@ coupon.post("/", function (req, res) {
       "insert into coupon (couponID, userID, money, status) values (?, ?, ?, ?)",
       data,
       function (results, fields) {
-        if (results.insertId) {
-          res.json({ result: 1 });
-        } else {
-          res.json({ result: 0 });
-        }
+        res.send(JSON.stringify(results));
+      }
+    );
+  });
+
+  coupon.get("/couponStatus/:userID([0-9]+)", function (req, res) {
+    db.exec(
+      "SELECT status FROM coupon WHERE userID = ? ",
+      [req.params.userID],
+      function (results, fields) {
+        res.send(JSON.stringify(results));
       }
     );
   });
