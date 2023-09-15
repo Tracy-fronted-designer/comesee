@@ -4,6 +4,8 @@ const db = require("../db"); // 导入数据库连接模块
 const bcrypt = require("bcrypt"); // 用于密码加密
 const saltRounds = 10; // 加密强度，可以根据需要调整
 const { body, validationResult } = require("express-validator");
+const nodemailer = require("nodemailer");
+const ejs = require("ejs");
 
 // 注册路由
 router.post(
@@ -22,8 +24,22 @@ router.post(
       return res.status(401).json({ errors: errors.array() });
     }
 
-    // 从请求中获取用户信息
-    const { email, password, username, gender, birthday, phonenumber, addressCity, addressTown, addressDetail, moviePreferences } = req.body;
+    // 从请求中获取用户信息，包括电影喜好
+    const {
+      email,
+      password,
+      username,
+      gender,
+      birthday,
+      phonenumber,
+      addressCity,
+      addressTown,
+      addressDetail,
+      moviePreferences,
+    } = req.body;
+
+    // 确保 moviePreferences 是一个数组，然后将其转换为字符串
+    const moviePreferencesString = Array.isArray(moviePreferences) ? moviePreferences.join(",") : "";
 
     try {
       // 检查用户是否已经存在
@@ -44,15 +60,61 @@ router.post(
       // 使用 bcrypt 加密用户密码
       const hashedPassword = await bcrypt.hash(password, saltRounds);
 
-      // 将用户信息插入数据库
+      // 将用户信息插入数据库，包括 moviePreferences
       db.exec(
         "INSERT INTO member (email, password, username, gender, birthday, phonenumber, addressCity, addressTown, addressDetail, moviePreferences) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-        [email, hashedPassword, username, gender, birthday, phonenumber, addressCity, addressTown, addressDetail, moviePreferences],
+        [
+          email,
+          hashedPassword,
+          username,
+          gender,
+          birthday,
+          phonenumber,
+          addressCity,
+          addressTown,
+          addressDetail,
+          moviePreferencesString,
+        ],
         (results, fields) => {
           if (results && results.insertId) {
             // 注册成功
-            console.log('註冊成功:', results);
-            res.status(201).json({ success: true, message: "註冊成功" });
+
+            // 渲染 EJS 模板
+            ejs.renderFile("views/registration_success.ejs", { username, email }, (err, data) => {
+              if (err) {
+                console.error("渲染模板时出错：", err);
+                return res.status(500).json({ success: false, error: "发送邮件失败" });
+              }
+
+              // 发送注册成功邮件
+              const transporter = nodemailer.createTransport({
+                // 配置您的邮件服务提供商信息
+                service: "Gmail",
+                auth: {
+                  user: "vbn698754@gmail.com", // 发送邮件的邮箱地址
+                  pass: "yhdzxufccjuvwmdz", // 发送邮件的邮箱密码或授权码
+                },
+              });
+
+              const mailOptions = {
+                from: "vbn698754@gmail.com",
+                to: email,
+                subject: "註冊成功通知",
+                html: data, // 使用渲染后的 HTML 作为邮件正文
+              };
+
+              transporter.sendMail(mailOptions, (error, info) => {
+                if (error) {
+                  console.error("发送邮件时出错：", error);
+                } else {
+                  console.log("注册成功邮件已发送：", info.response);
+                }
+              });
+
+              // 发送邮件结束
+              console.log('註冊成功:', results);
+              res.status(201).json({ success: true, message: "註冊成功" });
+            });
           }
         }
       );
