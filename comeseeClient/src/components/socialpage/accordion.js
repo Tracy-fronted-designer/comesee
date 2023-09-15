@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Socialhomestyle from '../../css/socialpage/socialhome.module.css';
-// import { Users } from './moviedata';
+import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import axios from 'axios';
 
 function Accordion({ searchTerm, selectedFilter }) {
@@ -165,7 +165,7 @@ function Accordion({ searchTerm, selectedFilter }) {
                                     return (
                                         <div className={Socialhomestyle.usercontent1} key={commentIndex}>
                                             <div className={Socialhomestyle.usercontent}>
-                                                {userName} - {comment}
+                                                <Link to="/personalSocialPage/:userID" className={Socialhomestyle.linkstyle}>{userName}</Link> - {comment}
                                             </div>
                                         </div>
                                     );

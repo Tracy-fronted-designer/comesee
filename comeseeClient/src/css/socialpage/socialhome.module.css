@@ -406,3 +406,14 @@
     transition: transform 0.3s ease;
     /* 添加过渡效果 */
 }
+
+.linkstyle {
+    text-decoration: none;
+    color: #F1EFE9;
+
+}
+
+.linkstyle:hover {
+    text-decoration: underline;
+    color: #F1EFE9;
+}
