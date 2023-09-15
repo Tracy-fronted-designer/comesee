@@ -30,6 +30,22 @@ filminfo.get("/order", function (req, res) {
     });
 });
 
+// 指定電影id 搜尋該電影場次 取得日期、影城、版本(影廳)、時間
+
+// 指定電影id 搜尋該電影場次日期
+filminfo.get("/getdate/:movieID", function (req, res) {
+    let movieID = req.params.movieID;
+    db.exec("SELECT DISTINCT DATE_FORMAT(date, '%Y-%m-%d') AS showtimeDate FROM `showtime` WHERE movieID = ?", [movieID], function (results, fields) {
+        res.send(JSON.stringify(results));
+        // console.log(results);
+    });
+});
+
+
+
+
+
+
 
 
 
