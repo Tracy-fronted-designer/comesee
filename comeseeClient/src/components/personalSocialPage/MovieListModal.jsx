@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-// import { useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 function MovieListModal(props) {
-  // const history = useHistory();
+  const history = useHistory();
 
   const { showModal, handleCloseModal, onClickPlayListID, playListName } =
     props; //onClickPlayListID為目前點擊到的片單的PlayListID
@@ -61,10 +61,10 @@ function MovieListModal(props) {
                     <div
                       key={index}
                       onClick={() => {
-                        // history.push(`/info/${movie.ID}`);//跳至相對的電影info頁面
+                        history.push(`/info/${movie.ID}`); //跳至相對的電影info頁面
                       }}
                       className={"col-4"}
-                      style={{ width: "190px" }}
+                      style={{ width: "190px", cursor: "pointer" }}
                     >
                       <img
                         src={movie.imageUrl}

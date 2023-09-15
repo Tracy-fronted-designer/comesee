@@ -30,35 +30,6 @@ function Tabs(props) {
     // console.log(commentsData);
   }, [userID]);
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     // try {
-  //     //   const response = await axios.get(
-  //     //     `http://localhost:2407/commentlist/${userID}`
-  //     //   );
-  //     //   if (response.status !== 404) {
-  //     //     // console.log(response.data);
-  //     //     setCommentsData(response.data);
-  //     //   }
-  //     // } catch (error) {
-  //     //   // console.error("Error fetching data:", error);
-  //     //   console.log(error.response.status);
-  //     // }
-
-  //     const response = await axios.get(
-  //       `http://localhost:2407/commentlist/${userID}`
-  //     );
-  //     if (response.data.length > 0) {
-  //       // console.log(response.data);
-  //       setCommentsData(response.data);
-  //     } else {
-  //       console.log("123");
-  //     }
-  //   };
-
-  //   fetchData();
-  // }, [userID]);
-
   // 更改tab的紀錄值
   const toggleTab = (index) => {
     setToggleState(index);
