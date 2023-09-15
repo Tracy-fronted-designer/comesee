@@ -9,6 +9,11 @@ comment.get("/", function (req, res) {
     });
 });
 
+comment.get("/members", function (req, res) {
+    db.exec("SELECT UserID, userName FROM member", [], function (results, fields) {
+        res.send(JSON.stringify(results));
+    });
+});
 
 
 //這個路由匯出以後是app.js使用
