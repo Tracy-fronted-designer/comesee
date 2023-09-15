@@ -11,16 +11,10 @@ export class TicketProvider extends Component {
     this.state = {
       ...savedState,
 
-      userID: 3,
+      userID: null,
 
       // 電影資訊
       movieID: 3,
-      releaseDate: "2023-07-21",
-      movieLength: "03時00分",
-      movieType: "歷史/傳記,劇情",
-      director: "克里斯多福諾蘭(ChristopherNolan)",
-      actor:
-        "席尼墨菲(CillianMurphy)、艾蜜莉布朗(EmilyBlunt)、麥特戴蒙(MattDamon)、小勞勃道尼(RobertDowneyJr.)、佛蘿倫絲普伊(FlorencePugh)、蓋瑞歐德曼(GaryOldman)、肯尼斯布萊納(KennethBranagh)、詹姆斯瑞馬(JamesRemar)、傑克奎德(JackQuaid)、雷米馬利克(RamiMalek)、喬許哈奈特(JoshHartnett)、高斯塔夫史卡司加德(GustafSkarsgård)、馬提亞斯史維克福(MatthiasSchweighöfer)、奧莉薇雅朵比(OliviaThirlby)",
 
       // 訂票資訊
       adultTickets: 0,
@@ -31,7 +25,7 @@ export class TicketProvider extends Component {
       colaS: 0,
       canProceed: false,
 
-      img: "https://movies.yahoo.com.tw/i/o/production/movies/May2023/Qc1HYHrRQcOf5Vc49EK2-1024x1622.jpg",
+
       activeRow1: null,
       ticketName: ["全票", "學生票"],
       ticketNum: ["1", "1"],

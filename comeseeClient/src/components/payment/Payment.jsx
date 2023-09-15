@@ -346,7 +346,8 @@ class Payment extends Component {
     const dataToBeSent = {
       userID: state.userID,
       showtimeID: state.showtimeID,
-      date: state.date,
+      date: state.bookingInfo.releaseDate,
+
       price: state.total,
       bonus: state.discount,
       couponID: selectedCouponValue,
