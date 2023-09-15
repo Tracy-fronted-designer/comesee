@@ -94,7 +94,7 @@ class TimeAccordion extends Component {
                 </div>
 
 
-
+                {/* check modal */}
                 <div
                     className="modal fade"
                     id="checkModal"
