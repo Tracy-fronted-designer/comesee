@@ -14,7 +14,7 @@ const InfoPage = (props) => {
 
     const [filmInfo, setFilmInfo] = useState([]);
     const id = parseInt(props.match.params.id);
-
+    
     // 指定電影資訊
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -33,7 +33,7 @@ const InfoPage = (props) => {
         if (utcStr === undefined) {
             return;
         }
-        console.log(utcStr);
+        // console.log(utcStr);
         // 將 UTC 字串轉換成 JavaScript 的 Date 物件
         let utcDate = new Date(utcStr);
         // 指定目標時區的偏移量（以分鐘為單位）

@@ -127,7 +127,7 @@ export class TicketProvider extends Component {
   // 檢查令牌是否過期
   checkTokenExpiration = () => {
     if (this.state.exp) {
-      console.log("1111");
+      // console.log("1111");
       const now = Date.now() / 1000;
       if (now > this.state.exp) {
         // 令牌已過期

@@ -6,12 +6,12 @@ import "bootstrap/dist/js/bootstrap";
 import axios from "axios";
 
 class Social extends Component {
-  state = { movieCollection: null };
+  state = { movieCollection: null, commentCount: null };
   userID = this.props.match.params.userID;
 
-  componentDidMount() {
+  async componentDidMount() {
     //獲取該userID收藏了幾部電影
-    axios
+    await axios
       .get(`http://localhost:2407/movieCollection/${this.userID}`)
       .then((response) => {
         // console.log(response.data[0].count);
@@ -20,6 +20,25 @@ class Social extends Component {
       .catch((error) => {
         console.error("Error fetching data:", error);
       });
+
+    //獲取該userID評論了幾部電影
+    await axios
+      .get(`http://localhost:2407/commentlist/${this.userID}`)
+      .then((response) => {
+        // console.log(response);
+        if (response.data.length > 0) {
+          let commentCount = response.data.length;
+          this.setState({ commentCount: commentCount });
+        } else {
+          this.setState({ commentCount: 0 });
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+
+    // 獲得userID的相關user資料
+    // await axios.get(`http://localhost:2407/user/${this.userID}`)
   }
 
   render() {
@@ -49,9 +68,9 @@ class Social extends Component {
             </div>
             {/* 右半部 */}
             <div className={SocialStyle.A2}>
-              {/* 已觀看外框 */}
+              {/* 已評論外框 */}
               <div className={SocialStyle.collect1}>
-                <p>已觀看</p>
+                <p>已評論</p>
                 {/* <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="63"
@@ -65,7 +84,9 @@ class Social extends Component {
                     strokeWidth="4"
                   />
                 </svg> */}
-                <div className={SocialStyle.number}>7</div>
+                <div className={SocialStyle.number}>
+                  {this.state.commentCount}
+                </div>
               </div>
               {/* 已收藏外框 */}
               <div className={SocialStyle.collect2}>
