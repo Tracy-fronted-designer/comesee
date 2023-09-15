@@ -49,6 +49,7 @@ class PaymentCompleted extends Component {
                     <ImgHover
                       src={movieInfo.imageUrl}
                       alt="電影圖"
+                      movieId={movieInfo.id}
                       onBuyClick={() => this.goBuy(movieInfo.id)}
                       onMovieClick={() => this.goMovie(movieInfo.id)}
                     />
@@ -86,13 +87,13 @@ class PaymentCompleted extends Component {
     window.scrollTo(0, 0);
   };
 
-  goBuy = () => {
-    this.props.history.push(`/Info/${this.context.state.movieID}`);
+  goBuy = (movieID) => {
+    this.props.history.push(`/Info/${movieID}`);
     window.scrollTo(0, 0);
   }
 
-  goMovie = () => {
-    this.props.history.push(`/Info/${this.context.state.movieID}`);
+  goMovie = (movieID) => {
+    this.props.history.push(`/Info/${movieID}`);
     window.scrollTo(0, 0);
   }
 }
