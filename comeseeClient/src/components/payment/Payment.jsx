@@ -318,6 +318,20 @@ class Payment extends Component {
 
 
   toggleModal = () => {
+    // 是否選擇付款方式
+    if (!this.state.activeRow1) {
+      alert("請選擇付款方式（信用卡 | Line Pay | 現場付款）");
+      return; 
+    }
+
+
+    // 選擇發票
+    if (!this.state.activeRow2) {
+      alert("請選擇電子發票（會員載具 | 捐贈）");
+      return; 
+    }
+  
+    
     this.setState({ showModal: !this.state.showModal });
   };
 
@@ -325,6 +339,8 @@ class Payment extends Component {
     const { state } = this.context;
 
     const selectedCouponValue = state.selectedCoupon || null;
+
+
 
     // console.log("Context state:", state);
     const dataToBeSent = {
@@ -358,7 +374,7 @@ class Payment extends Component {
 
             // 如果有選用優惠券 就更新使用狀態
             if (selectedCouponValue) {
-              axios.put(`http://localhost:2407/coupon/update`, {userID:state.userID, couponID:selectedCouponValue})
+              axios.put(`http://localhost:2407/coupon/update`, { userID: state.userID, couponID: selectedCouponValue })
                 .then(res => {
                   console.log("更新成功:", res.data);
                 })
@@ -366,7 +382,7 @@ class Payment extends Component {
                   console.log("更新失敗:", error);
                 });
             }
-  
+
             // 下一頁
             this.props.history.push("./PaymentCompleted");
             window.scrollTo(0, 0);
