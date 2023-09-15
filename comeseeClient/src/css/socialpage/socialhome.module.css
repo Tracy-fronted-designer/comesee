@@ -270,14 +270,13 @@
     flex-direction: column;
 
     max-height: 230px;
-    overflow: hidden;
+    /* overflow: hidden; */
 }
 
 .usercontent {
     margin-bottom: 0px;
-    height: 30px;
     color: #F1EFE9;
-    height: 20px;
+    height: 40px;
     white-space: nowrap;
     /* 防止文本换行 */
     overflow: hidden;
