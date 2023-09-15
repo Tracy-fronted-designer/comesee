@@ -26,13 +26,7 @@ class Fee extends Component {
               <div className={`col-8 ${fee.contentdetail}`}>
                 <Dashboard />
                 <div>
-                  {/* <h3 className={member.coupon}>
-                    優惠卷使用
-                  </h3> */}
-                  {/* <a className={member.delete} href>
-                    已失效
-                  </a> */}
-                </div>{" "}
+                </div>
                 <Ticketstatus />
               </div>
             </section>

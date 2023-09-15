@@ -11,7 +11,7 @@ export class TicketProvider extends Component {
     this.state = {
       ...savedState,
 
-      userID: null,
+      userID: 3,
 
       // 電影資訊
       movieID: 3,

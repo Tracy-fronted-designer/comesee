@@ -1,9 +1,17 @@
-import React from "react";
+import React , {useContext} from "react";
 import Milestone from "./Milestone";
 import member from '../../css/member/member.module.css'
+import catchUser from '../../TicketContext';
+
 
 
 const Info = () => {
+  
+  const context = useContext(catchUser);
+  const user = context.state.userID
+
+  
+
   return (
     <div className={member.infosec}>
       <div className={member.info}>
@@ -15,7 +23,7 @@ const Info = () => {
        </div>
         <p className={member.newintro}>新增自我介紹{}</p>
      </div>
-     <Milestone />
+     <Milestone userID={user}/>
      </div>
    </div>
   );

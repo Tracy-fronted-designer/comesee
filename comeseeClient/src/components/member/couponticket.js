@@ -4,7 +4,7 @@ import fee from '../../css/member/fee.module.css'
 const Couponticket = () => {
   
   const [coupons, setCoupons] = useState("兌換");
-  const changeCouponstate = (canceledOrder) => {
+  const changeCouponstate = () => {
     setCoupons("已兌換");
   };
     

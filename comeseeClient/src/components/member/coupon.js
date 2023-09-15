@@ -19,9 +19,9 @@ const Coupon = () => {
       status: "1",
     };
     var s = JSON.stringify(dataToServer);
-    var response = await Axios.post(
+    await Axios.post(
       "http://localhost:2407/coupon/",
-      dataToServer,
+      s,
       {
         headers: {
           "Content-Type": "application/json",
