@@ -45,7 +45,6 @@ const Topbutton = () => {
         const comfirmorder = response.data;
         const orderdetail = comfirmorder.filter((order) => order.status === 1);
         setOrderdetail(orderdetail);
-        console.log(orderdetail);
       })
       .catch((error) => {
         console.log(error);

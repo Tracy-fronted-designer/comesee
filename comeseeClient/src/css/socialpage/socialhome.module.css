@@ -234,6 +234,7 @@
     font-size: 16px;
     font-style: normal;
     font-weight: 700;
+    padding-right: 50px;
 
 }
 
@@ -270,19 +271,32 @@
     flex-direction: column;
 
     max-height: 230px;
+    white-space: nowrap;
     overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .usercontent {
     margin-bottom: 0px;
-    height: 30px;
     color: #F1EFE9;
-    height: 20px;
+    height: 50px;
     white-space: nowrap;
     /* 防止文本换行 */
     overflow: hidden;
     /* 隐藏超出部分的文本 */
     text-overflow: ellipsis;
+    /* 用省略号表示被截断的文本 */
+}
+
+.usercontent1 {
+    margin-bottom: 0px;
+    color: #F1EFE9;
+    height: 50px;
+    white-space: nowrap;
+    /* 防止文本换行 */
+    overflow: hidden;
+    /* 隐藏超出部分的文本 */
+    /* text-overflow: ellipsis; */
     /* 用省略号表示被截断的文本 */
 }
 

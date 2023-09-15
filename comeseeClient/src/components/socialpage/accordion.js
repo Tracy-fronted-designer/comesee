@@ -139,13 +139,13 @@ function Accordion({ searchTerm, selectedFilter }) {
                             <img className={Socialhomestyle.poster + " col-2"} src={user.imageUrl} height="230px" alt=""></img>
                             <div className="col-1"></div>
                             <div className={Socialhomestyle.usercomment + " col-6"}>
-                                {/* {user.comment.map((comment, index) => (
-                                    <div key={index}>
-                                        <p className={Socialhomestyle.usercontent}>{ }</p>
-
-                                        {index !== user.comment.length - 1 && <br />}
+                                {user.comments.map((comment, commentIndex) => (
+                                    <div className={Socialhomestyle.usercontent1} key={commentIndex}>
+                                        <div className={Socialhomestyle.usercontent}>
+                                            {user.userName}-{comment}
+                                        </div>
                                     </div>
-                                ))} */}
+                                ))}
                             </div>
 
                         </div>

@@ -124,10 +124,22 @@ const Register = () => {
         },
     ];
 
-    const handleMoviePreference = (preference) => {
-        console.log(`Selected movie preference: ${preference}`);
-        setValues({ ...values, moviePreferences: preference }, ()=>{console.log(values)});
+    const handleMoviePreference = (preference, isSelected) => {
+        let updatedPreferences = [...values.moviePreferences]; // 复制当前的电影喜好数组
+    
+        if (isSelected) {
+            // 如果按钮被选中，添加喜好到数组
+            updatedPreferences.push(preference);
+        } else {
+            // 如果按钮取消选中，从数组中移除喜好
+            updatedPreferences = updatedPreferences.filter(item => item !== preference);
+        }
+    
+        console.log("Updated movie preferences:", updatedPreferences);
+    
+        setValues({ ...values, moviePreferences: updatedPreferences });
     };
+    
 
     const handleSubmit = async (e) => {
         e.preventDefault();
