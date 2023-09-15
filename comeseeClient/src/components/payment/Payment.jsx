@@ -5,21 +5,19 @@ import BtnLarge from "./btnLarge";
 import BtnMedium from "./btnMedium";
 import { withRouter } from "react-router-dom/cjs/react-router-dom.min";
 import PaymentModal from "./PaymentModal";
-import axios from 'axios';
-
+import axios from "axios";
 
 import TicketContext from "../../TicketContext";
 
 class Payment extends Component {
-
-  static contextType = TicketContext //設定使用context
+  static contextType = TicketContext; //設定使用context
 
   constructor(props) {
     super(props);
     // console.log(props)
     this.state = {
-      phone: '0912345678',
-      email: 'AA@gmail.com',
+      phone: "0912345678",
+      email: "AA@gmail.com",
 
       err: false,
       activeRow1: null,
@@ -37,7 +35,6 @@ class Payment extends Component {
 
     this.phone = createRef();
     this.email = createRef();
-
   }
 
   render() {
@@ -140,7 +137,10 @@ class Payment extends Component {
                           />
                         </span>
                         <div style={{ marginTop: "30px" }}>
-                          <input type="checkbox" /><span style={{ paddingLeft: "6px" }}>記住我的信用卡資訊</span>
+                          <input type="checkbox" />
+                          <span style={{ paddingLeft: "6px" }}>
+                            記住我的信用卡資訊
+                          </span>
                         </div>
                       </div>
                       <div>
@@ -170,7 +170,6 @@ class Payment extends Component {
                       />
                     )}
 
-
                     <BtnLarge
                       label="捐贈"
                       isActive={this.state.activeRow2 === "捐贈"}
@@ -189,8 +188,9 @@ class Payment extends Component {
                         value={this.state.phone}
                         ref={this.phone}
                         onKeyDown={(e) => this.keyEnter(e, this.email)}
-                        onChange={(e) => this.setState({ phone: e.target.value })}
-
+                        onChange={(e) =>
+                          this.setState({ phone: e.target.value })
+                        }
                       />
                     </div>
                     <div className={CPC.memEmail}>
@@ -199,7 +199,9 @@ class Payment extends Component {
                         type="text"
                         value={this.state.email}
                         ref={this.email}
-                        onChange={(e) => this.setState({ email: e.target.value })}
+                        onChange={(e) =>
+                          this.setState({ email: e.target.value })
+                        }
                       />
                     </div>
                   </div>
@@ -316,21 +318,18 @@ class Payment extends Component {
     }
   };
 
-
   toggleModal = () => {
     // 是否選擇付款方式
     if (!this.state.activeRow1) {
       alert("請選擇付款方式（信用卡 | Line Pay | 現場付款）");
-      return; 
+      return;
     }
-
 
     // 選擇發票
     if (!this.state.activeRow2) {
       alert("請選擇電子發票（會員載具 | 捐贈）");
-      return; 
+      return;
     }
-  
 
     this.setState({ showModal: !this.state.showModal });
   };
@@ -340,28 +339,24 @@ class Payment extends Component {
 
     const selectedCouponValue = state.selectedCoupon || null;
 
-
-
     // console.log("Context state:", state);
     const dataToBeSent = {
       userID: state.userID,
       showtimeID: state.showtimeID,
       date: state.bookingInfo.releaseDate,
-
       price: state.total,
       bonus: state.discount,
       couponID: selectedCouponValue,
       seat: state.seatNumber,
       adult: state.adultTickets,
       student: state.studentTickets,
-
     };
 
     // 新增訂單資料
-    axios.post('http://localhost:2407/orderlist/create', dataToBeSent)
-      .then(res => {
+    axios
+      .post("http://localhost:2407/orderlist/create", dataToBeSent)
+      .then((res) => {
         // console.log("Data sent successfully:", res.data);
-
 
         // 新增紅利資料
         const bonusToBeSent = {
@@ -370,37 +365,64 @@ class Payment extends Component {
           used: state.usePoint,
         };
 
-        axios.post('http://localhost:2407/bonus/create', bonusToBeSent)
-          .then(res => {
-
+        axios
+          .post("http://localhost:2407/bonus/create", bonusToBeSent)
+          .then((res) => {
             // 如果有選用優惠券 就更新使用狀態
             if (selectedCouponValue) {
-              axios.put(`http://localhost:2407/coupon/update`, { userID: state.userID, couponID: selectedCouponValue })
-                .then(res => {
-                  console.log("更新成功:", res.data);
+              axios
+                .put(`http://localhost:2407/coupon/update`, {
+                  userID: state.userID,
+                  couponID: selectedCouponValue,
                 })
-                .catch(error => {
-                  console.log("更新失敗:", error);
+                .then((res) => {
+                  console.log("優惠券更新成功:", res.data);
+                })
+                .catch((error) => {
+                  console.log("優惠券更新失敗:", error);
                 });
             }
 
-            // 下一頁
-            this.props.history.push("./PaymentCompleted");
-            window.scrollTo(0, 0);
+             // 更新座位狀態
+            const seatsToUpdate = this.context.state.selectedSeats.map(
+              (seat) => ({
+                rowNumber: seat.rowNumber, // 座位的行号
+                seatNumber: seat.seatNumber, // 座位的座位号
+              })
+            );
+
+           
+            const seatsRowNumbers = seatsToUpdate.map((seat) => seat.rowNumber);
+            const seatsSeatNumbers = seatsToUpdate.map((seat) => seat.seatNumber);
+
+            axios
+              .put("http://localhost:2407/seat/update", {
+                showtimeID:this.context.state.showtimeID,
+                seatsRowNumber: seatsRowNumbers,
+                seatsSeatNumber: seatsSeatNumbers,
+              })
+              .then((res) => {
+                console.log("座位更新成功:", res.data);
+                // 下一頁
+                this.props.history.push("/PaymentCompleted");
+                window.scrollTo(0, 0);
+              })
+              .catch((error) => {
+                console.log("座位更新失敗:", error);
+              });
           })
-          .catch(error => {
+          .catch((error) => {
             console.log("紅利新增失敗:", error);
           });
       })
-
-      .catch(error => {
+      .catch((error) => {
         console.log("訂單傳送失敗:", error);
       });
-  }
-
+  };
 
   componentDidMount() {
-    axios.get(`http://localhost:2407/user/${this.context.state.userID}`)
+    axios
+      .get(`http://localhost:2407/user/${this.context.state.userID}`)
       .then((res) => {
         // console.log(res.data[0])
         const userphone = res.data[0].phonenumber;
@@ -409,13 +431,11 @@ class Payment extends Component {
           phone: userphone,
           email: useremail,
         });
-
       })
       .catch((error) => {
         console.log(error);
       });
   }
 }
-
 
 export default withRouter(Payment);
