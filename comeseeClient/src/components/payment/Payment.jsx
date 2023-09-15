@@ -331,7 +331,7 @@ class Payment extends Component {
       return; 
     }
   
-    
+
     this.setState({ showModal: !this.state.showModal });
   };
 
@@ -402,18 +402,13 @@ class Payment extends Component {
     axios.get(`http://localhost:2407/user/${this.context.state.userID}`)
       .then((res) => {
         // console.log(res.data[0])
-        const userphone = res.data[0].phone;
+        const userphone = res.data[0].phonenumber;
         const useremail = res.data[0].email;
         this.setState({
           phone: userphone,
           email: useremail,
         });
 
-        if (userphone === undefined) {
-          this.setState({ phone: "尚未登入", })
-        } else if (useremail === undefined) {
-          this.setState({ email: "尚未登入", })
-        }
       })
       .catch((error) => {
         console.log(error);
