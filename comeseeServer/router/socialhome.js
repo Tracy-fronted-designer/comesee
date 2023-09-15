@@ -14,26 +14,26 @@ socialhome.get("/", function (req, res) {
         // 在后端按电影ID分组评论
         const movieComments = {};
         results.forEach((row) => {
-            const { id, movieNameCN, releaseDate, imageUrl, comment, userID } = row;
+            const { id, movieNameCN, releaseDate, imageUrl, comment, userID, userName } = row;
             if (!movieComments[id]) {
                 movieComments[id] = {
                     movieNameCN,
                     releaseDate,
                     imageUrl,
-                    userID,
                     comments: [],
                 };
             }
             if (comment) {
-                movieComments[id].comments.push(comment);
+                movieComments[id].comments.push({ userID, userName, comment });
             }
         });
-        res.send(JSON.stringify(Object.values(movieComments)));
+        const movieCommentsArray = Object.values(movieComments);
+        res.send(JSON.stringify(movieCommentsArray));
     });
 });
 
 socialhome.get("/members", function (req, res) {
-    db.exec("SELECT UserID, userName FROM member", [], function (results, fields) {
+    db.exec("SELECT userID, userName FROM member", [], function (results, fields) {
         res.send(JSON.stringify(results));
     });
 });

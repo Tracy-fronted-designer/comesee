@@ -6,6 +6,9 @@ import axios from 'axios';
 function Accordion({ searchTerm, selectedFilter }) {
 
     const [movie, setMovie] = useState([]);
+    // const [users, setUsers] = useState([]);
+    const [members, setMembers] = useState([]);
+
     // const [orderMovieList, setOrderMovieList] = useState([]);
     // const [orderDate, setOrderDate] = useState([]);
     const itemsPerPage = 15; // 每页显示的项目数量
@@ -15,6 +18,7 @@ function Accordion({ searchTerm, selectedFilter }) {
     // const totalPages = Math.ceil(Users.length / itemsPerPage);
 
     useEffect(() => {
+        // 获取评论数据
         axios.get('http://localhost:2407/socialhome')
             .then(res => {
                 setMovie(res.data);
@@ -22,10 +26,17 @@ function Accordion({ searchTerm, selectedFilter }) {
             })
             .catch(err => {
                 console.log(err.response);
+            });
+
+        // 获取用户数据
+        axios.get('http://localhost:2407/socialhome/members') // 用您的用户API端点替换
+            .then(res => {
+                setMembers(res.data);
             })
-    }, [])
-
-
+            .catch(err => {
+                console.log(err.response);
+            });
+    }, []);
 
 
 
@@ -139,13 +150,26 @@ function Accordion({ searchTerm, selectedFilter }) {
                             <img className={Socialhomestyle.poster + " col-2"} src={user.imageUrl} height="230px" alt=""></img>
                             <div className="col-1"></div>
                             <div className={Socialhomestyle.usercomment + " col-6"}>
-                                {user.comments.map((comment, commentIndex) => (
+                                {/* {user.comments.map((comment, commentIndex) => (
                                     <div className={Socialhomestyle.usercontent1} key={commentIndex}>
                                         <div className={Socialhomestyle.usercontent}>
                                             {user.userName}-{comment}
                                         </div>
                                     </div>
-                                ))}
+                                ))} */}
+
+                                {user.comments.map((commentData, commentIndex) => {
+                                    const userData = members.find(member => member.userID === commentData.userID);
+                                    const userName = userData ? userData.userName : "未知"; // 处理用户数据不可用的情况
+                                    const comment = commentData.comment; // 提取评论字符串
+                                    return (
+                                        <div className={Socialhomestyle.usercontent1} key={commentIndex}>
+                                            <div className={Socialhomestyle.usercontent}>
+                                                {userName} - {comment}
+                                            </div>
+                                        </div>
+                                    );
+                                })}
                             </div>
 
                         </div>
