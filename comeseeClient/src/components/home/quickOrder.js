@@ -135,15 +135,6 @@ const QuickOrder = () => {
     setShowModal(false);
   };
 
-
-
-  // function BuyNow(e) {
-  //   // 在這裡處理購票的邏輯
-
-  //   alert("你好");
-  //   e.preventDefault();
-  // }
-
   return (
     <>
       {/* 快速訂票 */}
@@ -233,6 +224,7 @@ const QuickOrder = () => {
           type="button"
           className={HS.quickBtn}
           onClick={openModal}
+        // 原本的modal綁定
         // data-bs-toggle="modal"
         // data-bs-target="#Modal"
         >
@@ -252,6 +244,7 @@ const QuickOrder = () => {
         {/* 打包 */}
       </form>
 
+      {/* 原本的modal */}
       {/* <div
         className="modal fade"
         id="Modal"

@@ -13,14 +13,7 @@ import HS from '../../css/home/homePage.module.css';
 class Recommend extends Component {
 
     state = {
-        recommendedMovies: [
-            { imageUrl: 'https://m.media-amazon.com/images/S/pv-target-images/f6bdf68830aa56d414529565bc7279d5a8e3d274a53c8914946cd9470b9443b8.jpg' },
-            { imageUrl: 'https://m.media-amazon.com/images/S/pv-target-images/f6bdf68830aa56d414529565bc7279d5a8e3d274a53c8914946cd9470b9443b8.jpg' },
-            { imageUrl: 'https://m.media-amazon.com/images/S/pv-target-images/f6bdf68830aa56d414529565bc7279d5a8e3d274a53c8914946cd9470b9443b8.jpg' },
-            { imageUrl: 'https://m.media-amazon.com/images/S/pv-target-images/f6bdf68830aa56d414529565bc7279d5a8e3d274a53c8914946cd9470b9443b8.jpg' },
-            { imageUrl: 'https://m.media-amazon.com/images/S/pv-target-images/f6bdf68830aa56d414529565bc7279d5a8e3d274a53c8914946cd9470b9443b8.jpg' },
-            { imageUrl: 'https://m.media-amazon.com/images/S/pv-target-images/f6bdf68830aa56d414529565bc7279d5a8e3d274a53c8914946cd9470b9443b8.jpg' }
-        ],
+        recommendedMovies: [],
     };
 
     render() {
@@ -38,7 +31,7 @@ class Recommend extends Component {
 
 
                 <div className={HS.box}>
-                    <div className={HS.Btext} style={{fontSize:"225px"}}>YOU MAY ALSO LIKE</div>
+                    <div className={HS.Btext} style={{ fontSize: "225px" }}>YOU MAY ALSO LIKE</div>
                     <Swiper
                         slidesPerView={5}
                         spaceBetween={50}
@@ -48,17 +41,18 @@ class Recommend extends Component {
                         className="ListSwiper"
                     >
 
-                        {this.state.recommendedMovies.map((filmPoster, index) => {
+                        {this.state.recommendedMovies.map((filmPoster) => {
                             return (
-                                <span key={index}>
-                                    <SwiperSlide>
-                                        <Link to="/info">
-                                            <img alt=' '
-                                                className={HS.listSlide}
-                                                src={filmPoster.imageUrl} />
-                                        </Link>
-                                    </SwiperSlide>
-                                </span>
+                                <SwiperSlide className={HS.imgContainer}>
+                                    <img
+                                        className={HS.listSlide}
+                                        key={filmPoster.id}
+                                        src={filmPoster.imageUrl} alt=' ' />
+                                    <div className={HS.btnblock}>
+                                        <button className={HS.imgBtn} >立即訂票</button>
+                                        <Link to={`/info/${filmPoster.id}`}><button className={HS.imgBtn} >電影介紹</button></Link>
+                                    </div>
+                                </SwiperSlide>
                             )
                         })}
 

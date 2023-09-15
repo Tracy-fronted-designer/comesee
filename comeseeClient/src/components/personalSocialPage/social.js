@@ -3,9 +3,25 @@ import SocialStyle from "../../css/personalSocialPage/social.module.css";
 import Tab from "./Tab";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap";
+import axios from "axios";
 
 class Social extends Component {
-  state = {};
+  state = { movieCollection: null };
+  userID = this.props.match.params.userID;
+
+  componentDidMount() {
+    //獲取該userID收藏了幾部電影
+    axios
+      .get(`http://localhost:2407/movieCollection/${this.userID}`)
+      .then((response) => {
+        // console.log(response.data[0].count);
+        this.setState({ movieCollection: response.data[0].count });
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+  }
+
   render() {
     return (
       <div className={SocialStyle.all}>
@@ -67,12 +83,14 @@ class Social extends Component {
                     strokeWidth="4"
                   />
                 </svg> */}
-                <div className={SocialStyle.number}>5</div>
+                <div className={SocialStyle.number}>
+                  {this.state.movieCollection}
+                </div>
               </div>
             </div>
           </div>
           {/* userID為呼叫url後面代入的參數 => /personalSocialPage/{此參數}*/}
-          <Tab userID={this.props.match.params.userID} />
+          <Tab userID={this.userID} />
         </div>
       </div>
     );

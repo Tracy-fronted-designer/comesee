@@ -21,20 +21,22 @@ class CommentFoot extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isLiked: false
+            isLiked: false,
+            likeCount: 0,
         };
 
     }
 
     handleLike = () => {
         this.setState(prevState => ({
-            isLiked: !prevState.isLiked
+            isLiked: !prevState.isLiked,
+            likeCount: prevState.isLiked ? prevState.likeCount - 1 : prevState.likeCount + 1,
         }));
     };
 
     render() {
 
-        const { isLiked } = this.state;
+        const { isLiked, likeCount } = this.state;
 
         return (
 
@@ -59,7 +61,7 @@ class CommentFoot extends Component {
                 </button>
 
                 {/* 數量 */}
-                <div className={CMS.number}>5{ }</div>
+                <div className={CMS.number}>{likeCount}</div>
 
                 {/* 按鈕 */}
                 <button className={CMS.cmbn}>
@@ -77,7 +79,7 @@ class CommentFoot extends Component {
                 </button>
 
                 {/* 數量 */}
-                <div className={CMS.number}>6{ }</div>
+                <div className={CMS.number}>0{ }</div>
             </div >
 
         );

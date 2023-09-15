@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import TicketContext from "./TicketContext";
+import jwtDecode from "jwt-decode";
 
 export class TicketProvider extends Component {
   constructor(props) {
@@ -10,7 +11,7 @@ export class TicketProvider extends Component {
     this.state = {
       ...savedState,
 
-      userID: 2,
+      userID: 3,
 
       // 電影資訊
       movieID: 3,
@@ -113,6 +114,22 @@ export class TicketProvider extends Component {
   }
 
   //JWT相關函式以下
+  componentDidMount() {
+    //解碼JWT token 取出 userID 放入 state
+    this.decodedTokenGetUserID();
+  }
+
+  //解碼JWT token 取出 userID 放入 state
+  decodedTokenGetUserID = () => {
+    let token = localStorage.getItem("token") || null;
+    // console.log(token);
+    if (token) {
+      const decodedToken = jwtDecode(token); // decodeJWT
+      // console.log(decodedToken.userId);
+      this.setState({ userID: decodedToken.userId });
+    }
+  };
+
   // 檢查令牌是否過期
   checkTokenExpiration = () => {
     if (this.state.exp) {

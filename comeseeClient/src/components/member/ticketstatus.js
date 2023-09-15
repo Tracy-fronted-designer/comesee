@@ -1,30 +1,47 @@
-import React from "react";
-import fee from '../../css/member/fee.module.css'
+import React, { useEffect, useState } from "react";
+import fee from "../../css/member/fee.module.css";
+// import Axios from "axios";
+import Coupon from "./coupon";
+import Coupon88 from "./coupon88";
+import Coupon95 from "./coupon95";
+import Couponticket from "./couponticket";
+import Axios from "axios";
 
 const Ticketstatus = () => {
+  const [allSpent, setallSpent] = useState("0");
+
+
+  useEffect(() => {
+    Axios.get("http://localhost:2407/orderlist/totalspent/2") //=>假設是2
+      .then((response) => {
+        const Spent = response.data[0].totalSpent;
+        setallSpent(Spent);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+
+      
+
+  }, []);
+
+
+
   return (
     <div className={fee.ticketstatus}>
-    <div className={fee.ticket}>
-      <p style={{ fontWeight: 500, fontSize: "large" }}>入會禮</p>
-      <p className={fee.text}>贈送爆米花一份</p>
-      <div className={fee.button}>兌換</div>
-      <div className={fee.expire}>
-        <p style={{ fontWeight: 500 }}>到期日</p>
-        <p style={{ fontWeight: 300 }}>2024/5/28</p>
-      </div>
+      <Coupon />
+      <Coupon95
+        allSpent={allSpent}
+      />
+
+      <Coupon88
+        allSpent={allSpent}
+      />
+      <Couponticket
+        allSpent={allSpent}
+      />
     </div>
-    <div className={fee.ticket}>
-      <p style={{ fontWeight: 500, fontSize: "large" }}>入會禮</p>
-      <p className={fee.text}>贈送爆米花一份</p>
-      <div className={fee.button2}>待生效</div>
-      <div className={fee.expire}>
-        <p style={{ fontWeight: 500 }}>到期日</p>
-        <p style={{ fontWeight: 300 }}>2024/5/28</p>
-      </div>
-    </div>
-  </div>
   );
 };
 
 export default Ticketstatus;
-
