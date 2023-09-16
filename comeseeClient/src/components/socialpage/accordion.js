@@ -7,30 +7,24 @@ import axios from 'axios';
 function Accordion({ searchTerm, selectedFilter }) {
 
     const [movie, setMovie] = useState([]);
-    // const [users, setUsers] = useState([]);
     const [members, setMembers] = useState([]);
 
-    // const [orderMovieList, setOrderMovieList] = useState([]);
-    // const [orderDate, setOrderDate] = useState([]);
-    const itemsPerPage = 15; // 每页显示的项目数量
+    const itemsPerPage = 15; //一頁幾項
     const [activeItem, setActiveItem] = useState(null);
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(0);
-    // const totalPages = Math.ceil(Users.length / itemsPerPage);
 
     const calculateTotalRaters = (user) => {
-        // 使用 Set 数据结构来跟踪不同的评分人
         const ratersSet = new Set();
         user.comments.forEach((commentData) => {
             if (commentData.comment) {
                 ratersSet.add(commentData.comment);
             }
         });
-        return ratersSet.size; // 返回评分人数
+        return ratersSet.size;
     };
 
     useEffect(() => {
-        // 获取评论数据
         axios.get('http://localhost:2407/socialhome')
             .then(res => {
                 setMovie(res.data);
@@ -40,8 +34,7 @@ function Accordion({ searchTerm, selectedFilter }) {
                 console.log(err.response);
             });
 
-        // 获取用户数据
-        axios.get('http://localhost:2407/socialhome/members') // 用您的用户API端点替换
+        axios.get('http://localhost:2407/socialhome/members')
             .then(res => {
                 setMembers(res.data);
             })
@@ -173,7 +166,6 @@ function Accordion({ searchTerm, selectedFilter }) {
                                                 <Link to="/personalSocialPage/:userID" className={Socialhomestyle.linkstyle}>{userName}:</Link>
                                                 <div className={Socialhomestyle.usercontent2}>{comment}</div>
                                                 <StarRate score={commentData.score} />
-
                                             </div>
                                         </div>
                                     );
