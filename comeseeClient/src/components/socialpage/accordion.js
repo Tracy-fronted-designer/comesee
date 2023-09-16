@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Socialhomestyle from '../../css/socialpage/socialhome.module.css';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import StarRate from './starRate'
+import Star from './star'
 import axios from 'axios';
 
 function Accordion({ searchTerm, selectedFilter }) {
@@ -141,7 +142,7 @@ function Accordion({ searchTerm, selectedFilter }) {
                             <div className={Socialhomestyle.accordion123 + " col-3"}>{user.movieNameCN}</div>
                             <div className={Socialhomestyle.accordion123 + " col-4"}>
                                 {new Date(user.releaseDate).toISOString().split('T')[0]}</div>
-                            <div className={Socialhomestyle.accordion123 + " col-2"}><StarRate /></div>
+                            <div className={Socialhomestyle.accordion123 + " col-2"}><Star /></div>
                             <div className={Socialhomestyle.accordion123 + " col-2"}>共{calculateTotalRaters(user)}位評分</div>
                         </button>
                     </h2>

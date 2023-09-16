@@ -4,6 +4,8 @@ import StarRate from '../socialpage/starRate'
 import CommentFoot from './commFoot';
 
 import CMS from '../../css/home/comment.module.css';
+import { Link } from 'react-router-dom/cjs/react-router-dom.min';
+
 
 class OthersComment extends Component {
 
@@ -33,7 +35,7 @@ class OthersComment extends Component {
                     return (
                         <div className={CMS.ocb} key={index}>
                             {/* Your comment rendering logic */}
-                            <img className={CMS.user} src={Img} alt=' ' />
+                            <Link to="/personalSocialPage/:userID"><img className={CMS.user} src={Img} alt=' ' /></Link>
                             <div className={CMS.tb}>
                                 <div className={CMS.name}>{member ? member.userName : comment.userID}</div>
                                 <div className={CMS.comm}>{comment.comment}</div>
