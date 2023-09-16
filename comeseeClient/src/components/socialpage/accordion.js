@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Socialhomestyle from '../../css/socialpage/socialhome.module.css';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
+import StarRate from './starRate'
 import axios from 'axios';
 
 function Accordion({ searchTerm, selectedFilter }) {
@@ -16,6 +17,17 @@ function Accordion({ searchTerm, selectedFilter }) {
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(0);
     // const totalPages = Math.ceil(Users.length / itemsPerPage);
+
+    const calculateTotalRaters = (user) => {
+        // 使用 Set 数据结构来跟踪不同的评分人
+        const ratersSet = new Set();
+        user.comments.forEach((commentData) => {
+            if (commentData.comment) {
+                ratersSet.add(commentData.comment);
+            }
+        });
+        return ratersSet.size; // 返回评分人数
+    };
 
     useEffect(() => {
         // 获取评论数据
@@ -111,17 +123,17 @@ function Accordion({ searchTerm, selectedFilter }) {
     return (
         <div className={Socialhomestyle.accordionall}>
 
-            {filteredUsers.slice(startIndex, endIndex).map((user, index) => (
-                <div className={Socialhomestyle.accordnall} key={index}>
-                    <h2 id={`flush-heading${index}`} className={Socialhomestyle.accordionh2}>
+            {filteredUsers.slice(startIndex, endIndex).map((user, index1) => (
+                <div className={Socialhomestyle.accordnall} key={index1}>
+                    <h2 id={`flush-heading${index1}`} className={Socialhomestyle.accordionh2}>
                         <button
-                            className={`pt-2 accordion-button ${activeItem === index ? '' : 'collapsed'}`}
+                            className={`pt-2 accordion-button ${activeItem === index1 ? '' : 'collapsed'}`}
                             type="button"
                             data-bs-toggle="collapse"
-                            data-bs-target={`#flush-collapse${index}`}
-                            aria-expanded={activeItem === index ? 'true' : 'false'}
-                            aria-controls={`flush-collapse${index}`}
-                            onClick={() => handleAccordionClick(index)}
+                            data-bs-target={`#flush-collapse${index1}`}
+                            aria-expanded={activeItem === index1 ? 'true' : 'false'}
+                            aria-controls={`flush-collapse${index1}`}
+                            onClick={() => handleAccordionClick(index1)}
                         >
                             <svg xmlns="http://www.w3.org/2000/svg"
                                 width="12"
@@ -136,13 +148,14 @@ function Accordion({ searchTerm, selectedFilter }) {
                             <div className={Socialhomestyle.accordion123 + " col-3"}>{user.movieNameCN}</div>
                             <div className={Socialhomestyle.accordion123 + " col-4"}>
                                 {new Date(user.releaseDate).toISOString().split('T')[0]}</div>
-                            <div className={Socialhomestyle.accordion123 + " col-4"}>{ }</div>
+                            <div className={Socialhomestyle.accordion123 + " col-2"}><StarRate /></div>
+                            <div className={Socialhomestyle.accordion123 + " col-2"}>共{calculateTotalRaters(user)}位評分</div>
                         </button>
                     </h2>
                     <div
-                        id={`flush-collapse${index}`}
-                        className={`accordion-collapse collapse ${activeItem === index ? 'show' : ''}`}
-                        aria-labelledby={`flush-heading${index}`}
+                        id={`flush-collapse${index1}`}
+                        className={`accordion-collapse collapse ${activeItem === index1 ? 'show' : ''}`}
+                        aria-labelledby={`flush-heading${index1}`}
                         data-bs-parent="#accordionFlushExample"
                     >
                         <div className={"accordion-body " + Socialhomestyle.accordionbody}>
@@ -150,22 +163,17 @@ function Accordion({ searchTerm, selectedFilter }) {
                             <img className={Socialhomestyle.poster + " col-2"} src={user.imageUrl} height="230px" alt=""></img>
                             <div className="col-1"></div>
                             <div className={Socialhomestyle.usercomment + " col-6"}>
-                                {/* {user.comments.map((comment, commentIndex) => (
-                                    <div className={Socialhomestyle.usercontent1} key={commentIndex}>
-                                        <div className={Socialhomestyle.usercontent}>
-                                            {user.userName}-{comment}
-                                        </div>
-                                    </div>
-                                ))} */}
-
-                                {user.comments.map((commentData, commentIndex) => {
+                                {user.comments.slice(0, 5).map((commentData, commentIndex) => {
                                     const userData = members.find(member => member.userID === commentData.userID);
-                                    const userName = userData ? userData.userName : "未知"; // 处理用户数据不可用的情况
-                                    const comment = commentData.comment; // 提取评论字符串
+                                    const userName = userData ? userData.userName : "User";
+                                    const comment = commentData.comment;
                                     return (
                                         <div className={Socialhomestyle.usercontent1} key={commentIndex}>
                                             <div className={Socialhomestyle.usercontent}>
-                                                <Link to="/personalSocialPage/:userID" className={Socialhomestyle.linkstyle}>{userName}</Link> - {comment}
+                                                <Link to="/personalSocialPage/:userID" className={Socialhomestyle.linkstyle}>{userName}:</Link>
+                                                <div className={Socialhomestyle.usercontent2}>{comment}</div>
+                                                <StarRate score={commentData.score} />
+
                                             </div>
                                         </div>
                                     );

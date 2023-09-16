@@ -263,7 +263,7 @@
 }
 
 .usercomment {
-    width: 650px;
+    width: 700px;
     background-color: #2F2F2F;
     border-radius: 15px;
     padding: 18px 30px;
@@ -279,25 +279,35 @@
 .usercontent {
     margin-bottom: 0px;
     color: #F1EFE9;
-    height: 50px;
+    height: 40px;
     white-space: nowrap;
     /* 防止文本换行 */
     overflow: hidden;
     /* 隐藏超出部分的文本 */
     text-overflow: ellipsis;
     /* 用省略号表示被截断的文本 */
+    display: flex;
+    flex-direction: row;
 }
 
 .usercontent1 {
     margin-bottom: 0px;
     color: #F1EFE9;
-    height: 50px;
     white-space: nowrap;
     /* 防止文本换行 */
     overflow: hidden;
     /* 隐藏超出部分的文本 */
     /* text-overflow: ellipsis; */
     /* 用省略号表示被截断的文本 */
+}
+
+.usercontent2 {
+    width: 430px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    padding-top: 3px;
+
 }
 
 /* .moviecomment {
@@ -410,6 +420,8 @@
 .linkstyle {
     text-decoration: none;
     color: #F1EFE9;
+    width: 60px;
+    padding-top: 3px;
 
 }
 

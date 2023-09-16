@@ -10,11 +10,11 @@ var socialhome = express.Router();
 // });
 
 socialhome.get("/", function (req, res) {
-    db.exec("SELECT m.id, m.movieNameCN, m.releaseDate, m.imageUrl, c.comment, c.userID FROM movie m LEFT JOIN commentlist c ON m.id = c.movieID", [], function (results, fields) {
+    db.exec("SELECT m.id, m.movieNameCN, m.releaseDate, m.imageUrl, c.comment, c.userID, c.score FROM movie m LEFT JOIN commentlist c ON m.id = c.movieID", [], function (results, fields) {
         // 在后端按电影ID分组评论
         const movieComments = {};
         results.forEach((row) => {
-            const { id, movieNameCN, releaseDate, imageUrl, comment, userID, userName } = row;
+            const { id, movieNameCN, releaseDate, imageUrl, comment, userID, userName, score } = row;
             if (!movieComments[id]) {
                 movieComments[id] = {
                     movieNameCN,
@@ -24,7 +24,7 @@ socialhome.get("/", function (req, res) {
                 };
             }
             if (comment) {
-                movieComments[id].comments.push({ userID, userName, comment });
+                movieComments[id].comments.push({ userID, userName, comment, score });
             }
         });
         const movieCommentsArray = Object.values(movieComments);
