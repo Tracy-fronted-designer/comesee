@@ -7,6 +7,8 @@ import { withRouter } from "react-router-dom/cjs/react-router-dom.min";
 import PaymentModal from "./PaymentModal";
 import axios from "axios";
 
+import Swal from "sweetalert2";
+
 import TicketContext from "../../TicketContext";
 
 class Payment extends Component {
@@ -321,13 +323,25 @@ class Payment extends Component {
   toggleModal = () => {
     // 是否選擇付款方式
     if (!this.state.activeRow1) {
-      alert("請選擇付款方式（信用卡 | Line Pay | 現場付款）");
+      Swal.fire({
+        title: '請選擇付款方式',
+        text: "信用卡 | Line Pay | 現場付款",
+        icon: 'warning',
+        confirmButtonText: "確定",
+      }
+      )
       return;
     }
 
     // 選擇發票
     if (!this.state.activeRow2) {
-      alert("請選擇電子發票（會員載具 | 捐贈）");
+      Swal.fire({
+        title: '請選擇電子發票',
+        text: "會員載具 | 捐贈",
+        icon: 'warning',
+        confirmButtonText: "確定",
+      }
+      )
       return;
     }
 
@@ -351,6 +365,8 @@ class Payment extends Component {
       adult: state.adultTickets,
       student: state.studentTickets,
     };
+
+    // console.log( dataToBeSent)
 
     // 新增訂單資料
     axios
@@ -402,7 +418,7 @@ class Payment extends Component {
                 seatsSeatNumber: seatsSeatNumbers,
               })
               .then((res) => {
-                console.log("座位更新成功:", res.data);
+                // console.log("座位更新成功:", res.data);
                 // 下一頁
                 this.props.history.push("/PaymentCompleted");
                 window.scrollTo(0, 0);
