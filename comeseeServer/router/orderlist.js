@@ -36,7 +36,7 @@ orderlist.patch("/orders/:orderID", (req, res) => {
    console.log(req.body);
    // 新增到資料庫
    db.exec(
-     "INSERT INTO orderlist (userID, showtimeID, date, price, bonus,couponID,seat,adult, student) VALUES (?,?,?,?,?,?,?,?,?)",
+     "INSERT INTO orderlist (userID, showtimeID, date, price, bonus,couponID,seat,adult, student,status) VALUES (?,?,?,?,?,?,?,?,?,1)",
      [userID, showtimeID, date, price, bonus,couponID,seat,adult, student],
      function (results, fields) {
        if (results.insertId) {
@@ -62,7 +62,7 @@ orderlist.post("/create", function (req, res) {
   console.log(req.body);
   // 新增到資料庫
   db.exec(
-    "INSERT INTO orderlist (userID, showtimeID, date, price, bonus,couponID,seat,adult, student) VALUES (?,?,?,?,?,?,?,?,?)",
+    "INSERT INTO orderlist (userID, showtimeID, date, price, bonus,couponID,seat,adult, student,status) VALUES (?,?,?,?,?,?,?,?,?,1)",
     [userID, showtimeID, date, price, bonus, couponID, seat, adult, student],
     function (results, fields) {
       if (results.insertId) {
