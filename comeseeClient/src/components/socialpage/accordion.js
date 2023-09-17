@@ -164,7 +164,7 @@ function Accordion({ searchTerm, selectedFilter }) {
                                     return (
                                         <div className={Socialhomestyle.usercontent1} key={commentIndex}>
                                             <div className={Socialhomestyle.usercontent}>
-                                                <Link to="/personalSocialPage/:userID" className={Socialhomestyle.linkstyle}>{userName}:</Link>
+                                                <Link to={`/personalSocialPage/${commentData.userID}`} className={Socialhomestyle.linkstyle}>{userName}:</Link>
                                                 <div className={Socialhomestyle.usercontent2}>{comment}</div>
                                                 <StarRate score={commentData.score} />
                                             </div>

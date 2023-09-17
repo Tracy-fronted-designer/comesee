@@ -35,7 +35,7 @@ class OthersComment extends Component {
                     return (
                         <div className={CMS.ocb} key={index}>
                             {/* Your comment rendering logic */}
-                            <Link to="/personalSocialPage/:userID"><img className={CMS.user} src={Img} alt=' ' /></Link>
+                            <Link to={`/personalSocialPage/${comment.userID}`}><img className={CMS.user} src={Img} alt=' ' /></Link>
                             <div className={CMS.tb}>
                                 <div className={CMS.name}>{member ? member.userName : comment.userID}</div>
                                 <div className={CMS.comm}>{comment.comment}</div>
