@@ -29,7 +29,9 @@ class BookingSeat extends Component {
   async componentDidMount() {
     //獲取傳入場次的相關資料放入bookingInfo
     await axios
-      .get("http://localhost:2407/booking/info/1")
+      .get(
+        `http://localhost:2407/booking/info/${this.context.state.showtimeID}`
+      )
       .then((response) => {
         this.setState({ bookingInfo: response.data[0] });
         this.context.setState({ bookingInfo: response.data[0] });
@@ -42,7 +44,7 @@ class BookingSeat extends Component {
 
     //獲取該場次1的所有位置資訊
     await axios
-      .get("http://localhost:2407/seat/1") //場次應該由props或context獲取
+      .get(`http://localhost:2407/seat/${this.context.state.showtimeID}`) //場次應該由props或context獲取
       .then((response) => {
         // console.log(response.data);
         this.setState({ ...this.state, seatinfo: response.data });

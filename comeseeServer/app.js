@@ -19,6 +19,8 @@ var register = require("./router/register");
 var comment = require("./router/comment");
 var movieCollection = require("./router/movieCollection");
 
+var m = require("./router/multer");
+
 var cors = require("cors");
 
 //解析json資料
@@ -49,6 +51,7 @@ app.use("/register", register);
 app.use("/comment", comment);
 app.use("/orderlist", orderlist);
 app.use("/movieCollection", movieCollection);
+app.use("/multer", m);
 
 app.listen(2407, function () {
   console.log("伺服器啟動中");
