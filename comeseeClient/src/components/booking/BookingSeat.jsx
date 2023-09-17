@@ -61,6 +61,31 @@ class BookingSeat extends Component {
       });
   }
 
+  // async componentDidMount() {
+  //   try {
+  //     // 获取傳入場次的相關資料放入bookingInfo
+  //     const bookingResponse = await axios.get(
+  //       "http://localhost:2407/booking/info/1"
+  //     );
+  //     this.setState({ bookingInfo: bookingResponse.data[0] });
+  //     this.context.setState({ bookingInfo: bookingResponse.data[0] });
+
+  //     // 获取該場次1的所有位置資訊
+  //     const seatResponse = await axios.get("http://localhost:2407/seat/1");
+  //     this.setState({ seatinfo: seatResponse.data });
+
+  //     // 找出empty的座位有幾個，並更新
+  //     const emptySeats = seatResponse.data.filter(
+  //       (seat) => seat.seatStatus === "empty"
+  //     );
+  //     const numberOfEmptySeats = emptySeats.length;
+  //     this.setNumberOfEmptySeats(numberOfEmptySeats);
+  //   } catch (error) {
+  //     // 在这里处理错误
+  //     console.error("位置讀取錯誤:", error);
+  //   }
+  // }
+
   updateSeatStatus = (rowNumber, seatNumber, newStatus) => {
     const updatedSeatinfo = this.state.seatinfo.map((seat) => {
       if (seat.rowNumber === rowNumber && seat.seatNumber === seatNumber) {
