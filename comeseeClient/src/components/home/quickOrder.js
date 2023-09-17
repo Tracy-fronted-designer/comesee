@@ -187,7 +187,7 @@ const QuickOrder = () => {
           // 位置數量ok
           if (parseInt(selectedNumber) <= emptySeat) {
             setState({ showtimeID: showtimeID });
-            setState({ maxSelectedSeats: selectedNumber });
+            setState({ maxSelectedSeats: parseInt(selectedNumber) });
             history.push("/bookingseat");
             window.scrollTo(0, 0);
           } else {
