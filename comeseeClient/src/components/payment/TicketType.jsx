@@ -4,6 +4,7 @@ import NumButton from "./NumButton";
 import Sidebar from "./Sidebar";
 import SwitchBtn from "./SwitchBtn";
 import Rank from "./Rank";
+import Swal from "sweetalert2";
 
 import TicketContext from "../../TicketContext";
 
@@ -258,7 +259,12 @@ class TicketType extends Component {
     // console.log(adultTickets);
 
     if (numValue + otherTickets > maxSelectedSeats) {
-      alert("請輸入正確的電影票張數");
+      Swal.fire({
+        title: '請選擇正確的電影票數量',
+        icon: 'warning',
+        confirmButtonText: "確定",
+      }
+      )
       return;
     }
 
@@ -277,7 +283,12 @@ class TicketType extends Component {
     if (otherPopcorn + numValue > maxSelectedSeats) {
       // this.setState({ popcornL: 0, popcornS: 0 });
       // 超過總票數跳出提醒
-      alert("爆米花總數量不能超過電影票張數");
+      Swal.fire({
+        title: '爆米花總數量不能超過電影票張數',
+        icon: 'warning',
+        confirmButtonText: "確定",
+      }
+      )
       return;
     }
 
@@ -294,7 +305,12 @@ class TicketType extends Component {
 
     if (otherCola + numValue > maxSelectedSeats) {
       // 超過總票數跳出提醒
-      alert("可樂總數量不能超過電影票張數");
+      Swal.fire({
+        title: '可樂總數量不能超過電影票張數',
+        icon: 'warning',
+        confirmButtonText: "確定",
+      }
+      )
       return;
     }
 

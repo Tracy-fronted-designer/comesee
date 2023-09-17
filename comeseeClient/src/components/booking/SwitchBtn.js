@@ -67,20 +67,20 @@ class SwitchBtn extends Component {
         <Link
           // to={this.props.next}
           to="#"
-          // onClick={() => this.goToNextPage()}
-          onClick={(e) => {
-            if (!seatflag) {
-              e.preventDefault();
-              // alert(`請選擇 ${this.context.state.maxSelectedSeats} 個座位`);
-              Swal.fire({
-                title: `請選擇 ${this.context.state.maxSelectedSeats} 個座位`,
-                icon: "warning",
-                confirmButtonText: "確定",
-              });
-            } else {
-              this.goToNextPage();
-            }
-          }}
+          onClick={() => this.goToNextPage()}
+          // onClick={(e) => {
+          //   if (!seatflag) {
+          //     e.preventDefault();
+          //     // alert(`請選擇 ${this.context.state.maxSelectedSeats} 個座位`);
+          //     Swal.fire({
+          //       title: `請選擇 ${this.context.state.maxSelectedSeats} 個座位`,
+          //       icon: "warning",
+          //       confirmButtonText: "確定",
+          //     });
+          //   } else {
+          //     this.goToNextPage();
+          //   }
+          // }}
           className="btn btn-line"
           style={
             nextHovered ? { ...this.nextPage, ...this.hovenBtn } : this.nextPage
