@@ -422,6 +422,16 @@ class Payment extends Component {
                 // 下一頁
                 this.props.history.push("/PaymentCompleted");
                 window.scrollTo(0, 0);
+                this.context.setState({
+                  adultTickets: 0,
+                  studentTickets: 0,
+                  popcornL: 0,
+                  popcornS: 0,
+                  colaL: 0,
+                  colaS: 0,
+                  usePoint: 0,
+                  selectedCoupon: "",
+                });
               })
               .catch((error) => {
                 console.log("座位更新失敗:", error);
