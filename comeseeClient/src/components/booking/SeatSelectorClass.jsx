@@ -4,6 +4,8 @@ import styles from "../../css/booking/seatSelectorClass.module.css";
 
 import TicketContext from "../../TicketContext";
 
+import Swal from "sweetalert2";
+
 class SeatSelectorClass extends Component {
   static contextType = TicketContext;
 
@@ -142,8 +144,13 @@ class SeatSelectorClass extends Component {
       this.props.updateSeatStatus(rowNumber, seatNumber, "empty");
     } else {
       // 已選座位數量已達到最大限制的提示
-      alert("已選座位數量已達到最大限制");
-      console.log("已選座位數量已達到最大限制");
+      // alert("已選座位數量已達到最大限制");
+      Swal.fire({
+        title: "已選座位數量已達到最大限制",
+        icon: "warning",
+        confirmButtonText: "確定",
+      });
+      // console.log("已選座位數量已達到最大限制");
     }
   };
 
