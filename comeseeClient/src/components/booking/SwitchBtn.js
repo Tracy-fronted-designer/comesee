@@ -3,6 +3,7 @@ import { Link, withRouter } from "react-router-dom/cjs/react-router-dom.min";
 
 import TicketContext from "../../TicketContext";
 
+import Swal from "sweetalert2";
 class SwitchBtn extends Component {
   static contextType = TicketContext;
   state = {
@@ -70,8 +71,12 @@ class SwitchBtn extends Component {
           // onClick={(e) => {
           //   if (!seatflag) {
           //     e.preventDefault();
-          //     alert(`請選擇 ${this.context.state.maxSelectedSeats} 個座位`);
-          //     console.log(seatflag)
+          //     // alert(`請選擇 ${this.context.state.maxSelectedSeats} 個座位`);
+          //     Swal.fire({
+          //       title: `請選擇 ${this.context.state.maxSelectedSeats} 個座位`,
+          //       icon: "warning",
+          //       confirmButtonText: "確定",
+          //     });
           //   } else {
           //     this.goToNextPage();
           //   }
