@@ -13,9 +13,6 @@ export class TicketProvider extends Component {
 
       userID: null,
 
-      // 電影資訊
-      movieID: 3,
-
       // 訂票資訊
       adultTickets: 0,
       studentTickets: 0,
@@ -31,7 +28,7 @@ export class TicketProvider extends Component {
       ticketNum: ["1", "1"],
       ticketMoney: ["350", "300"],
       //maxSelectedSeats由選則人數(首頁開始)頁面更新，預設應為0
-      maxSelectedSeats: 1,
+      maxSelectedSeats: 0,
       seatNumber: "",
       foodName: ["爆米花(大)", "爆米花(小)", "可樂(大)", "可樂(小)"],
       foodNum: ["1", "1", "1", "1"],
@@ -78,7 +75,7 @@ export class TicketProvider extends Component {
       total: 0,
 
       // 訂票系統(品)選擇時間時會有對應的showtimeID
-      showtimeID: 1,
+      showtimeID: null,
 
       //----------------------------------------------------------------------
 
@@ -171,6 +168,7 @@ export class TicketProvider extends Component {
     }
 
     this.setState(newState);
+    console.log(this.state.bookingInfo)
   };
 
   // 紅利點數

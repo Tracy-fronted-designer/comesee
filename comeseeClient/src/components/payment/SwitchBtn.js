@@ -71,13 +71,14 @@ class SwitchBtn extends Component {
           onMouseEnter={this.nextMouseEnter}
           onMouseLeave={this.nextMouseLeave}
           disabled={disabled}
-          onClick={e => {
-            if (disabled) {
-              e.preventDefault();
-              alert("請輸入正確的電影票張數")
-            } else {
-              this.goToNextPage();
-            }}}
+          onClick={() => this.goToNextPage()}
+          // onClick={e => {
+          //   if (disabled) {
+          //     e.preventDefault();
+          //     alert("請輸入正確的電影票張數")
+          //   } else {
+          //     this.goToNextPage();
+          //   }}}
         >
           下一頁&emsp;&gt;
         </Link>
