@@ -9,10 +9,10 @@ exports.exec = (sql, data, callback) => {
 
   var connection = mysql.createConnection({
     host: "localhost",
-    user: "root",
+    user: "",
     password: "root",
     database: "project",
-    port: 8889,
+    port: 3306,
 
     //是否允許使用者一口氣傳入很多SQL指令
     multipleStatements: true,
