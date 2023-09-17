@@ -102,6 +102,7 @@
   height: 28px;
   border-radius: 80px;
   background: #f1efe9;
+  overflow: hidden;
 }
 
 .progressbar2 {

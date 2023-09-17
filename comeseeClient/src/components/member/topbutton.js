@@ -21,7 +21,7 @@ const Topbutton = () => {
       );
       const data = response.data;
       setOrders(data);
-      console.log(data);
+      setCanceledOrders(data);
     } catch (error) {
       console.error("取訂單失敗", error);
     }
@@ -145,7 +145,7 @@ const Topbutton = () => {
         </div>
       ) : activeTab === "訂單取消" ? (
         <div>
-          {CanceledOrders.filter((order) => order.status === 0).map((order) => (
+          {CanceledOrders.filter((order) => order.userID === user).map((order) => (
             <CancelOrder
               key={order.orderID}
               CanceledOrders={order}
