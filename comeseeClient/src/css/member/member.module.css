@@ -268,8 +268,7 @@
   padding: 5px 50px 5px 50px;
   align-items: center;
   justify-content: space-between;
-  
-  
+
 
   /* style */
   border-radius: 20px;
@@ -391,3 +390,8 @@
   color: #A6A79B;
   font-weight: 200;
 }
+
+.hidden{
+  display: none;
+}
+
