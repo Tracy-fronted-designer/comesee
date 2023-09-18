@@ -274,7 +274,7 @@ const UserMessage = () => {
         />
       </div>
       <div>
-        <p className={member.d5}>{`${selfintro.length}/100`}</p>
+        <p className={member.d5}>{`${selfintro ? selfintro.length : 0}/100`}</p>
       </div>
 
       <div className="d-flex justify-content-center">
