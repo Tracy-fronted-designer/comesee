@@ -8,6 +8,8 @@ import Footer from "./components/footer";
 import HomePage from "./components/home/homePage";
 import ListPageNP from "./components/home/listPage_NP";
 import ListPageCS from "./components/home/listPage_CS";
+import InfoPage from "./components/home/infoPage";
+
 import SupportCenter from "./components/supportCenter/SupportCenter";
 import BookingSeat from "./components/booking/BookingSeat";
 import Payment from "./components/payment/Payment";
