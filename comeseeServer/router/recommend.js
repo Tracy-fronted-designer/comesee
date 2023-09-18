@@ -40,24 +40,33 @@ recommend.get("/home/:userID([0-9]+)", function (req, res) {
     "SELECT moviePreferences FROM member WHERE userID = ?",
     [userID],
     function (results, fields) {
+      if (results.length === 0) {
+        return res.status(404).json({ error: "User not found" });
+      }
+
       const moviePreferences = results[0].moviePreferences;
-      
-      // 子類型拆開
+      if (!moviePreferences) {
+        return res.status(200).json({ message: "No movie preferences available" });
+      }
+
+// 子類型拆開
       const subTypes = moviePreferences.split(',');
-      
+
+
       // 用like找只要包含其中一個的類型就可以
       const query = subTypes.map(subType => `movieType LIKE '%${subType}%'`).join(' OR ');
-      // res.send(JSON.stringify(query));
+
+      // 查詢推薦電影
       db.exec(
         `SELECT * FROM movie WHERE (${query}) ORDER BY RAND() LIMIT 10`,
         [userID],
         function (results, fields) {
-          res.send(JSON.stringify(results));
+          res.status(200).json(results);
         }
       );
     }
   );
-})
+});
 
 
 // 匯出給是app.js使用
