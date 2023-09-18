@@ -9,8 +9,8 @@ exports.exec = (sql, data, callback) => {
 
   var connection = mysql.createConnection({
     host: "localhost",
-    user: "",
-    password: "root",
+    user: "root",
+    password: "",
     database: "project",
     port: 3306,
 

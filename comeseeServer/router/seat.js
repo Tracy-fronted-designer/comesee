@@ -51,11 +51,23 @@ seat.get("/:showtimeID([0-9]+)", function (req, res) {
 });
 
 //修改座位資訊(已售出) 基本上傳入rowNumber和seatNumber
-// seat.put('/:showtimeID([0-9]+)',function(req, res){
-//   let showtimeID = req.params.showtimeID;
-//   let body = req.body;
+seat.put('/update',function(req, res){
+  const{showtimeID, seatsRowNumber, seatsSeatNumber} = req.body;
 
-// })
+  for (let i = 0; i < seatsRowNumber.length; i++) {
+    const rowNumber = seatsRowNumber[i];
+    const seatNumber = seatsSeatNumber[i];
+
+  db.exec(
+    "UPDATE seatinfo SET seatStatus = 'sold' WHERE showtimeID = ? AND rowNumber = ?  AND seatNumber = ?",
+    [showtimeID, rowNumber, seatNumber],
+    function (results, fields) {
+      res.send(JSON.stringify(results));
+    }
+    );
+    }
+})
+
 
 //這個路由匯出以後是app.js使用
 module.exports = seat;

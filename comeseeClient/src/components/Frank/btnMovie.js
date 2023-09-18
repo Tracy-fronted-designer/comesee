@@ -2,18 +2,20 @@ import React, { Component } from 'react';
 
 class BtnMovie extends Component {
     state = {
-        isClicked: false, // Add a state to track the click
+        isClicked: false,
     };
 
     handleClick = () => {
-        // Toggle the isClicked state when the button is clicked
         this.setState((prevState) => ({
             isClicked: !prevState.isClicked,
-        }));
+        }), () => {
+            const selectedMoviePreference = this.props.label;
+            this.props.handleMoviePreference(selectedMoviePreference, this.state.isClicked);
+        });
     };
 
     render() {
-        var { label } = this.props;
+        const { label } = this.props;
         return (
             <button
                 onClick={this.handleClick}
@@ -22,8 +24,8 @@ class BtnMovie extends Component {
                     height: "35px",
                     borderRadius: "15px",
                     border: "transparent",
-                    backgroundColor: this.state.isClicked ? "#F1EFE9" : "#A6A79B", // Set the initial color based on state
-                    color: this.state.isClicked ? "#A6A79B" : "#F1EFE9", // Set the initial text color based on state        textAlign: "center",
+                    backgroundColor: this.state.isClicked ? "#F1EFE9" : "#A6A79B",
+                    color: this.state.isClicked ? "#A6A79B" : "#F1EFE9",
                     textAlign: "center",
                     fontFamily: "Noto Sans TC",
                     fontSize: "16px",
@@ -37,7 +39,6 @@ class BtnMovie extends Component {
             </button>
         );
     }
-
 }
 
 export default BtnMovie;

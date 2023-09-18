@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { Link,withRouter } from "react-router-dom/cjs/react-router-dom.min";
 
+import Swal from "sweetalert2";
+
 class SwitchBtn extends Component {
   state = {
     prevHovered: false,
@@ -71,10 +73,15 @@ class SwitchBtn extends Component {
           onMouseEnter={this.nextMouseEnter}
           onMouseLeave={this.nextMouseLeave}
           disabled={disabled}
-          onClick={e => {
+          // onClick={() => this.goToNextPage()}
+          onClick={(e) => {
             if (disabled) {
               e.preventDefault();
-              alert("請輸入正確的電影票張數")
+              Swal.fire({
+                title: `請輸入正確的電影票張數`,
+                icon: "warning",
+                confirmButtonText: "確定",
+              });
             } else {
               this.goToNextPage();
             }}}

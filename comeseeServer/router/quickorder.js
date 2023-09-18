@@ -57,7 +57,32 @@ quickorder.post("/getStartTime", function (req, res) {
   );
 });
 
-// 取得座位資訊
+// 取得showtimeID
+quickorder.post("/getShowtimeID", (req, res) => {
+  const { cinemaID,movieID, theaterID,startTime, date } = req.body;
+
+  db.exec(
+    "SELECT showtimeID FROM showtime WHERE movieID=? AND cinemaID=? AND theaterID=? AND startTime=? AND date=?",
+    [movieID,cinemaID, theaterID,startTime, date],
+    function (results, fields) {
+      res.send(JSON.stringify(results));
+    }
+  );
+});
+
+// 取得剩餘座位資訊
+quickorder.get("/emptySeat/:showtimeID", (req, res) => {
+  const showtimeID = req.params.showtimeID;
+
+  db.exec(
+    "SELECT COUNT(*) AS emptySeat FROM seatinfo WHERE showtimeID = ? AND seatStatus = 'empty'",
+    [showtimeID],
+    function (results, fields) {
+      const emptySeat = results[0].emptySeat;
+      res.send({ emptySeat });
+    }
+  );
+});
 
 //這個路由匯出以後是app.js使用
 module.exports = quickorder;

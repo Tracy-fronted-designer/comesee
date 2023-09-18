@@ -49,6 +49,7 @@ class PaymentCompleted extends Component {
                     <ImgHover
                       src={movieInfo.imageUrl}
                       alt="電影圖"
+                      movieId={movieInfo.id}
                       onBuyClick={() => this.goBuy(movieInfo.id)}
                       onMovieClick={() => this.goMovie(movieInfo.id)}
                     />
@@ -67,8 +68,9 @@ class PaymentCompleted extends Component {
   // 從後端拿到推薦電影
 
   async componentDidMount() {
+    
     try {
-      const res = await axios.get(`http://localhost:2407/recommend/${this.context.state.movieID}`);
+      const res = await axios.get(`http://localhost:2407/recommend/${this.context.state.bookingInfo.movieID}`);
       // console.log(res); //object
       this.setState({ recommendedMovies: res.data }); //data 裡面是 array(電影資料)
     } catch (error) {
@@ -86,13 +88,13 @@ class PaymentCompleted extends Component {
     window.scrollTo(0, 0);
   };
 
-  goBuy = () => {
-    this.props.history.push(`/Info/${this.context.state.movieID}`);
+  goBuy = (movieID) => {
+    this.props.history.push(`/Info/${movieID}`);
     window.scrollTo(0, 0);
   }
 
-  goMovie = () => {
-    this.props.history.push(`/Info/${this.context.state.movieID}`);
+  goMovie = (movieID) => {
+    this.props.history.push(`/Info/${movieID}`);
     window.scrollTo(0, 0);
   }
 }
