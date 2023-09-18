@@ -82,6 +82,7 @@
   background-color: #a6a79b;
   color: #f1efe9;
   gap: 30px;
+  overflow: hidden;
 }
 
 /* 訂單紀錄bar內容設定 */
@@ -108,10 +109,11 @@
 .leftcontent {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: start;
   align-items: center;
   color: #f1efe9;
   margin: 10px;
+  
 }
 
 .recordsec {
@@ -119,7 +121,8 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
-  overflow-y: overlay;
+  overflow: auto
+
 }
 
 .record {

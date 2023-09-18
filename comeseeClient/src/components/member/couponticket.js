@@ -50,7 +50,7 @@ const Couponticket = ({allSpent,userID}) => {
       });
 
       setIsCouponRedeemed3(true);
-      localStorage.setItem("isCouponRedeemed3", "true"); // 将状态存储在localStorage中
+      localStorage.setItem("isCouponRedeemed3", "true"); 
     }
   };
     
