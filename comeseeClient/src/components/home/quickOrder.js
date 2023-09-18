@@ -1,4 +1,4 @@
-import React, { useContext,useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 
@@ -43,25 +43,25 @@ const QuickOrder = () => {
   }, []);
 
   // 影城選擇事件處理
-  async function handleCinemaChange(e) {  
+  async function handleCinemaChange(e) {
     if (state.userID === null) {
-    const result = await Swal.fire({
-      title: '請先登入會員',
-      icon: 'warning',
-      confirmButtonText: "確認",
-    });
-    
-    if (result.isConfirmed) {
-      window.location.href = "/login";
-    }
+      const result = await Swal.fire({
+        title: '請先登入會員',
+        icon: 'warning',
+        confirmButtonText: "確認",
+      });
 
-  } else {
-    setSelectedCinema(e.target.value);
-    setSelectedMovie("");
-    setSelectedDate("");
-    setSelectedShowtime("");
-    setSelectedNumber("");
-  };
+      if (result.isConfirmed) {
+        window.location.href = "/login";
+      }
+
+    } else {
+      setSelectedCinema(e.target.value);
+      setSelectedMovie("");
+      setSelectedDate("");
+      setSelectedShowtime("");
+      setSelectedNumber("");
+    };
   }
   // 篩選影片選項
   useEffect(() => {
@@ -160,13 +160,13 @@ const QuickOrder = () => {
     setShowModal(false);
   };
 
-  
+
 
   // 取得showtimeID 跟 使用者選擇數量 更新到context
   function handleShowtimID() {
-  
+
     const [movieID, theaterID] = selectedMovie.split(",");
-  
+
     // 相對應資料傳後端
     const requestData = {
       movieID: movieID,
@@ -181,7 +181,7 @@ const QuickOrder = () => {
     // console.log(requestData.theaterID)
     // console.log(requestData.startTime)
     // console.log(requestData.date)
-  
+
     // 拿到 showtimeID
     axios
       .post("http://localhost:2407/quickorder/getShowtimeID", requestData)
@@ -191,32 +191,32 @@ const QuickOrder = () => {
         console.log("showtimeID：", showtimeID);
 
         axios
-        .get(`http://localhost:2407/quickorder/emptySeat/${showtimeID}`)
-        .then((res) => {
-          const emptySeat = res.data.emptySeat;
-          console.log("空座位數：", emptySeat);
+          .get(`http://localhost:2407/quickorder/emptySeat/${showtimeID}`)
+          .then((res) => {
+            const emptySeat = res.data.emptySeat;
+            console.log("空座位數：", emptySeat);
 
-          // 位置數量ok
-          if (parseInt(selectedNumber) <= emptySeat) {
-            setState({ showtimeID: showtimeID });
-            setState({ maxSelectedSeats: parseInt(selectedNumber) });
-            history.push("/bookingseat");
-            window.scrollTo(0, 0);
-          } else {
-            // 位置數不夠
-            Swal.fire({
-              title: '您目前所選的時段已無空位',
-              text: "請重新選擇",
-              icon: 'warning',
-              confirmButtonText: "確認",
+            // 位置數量ok
+            if (parseInt(selectedNumber) <= emptySeat) {
+              setState({ showtimeID: showtimeID });
+              setState({ maxSelectedSeats: parseInt(selectedNumber) });
+              history.push("/bookingseat");
+              window.scrollTo(0, 0);
+            } else {
+              // 位置數不夠
+              Swal.fire({
+                title: '您目前所選的時段已無空位',
+                text: "請重新選擇",
+                icon: 'warning',
+                confirmButtonText: "確認",
+              }
+              )
+              return;
             }
-            )
-            return;
-          }
-        })
+          })
       })
       .catch((err) => {
-        console.log("showtimeID取得失敗:"+err.response);
+        console.log("showtimeID取得失敗:" + err.response);
       });
   }
 
@@ -316,17 +316,6 @@ const QuickOrder = () => {
           即刻購票
         </button>
 
-        {/* <button
-          type="button"
-          className="btn btn-primary"
-          onClick={handleShowtimID}
-        >
-          打開模擬框
-        </button> */}
-
-
-
-        {/* 打包 */}
       </form>
 
       {/* 原本的modal */}
@@ -364,48 +353,6 @@ const QuickOrder = () => {
           </div>
         </div>
       </div> */}
-
-      {showModal && (
-
-        <div
-          className="modal fade"
-          id="exampleModal"
-          tabIndex="-1"
-          aria-labelledby="exampleModalLabel"
-          aria-hidden="true"
-        >
-          <div className="modal-dialog">
-            <div className="modal-content">
-              <div className="modal-header">
-                <h5 className="modal-title" id="exampleModalLabel">
-                  模态框标题
-                </h5>
-                <button
-                  type="button"
-                  className="btn-close"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
-                  onClick={closeModal}
-                ></button>
-              </div>
-              <div className="modal-body">模态框内容</div>
-              <div className="modal-footer">
-                <button
-                  type="button"
-                  className="btn btn-secondary"
-                  onClick={closeModal}
-                >
-                  取消
-                </button>
-                <button type="button" className="btn btn-primary">
-                  确定
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      )}
 
     </>
   );

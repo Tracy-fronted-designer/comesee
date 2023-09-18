@@ -1,20 +1,24 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { useHistory } from "react-router-dom";
 
 import LS from "../../css/home/listPage.module.css";
 import ListPageCard from "./listPageCard";
 
-const ListPage = () => {
+const ListPageNP = () => {
   const [releasedData, setReleasedData] = useState([]);
   const [comingData, setComingData] = useState([]);
 
-  const [tabReleased, setTabReleased] = useState(true);
-  const [tabComingSoon, setTabComingSoon] = useState(0);
+  const history = useHistory(); // 初始化 history
 
   // 選擇上映中標籤
-  function handleReleaseChange(e) {
-    setTabReleased(true);
-    setTabComingSoon(false);
+  function handleReleaseChange() {
+    history.push("nowplaying");
+  }
+
+  // 選擇即將上映標籤
+  function handleComingSoonChange() {
+    history.push("comingsoon");
   }
 
   // 上映中電影
@@ -27,31 +31,26 @@ const ListPage = () => {
       .catch((err) => {
         console.log(err.response);
       });
-  }, [tabReleased]);
-
-  // 選擇即將上映標籤
-  function handleComingSoonChange(e) {
-    setTabComingSoon(true);
-    setTabReleased(false);
-  }
+  }, []);
 
   // 即將上映電影
-  useEffect(() => {
-    axios
-      .get("http://localhost:2407/filmlist/comingsoon")
-      .then((res) => {
-        setComingData(res.data);
-      })
-      .catch((err) => {
-        console.log(err.response);
-      });
-  }, [tabComingSoon]);
+  // useEffect(() => {
+  //   axios
+  //     .get("http://localhost:2407/filmlist/comingsoon")
+  //     .then((res) => {
+  //       setComingData(res.data);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err.response);
+  //     });
+  // }, []);
 
   return (
     <div className={LS.List}>
       <div className="container">
         <nav className={LS.myNav}>
           <div className={LS.myTabs} id="nav-tab" role="tablist">
+            a
             <button
               className={`${LS.myLink} listTab active`}
               id="nowPlaying-tab"
@@ -65,7 +64,6 @@ const ListPage = () => {
             >
               現正熱映
             </button>
-
             <button
               className={`${LS.myLink} listTab`}
               id="comingSoon-tab"
@@ -101,7 +99,7 @@ const ListPage = () => {
             ))}
           </div>
 
-          <div
+          {/* <div
             className="tab-pane fade"
             id="comingSoon"
             role="tabpanel"
@@ -117,11 +115,11 @@ const ListPage = () => {
                 movieNameEN={filmItem.movieNameEN}
               />
             ))}
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
   );
 };
 
-export default ListPage;
+export default ListPageNP;
