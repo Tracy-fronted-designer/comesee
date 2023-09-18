@@ -71,7 +71,7 @@ class Recommend extends Component {
         const res = await axios.get(
           `http://localhost:2407/recommend/home/1`
         );
-        console.log(res); //object
+        // console.log(res); //object
         this.setState({ recommendedMovies: res.data }); //data 裡面是 array(電影資料)
       } else {
         const res = await axios.get(`http://localhost:2407/recommend/home/${this.context.state.userID}`);
