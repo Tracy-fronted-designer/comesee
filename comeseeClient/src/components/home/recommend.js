@@ -9,8 +9,12 @@ import 'swiper/css/navigation';
 import { Navigation, FreeMode } from 'swiper/modules';
 import HS from '../../css/home/homePage.module.css';
 
+import TicketContext from "../../TicketContext";
+
 
 class Recommend extends Component {
+
+    static contextType = TicketContext //設定使用context
 
     state = {
         recommendedMovies: [],
@@ -66,9 +70,15 @@ class Recommend extends Component {
     // 從後端拿到推薦電影
     async componentDidMount() {
         try {
-            const res = await axios.get(`http://localhost:2407/recommend/${this.context.state.bookingInfo.movieID}`);
-            // console.log(res); //object
-            this.setState({ recommendedMovies: res.data }); //data 裡面是 array(電影資料)
+            if (this.context.state.userID) {
+                const res = await axios.get(`http://localhost:2407/recommend/home/${this.context.state.userID}`);
+                console.log(res); //object
+                this.setState({ recommendedMovies: res.data }); //data 裡面是 array(電影資料)
+            } else {
+                const res = await axios.get(`http://localhost:2407/recommend/home/1`);
+                console.log('userID is not available yet.');
+                this.setState({ recommendedMovies: res.data }); //data 裡面是 array(電影資料)
+            }
         } catch (error) {
             console.error(error);
         }
