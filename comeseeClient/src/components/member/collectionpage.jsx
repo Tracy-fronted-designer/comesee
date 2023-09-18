@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
-import PlayList from "../personalSocialPage/PlayList";
+//import PlayList from "../personalSocialPage/PlayList";
 import PlayListArea from "../personalSocialPage/PlayListArea";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Info from "./info";
@@ -57,12 +57,13 @@ const Collectionpage = () => {
         console.log("新增片單成功：", response.data);
         // 清空
         setInputValue("");
-        setPlaylist([...playlist, response.data]);
       })
       .catch((error) => {
         // 處理錯誤的代碼
         console.error("新增片單錯誤：", error);
       });
+
+      window.location="/Collectionpage";
   };
 
   return (

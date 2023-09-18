@@ -15,7 +15,7 @@ const Coupon = ({ userID }) => {
 
     // 已兌換，按鈕=> "已兌換"
     if (isRedeemed) {
-      setCoupons("已兌換");
+      setCoupons("已領取");
     }
   }, []);
 

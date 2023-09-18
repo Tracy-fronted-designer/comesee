@@ -2,13 +2,13 @@ import React, { useEffect, useState } from "react";
 import member from '../../css/member/member.module.css'
 import Axios from "axios";
 
-const Milestone = (props) => {
+const Milestone = ({userID}) => {
   const [progress, setProgress] = useState(0); 
   const [Moneystate, setMoneystate] = useState(""); 
   const [totalSpent, setTotalSpent] = useState([]); 
 
   useEffect(() => {
-    Axios.get(`http://localhost:2407/orderlist/totalspent/${props.userID}`) //=>假設是2
+    Axios.get(`http://localhost:2407/orderlist/totalspent/${userID}`) //=>假設是2
       .then((response) => {
         const Spent = response.data[0].totalSpent;
         setTotalSpent(Spent);
@@ -17,7 +17,7 @@ const Milestone = (props) => {
       .catch((error) => {
         console.error(error);
       });
-  }, []);
+  }, [userID]);
 
 
   useEffect(() => {

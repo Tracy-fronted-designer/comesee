@@ -7,7 +7,7 @@ class HeadPicture extends Component {
   handleFileUpload = (event) => {
     const formData = new FormData();
     formData.append("avatar", event.target.files[0]);
-    formData.append("userID", this.state.userID); // 将userID添加到FormData
+    formData.append("userID", this.state.userID); 
 
     axios
       .post("/multer/upload", formData)
