@@ -44,7 +44,7 @@ class App extends Component {
             <Switch>
               <Route path="/" component={HomePage} exact />
               <Route path="/list/nowplaying" component={ListPageNP} />
-              <Route path="/list/commingsoon" component={ListPageCS} />
+              <Route path="/list/comingsoon" component={ListPageCS} />
               <Route path="/Info/:id" component={InfoPage} />
               <Route path="/SupportCenter/:page" component={SupportCenter} />
               <Route path="/Collectionpage" component={Collectionpage} />
