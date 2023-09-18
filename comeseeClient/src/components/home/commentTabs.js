@@ -1,26 +1,119 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-
-
 import OthersComment from './comment';
-
 import SortBtn from './sortBtn';
 import Star from './star';
-
 import CMS from '../../css/home/comment.module.css';
+import { Redirect, withRouter } from 'react-router-dom'; // 导入用于跳转的组件
+import TicketContext from '../../TicketContext';
+import jwtDecode from "jwt-decode";
 
 
 class CommentTabs extends Component {
+    static contextType = TicketContext;
 
     state = {
         comment: [],
+        myComment: "",
+        rating: null, // 评分的初始值
+        isLoggedIn: true, // 用户是否已登录
+        userID: null, // 用于存储用户ID
+        redirectToLogin: false, // 用于判断是否需要跳转到登录页面
     };
+
+
+    handleRatingChange = (rating) => {
+        this.setState({ rating });
+    };
+
+    handleCommentChange = (event) => {
+        this.setState({ myComment: event.target.value });
+    };
+
+    handleLoginRedirect = () => {
+        if (!this.state.isLoggedIn) {
+            this.setState({ redirectToLogin: true });
+        }
+    };
+
+    handleLoginSuccess = () => {
+        console.log("User logged in successfully");
+        // 在登录成功后调用此函数，设置用户已登录并存储 userID
+        this.setState({ isLoggedIn: true, redirectToLogin: false });
+    };
+
+
+
+    handleSubmit = (event) => {
+        event.preventDefault();
+        console.log("userID in state:", this.state.userID);
+        if (this.state.isLoggedIn) {
+            const { myComment, userID } = this.state;
+            if (!userID) {
+                console.error("userID is null"); // 添加此行以检查 userID
+                alert("請先登入會員");
+                this.props.history.push("/login");
+                return;
+            }
+            const movieID = this.props.filmInfo.id; // 从组件的props中获取电影ID
+
+            // 构建要发送的数据对象
+            const data = {
+                movieID,
+                userID: this.state.userID,
+                comment: myComment,
+                score: this.state.rating, // 如果你有评分功能，从状态中获取评分
+            };
+            const token = localStorage.getItem("token");
+            const config = {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            };
+            if (!token) {
+                // Handle the case where the token is not available
+                alert("請先登入會員");
+                // this.props.history.push("/login");
+            } else {
+
+                // 发送 POST 请求到后端服务器
+                axios
+                    .post("http://localhost:2407/comment", data, config)
+                    .then((response) => {
+                        // 处理成功响应
+                        console.log("Comment submitted successfully", response.data);
+
+                        // 如果需要，可以更新组件的状态，例如清空评论输入框
+                        this.setState({ myComment: "" });
+                    })
+                    .catch((error) => {
+                        // 处理错误
+                        console.error("Error submitting comment", error);
+
+                        if (error.response) {
+                            // 服务器返回了响应，你可以尝试获取服务器返回的错误消息
+                            console.error("Server Error Data:", error.response.data);
+                        } else if (error.request) {
+                            // 请求已经发出，但没有收到响应
+                            console.error("No Response Received:", error.request);
+                        } else {
+                            // 在设置请求时发生了错误
+                            console.error("Request Error:", error.message);
+                        }
+                    });
+            }
+        } else {
+            alert('請先登入')
+        }
+    };
+
+
 
     componentDidMount() {
         axios
             .get('http://localhost:2407/comment', {
                 params: {
-                    movieID: this.props.filmInfo.id  // 传递电影 ID
+                    movieID: this.props.filmInfo.id
                 }
             })
             .then((response) => {
@@ -29,57 +122,122 @@ class CommentTabs extends Component {
             .catch((error) => {
                 console.error('Error fetching comments:', error);
             });
+        this.decodedTokenGetUserID();
     }
+
+
+    //JWT相關函式以下
+    // componentDidMount() {
+    //解碼JWT token 取出 userID 放入 state
+    // }
+
+    //解碼JWT token 取出 userID 放入 state
+    decodedTokenGetUserID = () => {
+        let token = localStorage.getItem("token") || null;
+        // console.log(token);
+        if (token) {
+            try {
+                const decodedToken = jwtDecode(token); // decodeJWT
+                console.log("Decoded token:", decodedToken);
+                console.log("Decoded userID:", decodedToken.userId);
+                this.setState({ userID: decodedToken.userId });
+            } catch (error) {
+                console.error("Error decoding token:", error);
+            }
+        }
+    };
+
+    // 檢查令牌是否過期
+    checkTokenExpiration = () => {
+        if (this.state.exp) {
+            // console.log("1111");
+            const now = Date.now() / 1000;
+            if (now > this.state.exp) {
+                // 令牌已過期
+                console.log("2222");
+                this.setState({ token: null, exp: null });
+                localStorage.removeItem("token");
+                localStorage.removeItem("exp");
+            }
+        }
+    };
+
+    // 登入時將token, exp放入localStorage，context也更新
+    login = (token, exp) => {
+        this.setState({ token, exp });
+        localStorage.setItem("token", token);
+        localStorage.setItem("exp", exp);
+    };
+
+    //登出時將token, exp從localStorage移除，context也更新
+    logout = () => {
+        this.setState({ token: null, exp: null });
+        localStorage.removeItem("token");
+        localStorage.removeItem("exp");
+    };
+    //JWT相關函式以上
+
+
+
 
 
     render() {
-
         const Img = 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/Twemoji_1f600.svg/1200px-Twemoji_1f600.svg.png';
+        let contentToRender;
 
+        if (this.state.redirectToLogin) {
+            return <Redirect to="/login" />;
+        }
 
-        return (<>
-
-            <div className="self-comment">
-
-                {/* 登入後才顯示可留言區? */}
-                <div className={CMS.login}>立即登入進行評論</div>
-
-                {/* 自己留言的區域 */}
-                <div className={CMS.selfBox}>
-
-                    {/* 自己的頭貼 */}
-                    <a href={`/personalSocialPage/${this.userID}`}><img className={CMS.user} src={Img} alt='頭像' /></a>
-
-                    <div>
-                        {/* 星星跟留言框 */}
-                        <Star />
-                        <input type="text" className={CMS.text} />
+        if (this.state.isLoggedIn) {
+            contentToRender = (
+                <div className="self-comment">
+                    {/* 如果用户已登录，显示评论框 */}
+                    <div className={CMS.selfBox}>
+                        {/* 自己的头像 */}
+                        <a href={`/personalSocialPage/${this.state.userID}`}>
+                            <img className={CMS.user} src={Img} alt='頭像' />
+                        </a>
+                        <form onSubmit={this.handleSubmit}>
+                            {/* 星星跟留言框 */}
+                            <Star onRatingChange={this.handleRatingChange} />
+                            <input
+                                type="text"
+                                className={CMS.text}
+                                value={this.state.myComment}
+                                onChange={this.handleCommentChange}
+                                placeholder="請輸入評論內容"
+                            />
+                            {/* 送出按钮 */}
+                            <button className={CMS.scb + " m-1"} type="submit">送出</button>
+                        </form>
                     </div>
-
-                    {/* 送出按鈕 */}
-                    <button className={CMS.scb}>送出</button>
                 </div>
-
-            </div>
-
-
-
-            {/* 他人評論的區域 */}
-            <div className="comment-box">
-
-                {/* 留言排序的按鈕 */}
-                <div className={CMS.sortBar} >
-                    <SortBtn label="最新" />
-                    <SortBtn label="熱門" />
+            );
+        } else {
+            contentToRender = (
+                <div className={CMS.login}>
+                    <button className={CMS.loginbtn} onClick={this.handleLoginRedirect}>立即登入進行評論</button>
                 </div>
+            );
+        };
 
-                {/* 其他人的評論 */}
-                <OthersComment comment={this.state.comment} filmInfo={this.props.filmInfo} />
+        return (
+            <>
+                {contentToRender}
+                <div div className="comment-box" >
 
-            </div>
+                    {/* 留言排序的按鈕 */}
+                    <div className={CMS.sortBar} >
+                        <SortBtn label="最新" />
+                        <SortBtn label="熱門" />
+                    </div >
 
-        </>);
+                    {/* 其他人的評論 */}
+                    <OthersComment comment={this.state.comment} filmInfo={this.props.filmInfo} />
+                </div>
+            </>)
     }
 }
 
-export default CommentTabs;
+export default withRouter(CommentTabs);
