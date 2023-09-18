@@ -6,8 +6,10 @@ import Navbar from "./components/navbar";
 import Footer from "./components/footer";
 
 import HomePage from "./components/home/homePage";
-import ListPage from "./components/home/listPage";
+import ListPageNP from "./components/home/listPage_NP";
+import ListPageCS from "./components/home/listPage_CS";
 import InfoPage from "./components/home/infoPage";
+
 import SupportCenter from "./components/supportCenter/SupportCenter";
 import BookingSeat from "./components/booking/BookingSeat";
 import Payment from "./components/payment/Payment";
@@ -28,6 +30,8 @@ import Register from "./components/Frank/register";
 import UserMessage from "./components/member/UserMessage";
 import MemberInformation from "./components/Frank/MemberInformation";
 
+import HeadPicture from "./components/multer/HeadPicture";
+
 import { TicketProvider } from "./TicketProvider";
 
 class App extends Component {
@@ -39,8 +43,8 @@ class App extends Component {
           <div>
             <Switch>
               <Route path="/" component={HomePage} exact />
-              <Route path="/List" component={ListPage} />
-              {/* <Route path="/Info" component={InfoPage} /> */}
+              <Route path="/list/nowplaying" component={ListPageNP} />
+              <Route path="/list/commingsoon" component={ListPageCS} />
               <Route path="/Info/:id" component={InfoPage} />
               <Route path="/SupportCenter/:page" component={SupportCenter} />
               <Route path="/Collectionpage" component={Collectionpage} />
@@ -65,6 +69,8 @@ class App extends Component {
               <Route path="/payment" component={Payment} />
               <Route path="/PaymentCompleted" component={PaymentCompleted} />
               <Route path="/memberinformation" component={MemberInformation} />
+
+              <Route path="/HeadPicture" component={HeadPicture} />
             </Switch>
           </div>
           <Footer />

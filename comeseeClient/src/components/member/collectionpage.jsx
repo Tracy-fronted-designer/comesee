@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import PlayList from "../personalSocialPage/PlayList";
+import PlayListArea from "../personalSocialPage/PlayListArea";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Info from "./info";
 import Sidebar from "./sidebar";
@@ -17,23 +18,11 @@ const Collectionpage = () => {
 
   const [playlist, setPlaylist] = useState([]); //資料庫抓取的playlist所有片單ID與片單名稱 存放處
 
-  const [onClickPlayListID, setOnClickPlayListID] = useState(null);
-  const [playListName, setPlayListName] = useState(null);
-
   const [inputValue, setInputValue] = useState(""); // 初始化輸入值為空字符串
 
   const handleChange = (e) => {
     console.log("Input value changed:", e.target.value);
     setInputValue(e.target.value); // 更新輸入值
-  };
-
-  //modal
-  const [showModal, setShowModal] = useState(false);
-  const handleOpenModal = () => {
-    setShowModal(true);
-  };
-  const handleCloseModal = () => {
-    setShowModal(false);
   };
 
   useEffect(() => {
@@ -69,7 +58,6 @@ const Collectionpage = () => {
         // 清空
         setInputValue("");
         setPlaylist([...playlist, response.data]);
-
       })
       .catch((error) => {
         // 處理錯誤的代碼
@@ -88,16 +76,7 @@ const Collectionpage = () => {
               <Sidebar />
             </div>
             <div className={`col-9 ${collection.contentdetail}`}>
-              {playlist.map((item, index) => (
-                  <PlayList
-                    key={index}
-                    playlistID={item.playlistID}
-                    listname={item.listname}
-                    showModal={showModal}
-                    handleCloseModal={handleCloseModal}
-                  />
-                ))
-                }
+              <PlayListArea userID={user} />
               <div className={`col ${collection.filmcollection}`}>
                 <button
                   className={collection.button}
