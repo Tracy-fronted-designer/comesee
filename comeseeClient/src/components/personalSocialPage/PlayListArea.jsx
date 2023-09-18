@@ -37,7 +37,7 @@ const PlayListArea = (props) => {
   // console.log(playlist);
   return (
     <div className="d-flex flex-wrap">
-      {playlist.map((playlist, index) => {
+      {/* {playlist.map((playlist, index) => {
         return (
           //送入playlistID和listname
           //handleOpenModal送入playList 讓其獲得點擊可以把MovieListModal打開的函式
@@ -51,7 +51,7 @@ const PlayListArea = (props) => {
             setPlayListName={setPlayListName}
           />
         );
-      })}
+      })} */}
 
       <MovieListModal
         showModal={showModal}

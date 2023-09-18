@@ -1,26 +1,25 @@
 import React from "react";
 import member from "../../css/member/member.module.css";
 
-const CancelOrder = ({ orderdetail }) => {
+const CancelOrder = ({ CanceledOrders }) => {
 
   return (
     <div className={member.order}>
        <div>
         <img
           className={member.film}
-          src={orderdetail.imageUrl}
+          src={CanceledOrders.imageUrl}
           alt=""
         />
       </div>
       <div className={member.orderdetail}>
-        <div>
-          <table className={member.desc} style={{ lineHeight: "170%" }}>
-            <tbody>
+          <table className={`col-9 ${member.desc}`} style={{ lineHeight: "180%" }}>
+            <tbody className={member.movie}>
               <tr>
-                <th scope="row">電影</th>
+                <th style={{ width:"50px" }}  scope="row">電影</th>
                 <td style={{ paddingLeft: "20px" }}>
                   <span>
-                    {orderdetail.movieNameCN}({orderdetail.movieNameEN})
+                    {CanceledOrders.movieNameCN}({CanceledOrders.movieNameEN})
                   </span>
                 </td>
               </tr>
@@ -28,7 +27,7 @@ const CancelOrder = ({ orderdetail }) => {
                 <th scope="row">影城</th>
                 <td style={{ paddingLeft: "20px" }}>
                   <span>
-                      {orderdetail.cinemaName}
+                      {CanceledOrders.cinemaName}
                   </span>
                 </td>
               </tr>
@@ -36,7 +35,7 @@ const CancelOrder = ({ orderdetail }) => {
                 <th scope="row">影廳</th>
                 <td style={{ paddingLeft: "20px" }}>
                   <span>
-                    {orderdetail.theaterName}
+                    {CanceledOrders.theaterName}
                   </span>
                 </td>
               </tr>
@@ -44,11 +43,11 @@ const CancelOrder = ({ orderdetail }) => {
                 <th scope="row">時段</th>
                 <td style={{ paddingLeft: "20px" }}>
                 <span>
-                  {orderdetail.showtimeDate}
+                  {CanceledOrders.showtimeDate}
                   </span>
                   &nbsp;&nbsp;
                   <span>
-                    ({orderdetail.dayOfWeek})
+                    ({CanceledOrders.dayOfWeek})
                   </span>
                 </td>
               </tr>
@@ -57,11 +56,11 @@ const CancelOrder = ({ orderdetail }) => {
                 <td style={{ paddingLeft: "20px" }}>
                   全票:
                   <span>
-                    {orderdetail.adult}張
+                    {CanceledOrders.adult}張
                   </span>
                   &nbsp;&nbsp;學生票:
                   <span>
-                    {orderdetail.student}張
+                    {CanceledOrders.student}張
                   </span>
                 </td>
               </tr>
@@ -69,7 +68,7 @@ const CancelOrder = ({ orderdetail }) => {
                 <th scope="row">座位</th>
                 <td style={{ paddingLeft: "20px" }}>
                   <span>
-                    {orderdetail.seat}
+                    {CanceledOrders.seat}
                   </span>
                   &nbsp;
                 </td>
@@ -79,7 +78,7 @@ const CancelOrder = ({ orderdetail }) => {
                 <td style={{ paddingLeft: "20px" }}>
                   紅利點數折抵
                   <span style={{ textDecoration: "underline" }}>
-                    {orderdetail.bonus}元
+                    {CanceledOrders.bonus}元
                   </span>                
                 </td>
               </tr>
@@ -88,14 +87,13 @@ const CancelOrder = ({ orderdetail }) => {
                 <td style={{ paddingLeft: "20px" }}>
                   優惠卷&nbsp;
                   <span style={{ textDecoration: "underline" }}>
-                    {orderdetail.couponID}
+                    {CanceledOrders.couponID}
                   </span>
                 </td>
               </tr>
             </tbody>
           </table>
-        </div>
-        <div className={member.cancelrightcontent}>
+        <div className={`col-3 ${member.rightcontent}`}>
           <div className={member.canceltext}>已取消</div>
         </div>
       </div>

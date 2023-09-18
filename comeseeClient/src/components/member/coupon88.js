@@ -1,36 +1,58 @@
-import React , { useState } from "react";
-import fee from '../../css/member/fee.module.css'
+import React, { useEffect, useState } from "react";
+import fee from "../../css/member/fee.module.css";
 import Axios from "axios";
 
 
-const Coupon88 = () => {
+const Coupon88 = ({allSpent,userID}) => {
   
+  const [isButtonEnabled, setIsButtonEnabled] = useState(false);
   const [coupons, setCoupons] = useState("兌換");
+  //const [couponStatus, setCouponStatus] = useState(0); // 默认值为 0，表示未领取
+  const [isCouponRedeemed2, setIsCouponRedeemed2] = useState(
+    localStorage.getItem("isCouponRedeemed2") === "true"
+  );
+  
+  useEffect(() => {
 
-  const changeCouponstate = async () => {
-    const title = "里程碑活動";
-    const description = "88折優惠卷使用";
+    // 達到條件就可以按按鈕
+    if (allSpent >= 6000 && !isCouponRedeemed2) {
+      setIsButtonEnabled(true);
+      console.log("啟動");
+      setCoupons("兌換");
+    } else {
+      setIsButtonEnabled(false);
+      console.log("禁用");
+      if (isCouponRedeemed2) {
+        setCoupons("已領取");
+      } else {
+        setCoupons("未達消費里程優惠");
+      }
+    }
+  }, [userID,allSpent, isCouponRedeemed2]);
 
-    // 合併title、description=>一個字串
-    const combinedString = `${title} - ${description}`;
+  const changeCouponState = async () => {
+    if (isButtonEnabled) {
+      const title = "里程碑活動";
+      const description = "88折優惠卷使用";
+      const combinedString = `${title} - ${description}`;
 
-    var dataToServer = {
-      couponID: combinedString,
-      userID:"1", //抓user的ID?
-      money:"0",
-      status: "1",
-    };
-    var s = JSON.stringify(dataToServer);
-    await Axios.post(
-      "http://localhost:2407/coupon/",
-      s,
-      {
+      var dataToServer = {
+        couponID: combinedString,
+        userID: userID,
+        money: "0",
+        status: "1",
+      };
+      var s = JSON.stringify(dataToServer);
+
+      await Axios.post("http://localhost:2407/coupon/", s, {
         headers: {
           "Content-Type": "application/json",
         },
-      } 
-    );
-    setCoupons("已兌換");
+      });
+
+      setIsCouponRedeemed2(true);
+      localStorage.setItem("isCouponRedeemed2", "true"); // 将状态存储在localStorage中
+    }
   };
     
     return (
@@ -41,7 +63,7 @@ const Coupon88 = () => {
             <p style={{ fontWeight: 200, fontSize: "small" }}>消費滿$6,000元</p>  
           </div>
           <p className={fee.text}>88折優惠卷使用</p>
-          <button onClick={() => changeCouponstate(coupons)} className={fee.button}>
+          <button onClick={() => changeCouponState()} className={fee.button}>
             {coupons}
           </button>
           <div className={fee.expire}>

@@ -3,22 +3,23 @@ import fee from "../../css/member/fee.module.css";
 import Record from "./record";
 import Axios from "axios";
 
-const Dashboard = () => {
+const Dashboard = (props) => {
   const [bonus, setBonus] = useState([]);
   const [bonusRecord, setBonusrecord] = useState([]);
 
-  const bonusStatus = async () => {
-    try {
-      const response = await Axios.get(`http://localhost:2407/bonus/2`); // 假設userID=2
-      const point = response.data[0].myPoint;
-      setBonus(point);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
   useEffect(() => {
-    Axios.get("http://localhost:2407/bonus/bonusrecord/2")
+    const bonusStatus = async () => {
+      try {
+        const response = await Axios.get(`http://localhost:2407/bonus/${props.userID}`);
+        const point = response.data[0].myPoint;
+        console.log(response);
+        setBonus(point);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    Axios.get(`http://localhost:2407/bonus/bonusrecord/${props.userID}`)
       .then((response) => {
         const bonusRecord = response.data;
         setBonusrecord(bonusRecord);
@@ -27,8 +28,10 @@ const Dashboard = () => {
       .catch((error) => {
         console.log(error);
       });
-    bonusStatus();
-  }, []);
+
+    bonusStatus(); // Call bonusStatus inside useEffect
+
+  }, [props.userID]); // Add props.userID as a dependency
 
   return (
     <div className={`row ${fee.dashboard}`}>

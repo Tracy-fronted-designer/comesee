@@ -47,5 +47,22 @@ playlist.get("/movieinplaylist/:playlistID([0-9]+)", function (req, res) {
   );
 });
 
+//會員中心新增片單
+playlist.post("/create/:userID([0-9]+)", function (req, res) {
+  let userID = req.params.userID;
+  let listname = req.body.listname; // 使用req.body裝listname
+
+  db.exec(
+    "INSERT INTO playlist (userID, listname) VALUES (?, ?)",
+    [userID, listname],
+    function (results, fields) {
+      res.send(JSON.stringify(results));
+      console.log(listname)
+    }
+  );
+});
+
+
+
 //這個路由匯出以後是app.js使用
 module.exports = playlist;
