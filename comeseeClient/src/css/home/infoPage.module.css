@@ -201,9 +201,9 @@
   line-height: 14px;
 }
 
-.dateBox>.dbtn:hover {
+:global(.d-box .btn-check+.btn:hover) {
   color: #B6B995;
-  border: 1.5px solid #B6B995;
+  border: 2px solid #B6B995;
   /* background-color: #F1EFE9; */
 }
 
