@@ -231,13 +231,13 @@ const QuickOrder = () => {
           即刻購票
         </button>
 
-        <button
+        {/* <button
           type="button"
           className="btn btn-primary"
           onClick={openModal}
         >
           打開模擬框
-        </button>
+        </button> */}
 
 
 
