@@ -30,6 +30,8 @@ import Register from "./components/Frank/register";
 import UserMessage from "./components/member/UserMessage";
 import MemberInformation from "./components/Frank/MemberInformation";
 
+import HeadPicture from "./components/multer/HeadPicture";
+
 import { TicketProvider } from "./TicketProvider";
 
 class App extends Component {
@@ -67,6 +69,8 @@ class App extends Component {
               <Route path="/payment" component={Payment} />
               <Route path="/PaymentCompleted" component={PaymentCompleted} />
               <Route path="/memberinformation" component={MemberInformation} />
+
+              <Route path="/HeadPicture" component={HeadPicture} />
             </Switch>
           </div>
           <Footer />

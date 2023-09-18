@@ -57,12 +57,10 @@ playlist.post("/create/:userID([0-9]+)", function (req, res) {
     [userID, listname],
     function (results, fields) {
       res.send(JSON.stringify(results));
-      console.log(listname)
+      console.log(listname);
     }
   );
 });
-
-
 
 //這個路由匯出以後是app.js使用
 module.exports = playlist;

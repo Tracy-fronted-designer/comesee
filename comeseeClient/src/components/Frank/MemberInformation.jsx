@@ -23,7 +23,7 @@ class MemberInformation extends Component {
                 </div>
                 <div className={`col-9 ${member.rightcontent}`}>
                   <UserMessage />
-                  <LoveButton />
+                  {/* <LoveButton /> */}
                 </div>
               </section>
             </div>

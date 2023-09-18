@@ -6,7 +6,7 @@ const Coupon95 = ({allSpent,userID} ) => {
   
   const [isButtonEnabled, setIsButtonEnabled] = useState(false);
   const [coupons, setCoupons] = useState("兌換");
-  //const [couponStatus, setCouponStatus] = useState(0); // 默认值为 0，表示未领取
+  //const [couponStatus, setCouponStatus] = useState(0); 
   const [isCouponRedeemed, setIsCouponRedeemed] = useState(
     localStorage.getItem("isCouponRedeemed") === "true"
   );
@@ -51,7 +51,7 @@ const Coupon95 = ({allSpent,userID} ) => {
       });
 
       setIsCouponRedeemed(true);
-      localStorage.setItem("isCouponRedeemed", "true"); // 将状态存储在localStorage中
+      localStorage.setItem("isCouponRedeemed", "true"); 
     }
   };
 

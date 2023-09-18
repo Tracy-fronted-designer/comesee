@@ -357,7 +357,7 @@ class Payment extends Component {
     const dataToBeSent = {
       userID: state.userID,
       showtimeID: state.showtimeID,
-      date: state.bookingInfo.date,
+      date: this.targetLocalDate(state.bookingInfo.date),
       price: state.total,
       bonus: state.discount,
       couponID: selectedCouponValue,
@@ -462,6 +462,29 @@ class Payment extends Component {
         console.log(error);
       });
   }
+   //轉成localTime，傳入utc字串
+   targetLocalDate = (utcStr) => {
+    if (utcStr === undefined) {
+      return;
+    }
+    // console.log(utcStr);
+
+    // 將 UTC 字串轉換成 JavaScript 的 Date 物件
+    let utcDate = new Date(utcStr);
+    // console.log(utcDate);
+
+    // 指定目標時區的偏移量（以分鐘為單位）
+    let targetTimezoneOffset = 480; // 假設目標時區是 UTC+08:00
+
+    // 計算目標時區的本地時間
+    let targetLocal = new Date(
+      utcDate.getTime() + targetTimezoneOffset * 60000
+    );
+
+    let date = targetLocal.toISOString().split("T")[0]; //格式為2023-08-23
+
+    return date;
+  };
 }
 
 export default withRouter(Payment);

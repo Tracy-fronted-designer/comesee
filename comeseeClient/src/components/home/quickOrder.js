@@ -43,14 +43,26 @@ const QuickOrder = () => {
   }, []);
 
   // 影城選擇事件處理
-  function handleCinemaChange(e) {
+  async function handleCinemaChange(e) {  
+    if (state.userID === null) {
+    const result = await Swal.fire({
+      title: '請先登入會員',
+      icon: 'warning',
+      confirmButtonText: "確認",
+    });
+    
+    if (result.isConfirmed) {
+      window.location.href = "/login";
+    }
+
+  } else {
     setSelectedCinema(e.target.value);
     setSelectedMovie("");
     setSelectedDate("");
     setSelectedShowtime("");
     setSelectedNumber("");
   };
-
+  }
   // 篩選影片選項
   useEffect(() => {
     axios
@@ -140,9 +152,9 @@ const QuickOrder = () => {
 
   // 購票事件處理
 
-  const openModal = () => {
-    setShowModal(true);
-  };
+  // const openModal = () => {
+  //   setShowModal(true);
+  // };
 
   const closeModal = () => {
     setShowModal(false);
