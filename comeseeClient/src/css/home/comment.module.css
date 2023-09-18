@@ -138,3 +138,16 @@
     font-weight: 400;
     line-height: 140%;
 }
+
+.loginbtn {
+    border: transparent;
+    background-color: transparent;
+    color: #F1EFE9;
+}
+
+.loginbtn:hover {
+    border: transparent;
+    background-color: transparent;
+    color: #F1EFE9;
+    font-weight: 550;
+}

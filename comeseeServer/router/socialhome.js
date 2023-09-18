@@ -2,16 +2,8 @@ var express = require("express");
 var db = require("../db");
 var socialhome = express.Router();
 
-//取得movie movieNameCN, releaseDate, imageUrl
-// socialhome.get("/", function (req, res) {
-//     db.exec("SELECT id, movieNameCN, releaseDate, imageUrl FROM movie", [], function (results, fields) {
-//         res.send(JSON.stringify(results));
-//     });
-// });
-
 socialhome.get("/", function (req, res) {
     db.exec("SELECT m.id, m.movieNameCN, m.releaseDate, m.imageUrl, c.comment, c.userID, c.score FROM movie m LEFT JOIN commentlist c ON m.id = c.movieID", [], function (results, fields) {
-        // 在后端按电影ID分组评论
         const movieComments = {};
         results.forEach((row) => {
             const { id, movieNameCN, releaseDate, imageUrl, comment, userID, userName, score } = row;
