@@ -6,7 +6,8 @@ var coupon = express.Router();
 //會員中心撈資料的路由
 coupon.post("/", function (req, res) {
     const body = req.body;
-    const data = [body.couponID, body.userID, body.money, body.status];
+    const userID = body.userID
+    const data = [body.couponID, userID, body.money, body.status];
   
     db.exec(
       "insert into coupon (couponID, userID, money, status) values (?, ?, ?, ?)",

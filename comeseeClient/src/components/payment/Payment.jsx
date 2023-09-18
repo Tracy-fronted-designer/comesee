@@ -7,6 +7,8 @@ import { withRouter } from "react-router-dom/cjs/react-router-dom.min";
 import PaymentModal from "./PaymentModal";
 import axios from "axios";
 
+import Swal from "sweetalert2";
+
 import TicketContext from "../../TicketContext";
 
 class Payment extends Component {
@@ -321,13 +323,25 @@ class Payment extends Component {
   toggleModal = () => {
     // 是否選擇付款方式
     if (!this.state.activeRow1) {
-      alert("請選擇付款方式（信用卡 | Line Pay | 現場付款）");
+      Swal.fire({
+        title: '請選擇付款方式',
+        text: "信用卡 | Line Pay | 現場付款",
+        icon: 'warning',
+        confirmButtonText: "確定",
+      }
+      )
       return;
     }
 
     // 選擇發票
     if (!this.state.activeRow2) {
-      alert("請選擇電子發票（會員載具 | 捐贈）");
+      Swal.fire({
+        title: '請選擇電子發票',
+        text: "會員載具 | 捐贈",
+        icon: 'warning',
+        confirmButtonText: "確定",
+      }
+      )
       return;
     }
 
@@ -343,7 +357,7 @@ class Payment extends Component {
     const dataToBeSent = {
       userID: state.userID,
       showtimeID: state.showtimeID,
-      date: state.bookingInfo.date,
+      date: this.targetLocalDate(state.bookingInfo.date),
       price: state.total,
       bonus: state.discount,
       couponID: selectedCouponValue,
@@ -351,6 +365,8 @@ class Payment extends Component {
       adult: state.adultTickets,
       student: state.studentTickets,
     };
+
+    // console.log( dataToBeSent)
 
     // 新增訂單資料
     axios
@@ -402,10 +418,20 @@ class Payment extends Component {
                 seatsSeatNumber: seatsSeatNumbers,
               })
               .then((res) => {
-                console.log("座位更新成功:", res.data);
+                // console.log("座位更新成功:", res.data);
                 // 下一頁
                 this.props.history.push("/PaymentCompleted");
                 window.scrollTo(0, 0);
+                this.context.setState({
+                  adultTickets: 0,
+                  studentTickets: 0,
+                  popcornL: 0,
+                  popcornS: 0,
+                  colaL: 0,
+                  colaS: 0,
+                  usePoint: 0,
+                  selectedCoupon: "",
+                });
               })
               .catch((error) => {
                 console.log("座位更新失敗:", error);
@@ -436,6 +462,29 @@ class Payment extends Component {
         console.log(error);
       });
   }
+   //轉成localTime，傳入utc字串
+   targetLocalDate = (utcStr) => {
+    if (utcStr === undefined) {
+      return;
+    }
+    // console.log(utcStr);
+
+    // 將 UTC 字串轉換成 JavaScript 的 Date 物件
+    let utcDate = new Date(utcStr);
+    // console.log(utcDate);
+
+    // 指定目標時區的偏移量（以分鐘為單位）
+    let targetTimezoneOffset = 480; // 假設目標時區是 UTC+08:00
+
+    // 計算目標時區的本地時間
+    let targetLocal = new Date(
+      utcDate.getTime() + targetTimezoneOffset * 60000
+    );
+
+    let date = targetLocal.toISOString().split("T")[0]; //格式為2023-08-23
+
+    return date;
+  };
 }
 
 export default withRouter(Payment);

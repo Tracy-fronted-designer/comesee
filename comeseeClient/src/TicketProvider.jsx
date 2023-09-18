@@ -13,9 +13,6 @@ export class TicketProvider extends Component {
 
       userID: null,
 
-      // 電影資訊
-      movieID: 3,
-
       // 訂票資訊
       adultTickets: 0,
       studentTickets: 0,
@@ -31,7 +28,7 @@ export class TicketProvider extends Component {
       ticketNum: ["1", "1"],
       ticketMoney: ["350", "300"],
       //maxSelectedSeats由選則人數(首頁開始)頁面更新，預設應為0
-      maxSelectedSeats: 1,
+      maxSelectedSeats: 0,
       seatNumber: "",
       foodName: ["爆米花(大)", "爆米花(小)", "可樂(大)", "可樂(小)"],
       foodNum: ["1", "1", "1", "1"],
@@ -46,22 +43,22 @@ export class TicketProvider extends Component {
       selectedCoupon: "", //預設
       coupons: [
         {
-          couponID: "入會禮 折抵50元",
+          couponID: "入會禮 - 贈送爆米花一份",
           discountAmount: 50, // 一般金額的折扣
           type: "fixed", // 一般金額的折扣類型
         },
         {
-          couponID: "95折優惠",
+          couponID: "里程碑活動 - 95折優惠卷使用",
           discountPercentage: 5, // 百分比的折扣
           type: "percentage", // 百分比的折扣類型
         },
         {
-          couponID: "88折優惠",
+          couponID: "里程碑活動 - 88折優惠卷使用",
           discountPercentage: 12, // 百分比的折扣
           type: "percentage", // 百分比的折扣類型
         },
         {
-          couponID: "免費電影票一張(全票)",
+          couponID: "里程碑活動 - 優惠電影卷乙張",
           discountAmount: 350, // 百分比的折扣
           type: "fixed", // 百分比的折扣類型
         },
@@ -78,7 +75,7 @@ export class TicketProvider extends Component {
       total: 0,
 
       // 訂票系統(品)選擇時間時會有對應的showtimeID
-      showtimeID: 1,
+      showtimeID: null,
 
       //----------------------------------------------------------------------
 
@@ -160,6 +157,7 @@ export class TicketProvider extends Component {
   }
 
   setStateValue = (newState) => {
+    
     // 狀態如果是 selectedSeats
     if ("selectedSeats" in newState) {
       const { selectedSeats } = newState;
@@ -171,6 +169,7 @@ export class TicketProvider extends Component {
     }
 
     this.setState(newState);
+    // console.log(this.state.bookingInfo)
   };
 
   // 紅利點數

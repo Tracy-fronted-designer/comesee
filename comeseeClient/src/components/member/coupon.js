@@ -1,34 +1,50 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import fee from "../../css/member/fee.module.css";
 import Axios from "axios";
 
-const Coupon = () => {
+const Coupon = ({ userID }) => {
   const [coupons, setCoupons] = useState("兌換");
+  const [isCouponRedeemed4, setIsCouponRedeemed4] = useState(
+    localStorage.getItem("isCouponRedeemed4") === "true"
+  );
+
+  // 初始化localStorage
+  useEffect(() => {
+    const isRedeemed = localStorage.getItem("isCouponRedeemed4") === "true";
+    setIsCouponRedeemed4(isRedeemed);
+
+    // 已兌換，按鈕=> "已兌換"
+    if (isRedeemed) {
+      setCoupons("已兌換");
+    }
+  }, []);
 
   const changeCouponstate = async () => {
-    const title = "入會禮";
-    const description = "贈送爆米花一份";
+    if (!isCouponRedeemed4) {
+      const title = "入會禮";
+      const description = "贈送爆米花一份";
 
-    // 合併title、description=>一個字串
-    const combinedString = `${title} - ${description}`;
+      // 合併title、description=>一個字串
+      const combinedString = `${title} - ${description}`;
 
-    var dataToServer = {
-      couponID: combinedString,
-      userID:"1", //抓user的ID?
-      money:"50",
-      status: "1",
-    };
-    var s = JSON.stringify(dataToServer);
-    await Axios.post(
-      "http://localhost:2407/coupon/",
-      s,
-      {
+      var dataToServer = {
+        couponID: combinedString,
+        userID: userID,
+        money: "50",
+        status: "1",
+      };
+      var s = JSON.stringify(dataToServer);
+      await Axios.post("http://localhost:2407/coupon/", s, {
         headers: {
           "Content-Type": "application/json",
         },
-      } 
-    );
-    setCoupons("已兌換");
+      });
+      
+      // 设置状态和 localStorage
+      setCoupons("已兌換");
+      setIsCouponRedeemed4(true);
+      localStorage.setItem("isCouponRedeemed4", "true");
+    }
   };
 
   return (
@@ -36,9 +52,7 @@ const Coupon = () => {
       <div className={fee.ticket}>
         <p style={{ fontWeight: 500, fontSize: "large" }}>入會禮</p>
         <p className={fee.text}>贈送爆米花一份</p>
-        <button
-          onClick={() => changeCouponstate(coupons)}
-          className={fee.button}>
+        <button onClick={changeCouponstate} className={fee.button}>
           {coupons}
         </button>
         <div className={fee.expire}>
