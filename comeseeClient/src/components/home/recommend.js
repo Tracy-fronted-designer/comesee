@@ -67,14 +67,14 @@ class Recommend extends Component {
   // 從後端拿到推薦電影
   async componentDidMount() {
     try {
-      if (this.context.state.userID) {
+      if (this.context.state.userID === null) {
         const res = await axios.get(
-          `http://localhost:2407/recommend/home/${this.context.state.userID}`
+          `http://localhost:2407/recommend/home/1`
         );
         console.log(res); //object
         this.setState({ recommendedMovies: res.data }); //data 裡面是 array(電影資料)
       } else {
-        const res = await axios.get(`http://localhost:2407/recommend/home/1`);
+        const res = await axios.get(`http://localhost:2407/recommend/home/${this.context.state.userID}`);
         console.log("userID is not available yet.");
         this.setState({ recommendedMovies: res.data }); //data 裡面是 array(電影資料)
       }
