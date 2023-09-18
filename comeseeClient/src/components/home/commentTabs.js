@@ -19,6 +19,7 @@ class CommentTabs extends Component {
         isLoggedIn: true, // 用户是否已登录
         userID: null, // 用于存储用户ID
         redirectToLogin: false, // 用于判断是否需要跳转到登录页面
+        commentSubmitted: false, // 添加此属性
     };
 
 
@@ -80,11 +81,13 @@ class CommentTabs extends Component {
                 axios
                     .post("http://localhost:2407/comment", data, config)
                     .then((response) => {
-                        // 处理成功响应
                         console.log("Comment submitted successfully", response.data);
-
-                        // 如果需要，可以更新组件的状态，例如清空评论输入框
-                        this.setState({ myComment: "" });
+                        this.setState({ myComment: "", commentSubmitted: true }, () => {
+                            // 使用 setTimeout 在三秒后将 commentSubmitted 设置回 false
+                            setTimeout(() => {
+                                this.setState({ commentSubmitted: false });
+                            }, 3000);
+                        });
                     })
                     .catch((error) => {
                         // 处理错误
@@ -101,6 +104,7 @@ class CommentTabs extends Component {
                             console.error("Request Error:", error.message);
                         }
                     });
+                window.location = `/info/${movieID}`
             }
         } else {
             alert('請先登入')
@@ -210,6 +214,11 @@ class CommentTabs extends Component {
                             />
                             {/* 送出按钮 */}
                             <button className={CMS.scb + " m-1"} type="submit">送出</button>
+                            {this.state.commentSubmitted && (
+                                <div className="comment-success">
+                                    <p>已成功評論!</p>
+                                </div>
+                            )}
                         </form>
                     </div>
                 </div>
@@ -236,6 +245,7 @@ class CommentTabs extends Component {
                     {/* 其他人的評論 */}
                     <OthersComment comment={this.state.comment} filmInfo={this.props.filmInfo} />
                 </div>
+
             </>)
     }
 }
