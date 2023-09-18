@@ -41,12 +41,12 @@ class Recommend extends Component {
                         className="ListSwiper"
                     >
 
-                        {this.state.recommendedMovies.map((filmPoster) => {
+                        {this.state.recommendedMovies.map((filmPoster, index) => {
                             return (
                                 <SwiperSlide className={HS.imgContainer}>
                                     <img
+                                        key={index}
                                         className={HS.listSlide}
-                                        key={filmPoster.id}
                                         src={filmPoster.imageUrl} alt=' ' />
                                     <div className={HS.btnblock}>
                                         <button className={HS.imgBtn} >立即訂票</button>
@@ -66,7 +66,7 @@ class Recommend extends Component {
     // 從後端拿到推薦電影
     async componentDidMount() {
         try {
-            const res = await axios.get(`http://localhost:2407/recommend/${this.context.state.movieID}`);
+            const res = await axios.get(`http://localhost:2407/recommend/${this.context.state.bookingInfo.movieID}`);
             // console.log(res); //object
             this.setState({ recommendedMovies: res.data }); //data 裡面是 array(電影資料)
         } catch (error) {

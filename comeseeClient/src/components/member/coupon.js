@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import fee from "../../css/member/fee.module.css";
 import Axios from "axios";
 
-const Coupon = () => {
+const Coupon = ({userID}) => {
   const [coupons, setCoupons] = useState("兌換");
 
   const changeCouponstate = async () => {
@@ -14,7 +14,7 @@ const Coupon = () => {
 
     var dataToServer = {
       couponID: combinedString,
-      userID:"1", //抓user的ID?
+      userID: userID, 
       money:"50",
       status: "1",
     };

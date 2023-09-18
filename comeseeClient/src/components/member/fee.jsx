@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useContext} from "react";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -9,10 +9,13 @@ import Ticketstatus from "./ticketstatus";
 
 import member from "../../css/member/member.module.css";
 import fee from "../../css/member/fee.module.css";
+import catchUser from '../../TicketContext';
 
-class Fee extends Component {
-  state = {};
-  render() {
+function Fee() {
+
+  const context = useContext(catchUser);
+  const user = context.state.userID
+  
     return (
       <div className="wrapper">
         <div className={member.mainbg}>
@@ -24,10 +27,10 @@ class Fee extends Component {
                 <Sidebar />
               </div>
               <div className={`col-8 ${fee.contentdetail}`}>
-                <Dashboard />
+                <Dashboard userID={user} />
                 <div>
                 </div>
-                <Ticketstatus />
+                <Ticketstatus userID={user}/>
               </div>
             </section>
           </div>
@@ -35,6 +38,5 @@ class Fee extends Component {
       </div>
     );
   }
-}
 
 export default Fee;

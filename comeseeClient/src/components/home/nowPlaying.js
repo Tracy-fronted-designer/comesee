@@ -31,7 +31,7 @@ const NowPlaying = () => {
 
             <div className={HS.bar} >
                 <h1 className={HS.title}>現正熱映 ::</h1>
-                <Link to="/list"><div className={HS.more}>
+                <Link to="/list/nowplaying"><div className={HS.more}>
                     看更多
                     <svg
                         xmlns="http://www.w3.org/2000/svg"

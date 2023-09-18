@@ -1,10 +1,10 @@
 import React, { useState,useEffect,useCallback} from "react";
 import member from "../../css/member/member.module.css";
 
-const Order = ({ orderdetail, onCancelOrder }) => {
-  const [orderstate, setOrderstate] = useState("取消訂單");
+const WatchedOrder = ({ orderdetail }) => {
+  //const [orderstate, setOrderstate] = useState("取消訂單");
   const [countdown, setCountdownDays] = useState(null);
-  const [isVisible, setIsVisible] = useState(true); // 控制订单的可见性
+  const [isVisible, setIsVisible] = useState(false); 
 
 
   const calculateCountdown = useCallback(() => {
@@ -22,7 +22,7 @@ const Order = ({ orderdetail, onCancelOrder }) => {
     if (daysRemaining < 0) {
       // 觀看紀錄=>???
       setCountdownDays("已觀看");
-      setIsVisible(false); 
+      setIsVisible(true); 
     } else {
       setCountdownDays(daysRemaining);
     }
@@ -33,13 +33,6 @@ const Order = ({ orderdetail, onCancelOrder }) => {
     // 計算觀看倒數
     calculateCountdown();
   }, [calculateCountdown]);
-
-  const changeOrderstate = (canceledOrder) => {
-    setOrderstate("cancel");
-    onCancelOrder(canceledOrder); //確認可以抓到ID
-
-    //console.log(canceledOrder)
-  };
 
   return (
     <div className={`${member.order} ${isVisible ? "" : member.hidden}`}>
@@ -132,14 +125,14 @@ const Order = ({ orderdetail, onCancelOrder }) => {
             </tbody>
           </table >
         <div className={`col-3 ${member.rightcontent}`}>
-          <div>觀看倒數</div>
-          <div className={member.number}>
+          {/* <div>觀看倒數</div> */}
+          <div className={member.canceltext}>
             {countdown === "已觀看" ? countdown : `${countdown}`}
-            <span className={member.text}>天</span>
+            {/* <span className={member.text}>天</span> */}
           </div>
-          <button onClick={() => changeOrderstate(orderdetail)} className={member.button}>
+          {/* <button onClick={() => changeOrderstate(orderdetail)} className={member.button}>
             {orderstate}
-          </button>
+          </button> */}
         </div>
       </div>
     </div>
@@ -147,4 +140,4 @@ const Order = ({ orderdetail, onCancelOrder }) => {
   );
 };
 
-export default Order;
+export default WatchedOrder;

@@ -1,13 +1,15 @@
-import React, { useState } from "react";
+import React from "react";
+
 import "bootstrap/dist/css/bootstrap.min.css";
 import Info from "./info";
 import Sidebar from "./sidebar";
 import Topbutton from "./topbutton";
-
 import member from "../../css/member/member.module.css";
+
 // import Order from "./order";
 
 const Member = () => {
+
 
   return (
   <div>
@@ -20,7 +22,7 @@ const Member = () => {
             <Sidebar />
           </div>
           <div className="col-10">
-            <Topbutton />
+            <Topbutton/>
           </div>
         </section>
       </div>
