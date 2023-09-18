@@ -7,8 +7,23 @@ import TimeAccordion from './timeAccordion';
 const TimeTabs = (props) => {
 
     const [showDate, setShowDate] = useState([]);
+    const [cinemaData, setCinemaData] = useState([]);
+
+    const [getDate, setGetDate] = useState("2023-09-02");
 
     const id = parseInt(props.id);
+
+    // 取得今天日期
+    // const dd = new Date();
+    // const year = dd.getFullYear();
+    // const month = dd.getMonth() + 1;
+    // const day = dd.getDate();
+
+    // const today = year + '-' + (month < 10 ? '0' : '') + month + '-' + (day < 10 ? '0' : '') + day;
+    // console.log(today);
+    // const [getDate, setGetDate] = useState(today);
+
+
 
     // 指定電影的場次日期
     useEffect(() => {
@@ -16,6 +31,7 @@ const TimeTabs = (props) => {
             .get(`http://localhost:2407/filminfo/getdate/${id}`)
             .then((res) => {
                 const modifiedData = res.data.map((item) => {
+                    // const date = item.showtimeDate;
                     const date = (item.showtimeDate).split("-");
                     const month = parseInt(date[1]) - 1;
 
@@ -23,18 +39,52 @@ const TimeTabs = (props) => {
                     const dayOfWeek = new Date(date[0], month, date[2]).getDay();
                     const week = weekDays[dayOfWeek];
                     return {
+                        showtimeDate: item.showtimeDate,
                         month: date[1],
                         day: date[2],
                         week: week,
                     }
                 });
                 setShowDate(modifiedData);
-                // console.log(showDate);
+                console.log(modifiedData);
             })
             .catch((err) => {
                 console.log(err.response);
             });
     }, [id]);
+
+    // 日期選擇
+    function handleDateCheck(e) {
+        setGetDate(e.target.id);
+    };
+
+    // 指定日期的上映影城
+    useEffect(() => {
+        axios
+            .post("http://localhost:2407/filminfo/getcinema", {
+                movieID: id,
+                date: getDate,
+            })
+            .then((res) => {
+                setCinemaData(res.data);
+                // console.log(cinemaData);
+            })
+            .catch((err) => {
+                console.log(err.response);
+            });
+    }, [getDate]);
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -44,28 +94,37 @@ const TimeTabs = (props) => {
 
             <div className={`${IS.dateBox} d-box`}>
 
+                {/* map日期 */}
                 {showDate.map((dateItem, index) => (
-                    <span key={index}>
-                        <input type="radio" name="date" id={index} className="btn-check" />
+                    <span key={index} >
+                        <input type="radio" name="date"
+                            id={dateItem.showtimeDate}
+                            className="btn-check"
+                            onChange={handleDateCheck} />
                         <label
-                            for={index}
+                            for={dateItem.showtimeDate}
                             className={`${IS.dbtn} btn`}
+                        // onClick={}
                         >
                             <div className={IS.Date2}>{dateItem.week}</div>
                             <div className={IS.Date1}>{dateItem.day}</div>
                             <div className={IS.Date2}>{dateItem.month}</div>
                         </label>
                     </span>
-
-
                 ))}
-
 
             </div>
 
             <div className={IS.theaterTime}>
-
-                <TimeAccordion />
+                {/* map影城 */}
+                {cinemaData.map((item, index) => (
+                    <TimeAccordion
+                        id={id}
+                        key={index}
+                        date={getDate}
+                        cinemaID={item.cinemaID}
+                        cinemaName={item.cinemaName} />
+                ))}
 
             </div>
 
