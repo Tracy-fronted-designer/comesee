@@ -235,7 +235,13 @@
     font-style: normal;
     font-weight: 700;
     padding-right: 50px;
+    display: flex;
 
+}
+
+.accordion1234 {
+    padding-top: 3px;
+    margin-left: 5px;
 }
 
 .accordionall {

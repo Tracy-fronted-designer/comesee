@@ -113,6 +113,19 @@ function Accordion({ searchTerm, selectedFilter }) {
     const startIndex = (currentPage - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
 
+    const calculateAverageScore = (user) => {
+        if (user.comments.length === 0) {
+            return 0;
+        }
+
+        let totalScore = 0;
+        user.comments.forEach((commentData) => {
+            totalScore += commentData.score;
+        });
+
+        return (totalScore / user.comments.length).toFixed(1); // 四舍五入到小数点后一位
+    };
+
 
     return (
         <div className={Socialhomestyle.accordionall}>
@@ -142,7 +155,7 @@ function Accordion({ searchTerm, selectedFilter }) {
                             <div className={Socialhomestyle.accordion123 + " col-3"}>{user.movieNameCN}</div>
                             <div className={Socialhomestyle.accordion123 + " col-4"}>
                                 {new Date(user.releaseDate).toISOString().split('T')[0]}</div>
-                            <div className={Socialhomestyle.accordion123 + " col-2"}><Star /></div>
+                            <div className={Socialhomestyle.accordion123 + " col-3"}><Star /><div className={Socialhomestyle.accordion1234}>{calculateAverageScore(user)}</div></div>
                             <div className={Socialhomestyle.accordion123 + " col-2"}>共{calculateTotalRaters(user)}位評分</div>
                         </button>
                     </h2>
