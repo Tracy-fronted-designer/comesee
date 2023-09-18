@@ -32,18 +32,5 @@ filmlist.get("/comingsoon", function (req, res) {
     });
 });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 //這個路由匯出以後是app.js使用
 module.exports = filmlist;
