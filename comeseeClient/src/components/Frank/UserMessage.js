@@ -3,6 +3,7 @@ import member from "../../css/Frank/usermessage.module.css";
 import axios from "axios";
 
 import TicketContext from "../../TicketContext";
+import Swal from "sweetalert2";
 
 const UserMessage = () => {
   const context = useContext(TicketContext);
@@ -18,6 +19,24 @@ const UserMessage = () => {
   const [cityOptions, setCityOptions] = useState([]);
   const [townOptions, setTownOptions] = useState([]);
   const [cityData, setCityData] = useState({}); // 用于存储城市和区域的 JSON 数据
+  const [address, setAddress] = useState("");
+  const [selfintro, setSelfintro] = useState("");
+
+  const button = {
+    display: "flex",
+    // width: "90px",
+    // height: "50px",
+    padding: "15px 30px",
+    justifyContent: "center",
+    alignItems: "center",
+    fontSize: "14px",
+
+    borderRadius: "15px",
+    background: "#b6b995",
+    textDecoration: "none",
+    color: "#f1efe9",
+    borderStyle: "none",
+  };
 
   useEffect(() => {
     // 从外部 JSON URL 加载城市数据
@@ -64,16 +83,54 @@ const UserMessage = () => {
     setSelectedTown(selectedTown);
   };
 
+  const handleChangeBtn = () => {
+    // console.log(userName);
+    // console.log(gender);
+    // console.log(birthday);
+    // console.log(selectedCity);
+    // console.log(selectedTown);
+    // console.log(address);
+    // console.log(selfintro);
+
+    axios
+      .put(`http://localhost:2407/user/${userID}`, {
+        userName,
+        gender,
+        birthday,
+        selectedCity,
+        selectedTown,
+        address,
+        selfintro,
+      })
+      .then((response) => {
+        if (response.data.result === 1) {
+          Swal.fire({
+            title: "更改成功",
+            icon: "success",
+            confirmButtonText: "確定",
+          });
+        }
+        // console.log(typeof response.data.result);
+      })
+      .catch((error) => {
+        console.error("Error fetching data", error);
+      });
+  };
+
+  //使用者資訊
   useEffect(() => {
-    // 从外部 JSON URL 加载城市数据
     axios
       .get(`http://localhost:2407/user/${userID}`)
       .then((response) => {
-        console.log(response.data[0]);
+        // console.log(response.data[0]);
         // setUserInfo(response.data[0]);
         setUserName(response.data[0].userName);
         setGender(response.data[0].gender);
         setBirthday(targetLocalDate(response.data[0].birthday));
+        setSelectedCity(response.data[0].addressCity);
+        setSelectedTown(response.data[0].addressTown);
+        setAddress(response.data[0].addressDetail);
+        setSelfintro(response.data[0].selfintro);
       })
       .catch((error) => {
         console.error("Error fetching city data", error);
@@ -175,7 +232,10 @@ const UserMessage = () => {
           onChange={handleTownChange}
           value={selectedTown}
         >
-          <option value="">請選擇鄉鎮</option>
+          {/* <option value="">請選擇鄉鎮</option> */}
+          <option value={selectedTown || ""}>
+            {selectedTown || "請選擇鄉鎮"}
+          </option>
           {/* 其他選項 */}
           {townOptions.map((town, index) => (
             <option key={index} value={town}>
@@ -184,16 +244,43 @@ const UserMessage = () => {
           ))}
         </select>
       </div>
-      <input type="text" name="address" className={member.d4} />
+      {/* 地址 */}
+      <input
+        type="text"
+        name="address"
+        className={member.d4}
+        value={address}
+        onChange={(e) => {
+          setAddress(e.target.value);
+        }}
+      />
       {/* 新增自我介绍字段 */}
       <div className={member.FormGroup}>
         <div className={member.a5}>
           <label className={member.b1}>自我介紹</label>
         </div>
-        <textarea name="introduction" className={member.c5} />
+        <textarea
+          name="introduction"
+          className={member.c5}
+          value={selfintro}
+          onChange={(e) => {
+            const newText = e.target.value;
+
+            if (newText.length <= 100) {
+              // 檢查字數是否小於等於 150
+              setSelfintro(newText); // 更新狀態變數以反映 textarea 的內容變化
+            }
+          }}
+        />
       </div>
       <div>
-        <p className={member.d5}>0/150</p>
+        <p className={member.d5}>{`${selfintro.length}/100`}</p>
+      </div>
+
+      <div className="d-flex justify-content-center">
+        <button style={button} onClick={handleChangeBtn}>
+          確認更改
+        </button>
       </div>
     </div>
   );

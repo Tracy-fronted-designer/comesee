@@ -57,11 +57,29 @@ user.delete("/:userID([0-9]+)", function (req, res) {
 
 //修改user資訊(url傳入的userID是要針對哪個userID去更改他的userName和email)
 user.put("/:userID([0-9]+)", function (req, res) {
-  let body = req.body;
+  let {
+    userName,
+    gender,
+    birthday,
+    selectedCity,
+    selectedTown,
+    address,
+    selfintro,
+  } = req.body;
   let userID = req.params.userID;
-  let data = [body.userName, body.email, userID];
+
+  let data = [
+    userName,
+    gender,
+    birthday,
+    selectedCity,
+    selectedTown,
+    address,
+    selfintro,
+    userID,
+  ];
   db.exec(
-    "UPDATE member SET userName=?, email=? WHERE userID = ?",
+    "UPDATE member SET userName=?, gender=?, birthday=?, addressCity=?, addressTown=?, addressDetail=?, selfintro=? WHERE userID = ?",
     data,
     function (results, fields) {
       if (results.affectedRows) {
