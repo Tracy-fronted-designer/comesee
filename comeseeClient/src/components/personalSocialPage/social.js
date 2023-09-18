@@ -59,7 +59,7 @@ class Social extends Component {
                 <img
                   className="img-fluid h-100 rounded-circle"
                   // src={require("photo.jpg")}
-                  src={require(`../../img/carouselimg.jpg`)}
+                  src={require(`../../img/photo.jpg`)}
                   alt="userPhoto"
                 />
               </div>
