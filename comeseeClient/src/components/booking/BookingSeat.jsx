@@ -29,7 +29,7 @@ class BookingSeat extends Component {
   async componentDidMount() {
     //獲取傳入場次的相關資料放入bookingInfo
     await axios
-      .get("http://localhost:2407/booking/info/1")
+      .get(`http://localhost:2407/booking/info/${this.context.state.showtimeID}`)
       .then((response) => {
         this.setState({ bookingInfo: response.data[0] });
         this.context.setState({ bookingInfo: response.data[0] });
