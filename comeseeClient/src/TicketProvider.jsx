@@ -157,12 +157,6 @@ export class TicketProvider extends Component {
   }
 
   setStateValue = (newState) => {
-
-    // // 判斷有無登入
-    // if (this.state.userID !== null) {
-    //   newState.userID = this.state.userID;
-    // }
-
     
     // 狀態如果是 selectedSeats
     if ("selectedSeats" in newState) {
