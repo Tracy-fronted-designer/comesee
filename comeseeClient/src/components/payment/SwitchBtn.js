@@ -25,7 +25,6 @@ class SwitchBtn extends Component {
             }, 10); // 100毫秒後滾動到頂部
           }}
           className={SB.btnL}
-          // style={prevHovered ? {...this.prevPage,...this.hovenBtn} : this.prevPage}
           onMouseEnter={this.prevMouseEnter}
           onMouseLeave={this.prevMouseLeave}
 
