@@ -162,3 +162,27 @@
 .sample span {
   font-size: 16px;
 }
+
+/* 空座位樣式 */
+.empty {
+  background-color: #f1efe9;
+  box-shadow: 0 0 0 1px #f1efe9 inset, 0 0 0 2px rgba(168, 168, 168, 0.15) inset,
+    0 8px 0 0 rgba(172, 172, 172, 0.7), 0 8px 0 1px rgba(117, 117, 117, 0.4),
+    0 8px 8px 1px rgba(0, 0, 0, 0.5);
+}
+
+/* 已售出座位樣式 */
+.sold {
+  background-color: #e12c4b;
+  box-shadow: 0 0 0 1px #c63702 inset, 0 0 0 2px rgba(255, 255, 255, 0.15) inset,
+    0 8px 0 0 #9e3428, 0 8px 0 1px rgba(0, 0, 0, 0.4),
+    0 8px 8px 1px rgba(0, 0, 0, 0.5);
+}
+
+/* 選中座位樣式 */
+.selected {
+  background-color: #64a26a;
+  box-shadow: 0 0 0 1px #64a26a inset, 0 0 0 2px rgba(255, 255, 255, 0.15) inset,
+    0 8px 0 0 rgba(104, 160, 128, 0.7), 0 8px 0 1px rgba(0, 0, 0, 0.4),
+    0 8px 8px 1px rgba(0, 0, 0, 0.5);
+}
