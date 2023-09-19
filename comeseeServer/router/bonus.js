@@ -34,7 +34,7 @@ bonus.post("/create", function (req, res) {
 //會員中心=>紅利紀錄
 bonus.get("/bonusrecord/:userID([0-9]+)", (req, res) => {
 db.exec(
-  "SELECT bonus,  DATE_FORMAT(ordertime, '%Y-%m-%d') AS bonusDate FROM orderlist WHERE userID = ?",
+  "SELECT  used , DATE_FORMAT(ordertime, '%Y-%m-%d') AS bonusDate FROM bonus  WHERE userID = ?",
   [req.params.userID],
   function (results, fields) {
     res.send(JSON.stringify(results));

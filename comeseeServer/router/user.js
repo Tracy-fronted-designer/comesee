@@ -60,6 +60,7 @@ user.get("/:userID([0-9]+)", function (req, res) {
   );
 });
 
+
 // 以email查詢其userID
 user.get("/getuserID/:email", function (req, res) {
   let email = req.params.email;
@@ -142,6 +143,8 @@ user.put("/:userID([0-9]+)", function (req, res) {
     }
   );
 });
+
+
 
 //這個路由匯出以後是app.js使用
 module.exports = user;

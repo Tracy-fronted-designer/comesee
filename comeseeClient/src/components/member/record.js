@@ -16,6 +16,7 @@ const Record= ({bonusRecord}) => {
           <span>點</span>
         </div>
       </div>
+      
 
   );
 

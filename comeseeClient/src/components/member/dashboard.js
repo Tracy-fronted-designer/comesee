@@ -50,6 +50,7 @@ const Dashboard = (user) => {
           .map((bonus) => (
             <Record key={bonus.orderID} bonusRecord={bonus} />
           ))}
+          
       </div>
     </div>
   );
