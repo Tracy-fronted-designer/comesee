@@ -23,9 +23,9 @@ bonus.post("/create", function (req, res) {
     [userID, point, used],
     function (results, fields) {
       if (results) {
-        res.send("successfully : " + JSON.stringify(results));
+        return res.send("successfully : " + JSON.stringify(results));
       } else {
-        res.send("insertError");
+        return res.send("insertError");
       }
     }
   );

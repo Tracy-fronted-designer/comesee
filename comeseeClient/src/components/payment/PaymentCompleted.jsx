@@ -15,8 +15,8 @@ class PaymentCompleted extends Component {
     recommendedMovies:[],
   };
   
-
   render() {
+    // console.log("Recommended Movies:", this.state.recommendedMovies);
     return (
       <div className={CPC.mainBg}>
         <div className={"container "+CPC.contentBackground}>
@@ -68,11 +68,14 @@ class PaymentCompleted extends Component {
   // 從後端拿到推薦電影
 
   async componentDidMount() {
-    
     try {
       const res = await axios.get(`http://localhost:2407/recommend/${this.context.state.bookingInfo.movieID}`);
-      // console.log(res); //object
-      this.setState({ recommendedMovies: res.data }); //data 裡面是 array(電影資料)
+      // console.log('this.context.state.bookingInfo'+this.context.state.bookingInfo.movieID);
+      // console.log("Response:", res);
+      // console.log("Response data:", res.data);
+      const recommendedMovies = Array.isArray(res.data) ? res.data : [res.data];
+      // console.log("Recommended movies:", recommendedMovies);
+      this.setState({ recommendedMovies });
     } catch (error) {
       console.error(error);
     }
