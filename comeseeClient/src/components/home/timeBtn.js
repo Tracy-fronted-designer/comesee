@@ -26,11 +26,11 @@ class TimeBtn extends Component {
 
     render() {
 
-        var { label } = this.props;
+        var { id, label } = this.props;
 
         return (
 
-            <button style={this.verStyle}
+            <button id={id} style={this.verStyle}
                 type="button"
                 data-bs-toggle="modal"
                 data-bs-target="#checkModal"

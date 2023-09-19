@@ -20,6 +20,9 @@ var comment = require("./router/comment");
 var movieCollection = require("./router/movieCollection");
 var forgotpassword = require("./router/forgotpassword");
 var resetpassword = require("./router/resetpassword");
+
+var m = require("./router/multer");
+
 var cors = require("cors");
 
 //解析json資料
@@ -52,6 +55,7 @@ app.use("/orderlist", orderlist);
 app.use("/movieCollection", movieCollection);
 app.use("/forgotpassword", forgotpassword);
 app.use("/resetpassword", resetpassword);
+app.use("/multer", m);
 
 app.listen(2407, function () {
   console.log("伺服器啟動中");

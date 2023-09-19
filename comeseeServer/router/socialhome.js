@@ -2,38 +2,30 @@ var express = require("express");
 var db = require("../db");
 var socialhome = express.Router();
 
-//取得movie movieNameCN, releaseDate, imageUrl
-// socialhome.get("/", function (req, res) {
-//     db.exec("SELECT id, movieNameCN, releaseDate, imageUrl FROM movie", [], function (results, fields) {
-//         res.send(JSON.stringify(results));
-//     });
-// });
-
 socialhome.get("/", function (req, res) {
-    db.exec("SELECT m.id, m.movieNameCN, m.releaseDate, m.imageUrl, c.comment, c.userID FROM movie m LEFT JOIN commentlist c ON m.id = c.movieID", [], function (results, fields) {
-        // 在后端按电影ID分组评论
+    db.exec("SELECT m.id, m.movieNameCN, m.releaseDate, m.imageUrl, c.comment, c.userID, c.score FROM movie m LEFT JOIN commentlist c ON m.id = c.movieID", [], function (results, fields) {
         const movieComments = {};
         results.forEach((row) => {
-            const { id, movieNameCN, releaseDate, imageUrl, comment, userID } = row;
+            const { id, movieNameCN, releaseDate, imageUrl, comment, userID, userName, score } = row;
             if (!movieComments[id]) {
                 movieComments[id] = {
                     movieNameCN,
                     releaseDate,
                     imageUrl,
-                    userID,
                     comments: [],
                 };
             }
             if (comment) {
-                movieComments[id].comments.push(comment);
+                movieComments[id].comments.push({ userID, userName, comment, score });
             }
         });
-        res.send(JSON.stringify(Object.values(movieComments)));
+        const movieCommentsArray = Object.values(movieComments);
+        res.send(JSON.stringify(movieCommentsArray));
     });
 });
 
 socialhome.get("/members", function (req, res) {
-    db.exec("SELECT UserID, userName FROM member", [], function (results, fields) {
+    db.exec("SELECT userID, userName FROM member", [], function (results, fields) {
         res.send(JSON.stringify(results));
     });
 });

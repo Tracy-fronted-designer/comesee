@@ -12,10 +12,11 @@ const Record= ({bonusRecord}) => {
         <span>{bonusRecord.bonusDate}</span>
         <div>
           <span>已使用</span> 
-          <span className={fee.bonustext}>{bonusRecord.bonus}</span>
+          <span className={fee.bonustext}>{bonusRecord.used}</span>
           <span>點</span>
         </div>
       </div>
+      
 
   );
 

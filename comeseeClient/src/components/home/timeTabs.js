@@ -1,29 +1,84 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-import DateBtn from './dateBtn';
 import IS from '../../css/home/infoPage.module.css';
 import TimeAccordion from './timeAccordion';
 
-const TimeTabs = () => {
+const TimeTabs = (props) => {
 
-    const [locationData, setLocationData] = useState([]);
+    const [showDate, setShowDate] = useState([]);
+    const [cinemaData, setCinemaData] = useState([]);
+
+    const [getDate, setGetDate] = useState("2023-09-02");
+
+    const id = parseInt(props.id);
+
+    // 取得今天日期
+    // const dd = new Date();
+    // const year = dd.getFullYear();
+    // const month = dd.getMonth() + 1;
+    // const day = dd.getDate();
+
+    // const today = year + '-' + (month < 10 ? '0' : '') + month + '-' + (day < 10 ? '0' : '') + day;
+    // console.log(today);
+    // const [getDate, setGetDate] = useState(today);
 
 
 
-    const [selectedLocation, setSelectedLocation] = useState("");
-    const [selectedCinema, setSelectedCinema] = useState("");
+    // 指定電影的場次日期
+    useEffect(() => {
+        axios
+            .get(`http://localhost:2407/filminfo/getdate/${id}`)
+            .then((res) => {
+                const modifiedData = res.data.map((item) => {
+                    // const date = item.showtimeDate;
+                    const date = (item.showtimeDate).split("-");
+                    const month = parseInt(date[1]) - 1;
 
-    // 選地區 > 地區值篩選影城
-    // 選日期 > 日期篩選時間
-    // 後端抓取抓地區選項 預設值: 北區
-    // 地區:
-    // 地區選擇事件處理:
-    function handleLocationChange(e) {
-        setSelectedLocation(e.target.value);
+                    const weekDays = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
+                    const dayOfWeek = new Date(date[0], month, date[2]).getDay();
+                    const week = weekDays[dayOfWeek];
+                    return {
+                        showtimeDate: item.showtimeDate,
+                        month: date[1],
+                        day: date[2],
+                        week: week,
+                    }
+                });
+                setShowDate(modifiedData);
+                console.log(modifiedData);
+            })
+            .catch((err) => {
+                console.log(err.response);
+            });
+    }, [id]);
+
+    // 日期選擇
+    function handleDateCheck(e) {
+        setGetDate(e.target.id);
     };
-    
-    // 
+
+    // 指定日期的上映影城
+    useEffect(() => {
+        axios
+            .post("http://localhost:2407/filminfo/getcinema", {
+                movieID: id,
+                date: getDate,
+            })
+            .then((res) => {
+                setCinemaData(res.data);
+                // console.log(cinemaData);
+            })
+            .catch((err) => {
+                console.log(err.response);
+            });
+    }, [getDate]);
+
+
+
+
+
+
 
 
 
@@ -37,31 +92,39 @@ const TimeTabs = () => {
 
         <>
 
-            <select className={IS.mySelect}
-                value={selectedLocation}
-                onChange={handleLocationChange}
-            >
-                <option value="">地區</option>
-                {/* map options */}
-                {locationData.map((orderItem, index) => (
-                    <option key={index} value={orderItem.cinemaID}>
-                        {orderItem.locationData}
-                    </option>
-                ))}
-
-            </select>
-
             <div className={`${IS.dateBox} d-box`}>
-                <DateBtn id={1} for={1}/>
-                <DateBtn id={2} for={2}/>
 
-                {/* <DateBtn /><DateBtn /><DateBtn /><DateBtn /> */}
+                {/* map日期 */}
+                {showDate.map((dateItem, index) => (
+                    <span key={index} >
+                        <input type="radio" name="date"
+                            id={dateItem.showtimeDate}
+                            className="btn-check"
+                            onChange={handleDateCheck} />
+                        <label
+                            for={dateItem.showtimeDate}
+                            className={`${IS.dbtn} btn`}
+                        // onClick={}
+                        >
+                            <div className={IS.Date2}>{dateItem.week}</div>
+                            <div className={IS.Date1}>{dateItem.day}</div>
+                            <div className={IS.Date2}>{dateItem.month}</div>
+                        </label>
+                    </span>
+                ))}
 
             </div>
 
             <div className={IS.theaterTime}>
-
-                <TimeAccordion />
+                {/* map影城 */}
+                {cinemaData.map((item, index) => (
+                    <TimeAccordion
+                        id={id}
+                        key={index}
+                        date={getDate}
+                        cinemaID={item.cinemaID}
+                        cinemaName={item.cinemaName} />
+                ))}
 
             </div>
 

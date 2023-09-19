@@ -1,6 +1,45 @@
 var express = require("express");
+const multer = require("multer");
+
 var db = require("../db");
 var user = express.Router();
+
+//上傳大頭貼
+user.use("/uploads", express.static("public"));
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "public");
+  },
+  filename: function (req, file, cb) {
+    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
+    cb(null, uniqueSuffix + path.extname(file.originalname));
+  },
+});
+
+const upload = multer({ storage: storage });
+
+user.post("/uploads", upload.single("avatar"), (req, res) => {
+  if (!req.file) {
+    return res.status(400).json({ message: "No file uploaded." });
+  }
+
+  const { originalname, filename } = req.file;
+
+  db.query(
+    "INSERT INTO member (filename, originalname) VALUES (?, ?)",
+    [filename, originalname],
+    (error, results) => {
+      if (error) {
+        console.error("Error saving to database:", error);
+        return res.status(500).json({ message: "Internal server error." });
+      }
+      res.json({ message: "File uploaded and saved to database." });
+    }
+  );
+
+  res.json({ message: "File uploaded." });
+});
 
 //取得全部user
 user.get("/", function (req, res) {
@@ -17,6 +56,20 @@ user.get("/:userID([0-9]+)", function (req, res) {
     [userID],
     function (results, fields) {
       res.send(JSON.stringify(results));
+    }
+  );
+});
+
+
+// 以email查詢其userID
+user.get("/getuserID/:email", function (req, res) {
+  let email = req.params.email;
+  // let email = req.body.email;
+  db.exec(
+    "SELECT userID FROM member WHERE email = ?",
+    [email],
+    function (results, fields) {
+      res.send(JSON.stringify(results[0].userID));
     }
   );
 });
@@ -57,11 +110,29 @@ user.delete("/:userID([0-9]+)", function (req, res) {
 
 //修改user資訊(url傳入的userID是要針對哪個userID去更改他的userName和email)
 user.put("/:userID([0-9]+)", function (req, res) {
-  let body = req.body;
+  let {
+    userName,
+    gender,
+    birthday,
+    selectedCity,
+    selectedTown,
+    address,
+    selfintro,
+  } = req.body;
   let userID = req.params.userID;
-  let data = [body.userName, body.email, userID];
+
+  let data = [
+    userName,
+    gender,
+    birthday,
+    selectedCity,
+    selectedTown,
+    address,
+    selfintro,
+    userID,
+  ];
   db.exec(
-    "UPDATE member SET userName=?, email=? WHERE userID = ?",
+    "UPDATE member SET userName=?, gender=?, birthday=?, addressCity=?, addressTown=?, addressDetail=?, selfintro=? WHERE userID = ?",
     data,
     function (results, fields) {
       if (results.affectedRows) {
@@ -72,6 +143,8 @@ user.put("/:userID([0-9]+)", function (req, res) {
     }
   );
 });
+
+
 
 //這個路由匯出以後是app.js使用
 module.exports = user;

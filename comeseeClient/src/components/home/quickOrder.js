@@ -1,9 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
+import { useHistory } from "react-router-dom";
 
 import HS from "../../css/home/homePage.module.css";
 
+import TicketContext from "../../TicketContext";
+import Swal from "sweetalert2";
+
 const QuickOrder = () => {
+  const { state, setState } = useContext(TicketContext); //設定使用context
+  const history = useHistory();
+
   const [orderCinema, setOrderCinema] = useState([]);
   const [orderMovieList, setOrderMovieList] = useState([]);
   const [orderDate, setOrderDate] = useState([]);
@@ -16,6 +23,12 @@ const QuickOrder = () => {
   const [selectedShowtime, setSelectedShowtime] = useState("");
   const [selectedNumber, setSelectedNumber] = useState("");
   const [showModal, setShowModal] = useState(false);
+
+  // console.log(selectedCinema)      //影城1or2
+  // console.log(selectedMovie)       //movieID,theaterID
+  // console.log(selectedDate)        //場次時間 2023-00-00
+  // console.log(selectedShowtime)    //startTime
+  // console.log(selectedNumber)      //選擇人數
 
   // 後端抓取影城選項
   useEffect(() => {
@@ -30,14 +43,26 @@ const QuickOrder = () => {
   }, []);
 
   // 影城選擇事件處理
-  function handleCinemaChange(e) {
-    setSelectedCinema(e.target.value);
-    setSelectedMovie("");
-    setSelectedDate("");
-    setSelectedShowtime("");
-    setSelectedNumber("");
-  };
+  async function handleCinemaChange(e) {
+    if (state.userID === null) {
+      const result = await Swal.fire({
+        title: '請先登入會員',
+        icon: 'warning',
+        confirmButtonText: "確認",
+      });
 
+      if (result.isConfirmed) {
+        window.location.href = "/login";
+      }
+
+    } else {
+      setSelectedCinema(e.target.value);
+      setSelectedMovie("");
+      setSelectedDate("");
+      setSelectedShowtime("");
+      setSelectedNumber("");
+    };
+  }
   // 篩選影片選項
   useEffect(() => {
     axios
@@ -127,13 +152,73 @@ const QuickOrder = () => {
 
   // 購票事件處理
 
-  const openModal = () => {
-    setShowModal(true);
-  };
+  // const openModal = () => {
+  //   setShowModal(true);
+  // };
 
   const closeModal = () => {
     setShowModal(false);
   };
+
+
+
+  // 取得showtimeID 跟 使用者選擇數量 更新到context
+  function handleShowtimID() {
+
+    const [movieID, theaterID] = selectedMovie.split(",");
+
+    // 相對應資料傳後端
+    const requestData = {
+      movieID: movieID,
+      cinemaID: selectedCinema,
+      theaterID: theaterID,
+      startTime: selectedShowtime,
+      date: selectedDate,
+    };
+
+    // console.log(requestData.movieID)
+    // console.log(requestData.cinemaID)
+    // console.log(requestData.theaterID)
+    // console.log(requestData.startTime)
+    // console.log(requestData.date)
+
+    // 拿到 showtimeID
+    axios
+      .post("http://localhost:2407/quickorder/getShowtimeID", requestData)
+      .then((res) => {
+        // console.log(res)
+        const showtimeID = res.data[0].showtimeID;
+        console.log("showtimeID：", showtimeID);
+
+        axios
+          .get(`http://localhost:2407/quickorder/emptySeat/${showtimeID}`)
+          .then((res) => {
+            const emptySeat = res.data.emptySeat;
+            console.log("空座位數：", emptySeat);
+
+            // 位置數量ok
+            if (parseInt(selectedNumber) <= emptySeat) {
+              setState({ showtimeID: showtimeID });
+              setState({ maxSelectedSeats: parseInt(selectedNumber) });
+              history.push("/bookingseat");
+              window.scrollTo(0, 0);
+            } else {
+              // 位置數不夠
+              Swal.fire({
+                title: '您目前所選的時段已無空位',
+                text: "請重新選擇",
+                icon: 'warning',
+                confirmButtonText: "確認",
+              }
+              )
+              return;
+            }
+          })
+      })
+      .catch((err) => {
+        console.log("showtimeID取得失敗:" + err.response);
+      });
+  }
 
   return (
     <>
@@ -223,7 +308,7 @@ const QuickOrder = () => {
         <button
           type="button"
           className={HS.quickBtn}
-          onClick={openModal}
+          onClick={handleShowtimID}
         // 原本的modal綁定
         // data-bs-toggle="modal"
         // data-bs-target="#Modal"
@@ -231,17 +316,6 @@ const QuickOrder = () => {
           即刻購票
         </button>
 
-        <button
-          type="button"
-          className="btn btn-primary"
-          onClick={openModal}
-        >
-          打開模擬框
-        </button>
-
-
-
-        {/* 打包 */}
       </form>
 
       {/* 原本的modal */}
@@ -279,48 +353,6 @@ const QuickOrder = () => {
           </div>
         </div>
       </div> */}
-
-      {showModal && (
-
-        <div
-          className="modal fade"
-          id="exampleModal"
-          tabIndex="-1"
-          aria-labelledby="exampleModalLabel"
-          aria-hidden="true"
-        >
-          <div className="modal-dialog">
-            <div className="modal-content">
-              <div className="modal-header">
-                <h5 className="modal-title" id="exampleModalLabel">
-                  模态框标题
-                </h5>
-                <button
-                  type="button"
-                  className="btn-close"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
-                  onClick={closeModal}
-                ></button>
-              </div>
-              <div className="modal-body">模态框内容</div>
-              <div className="modal-footer">
-                <button
-                  type="button"
-                  className="btn btn-secondary"
-                  onClick={closeModal}
-                >
-                  取消
-                </button>
-                <button type="button" className="btn btn-primary">
-                  确定
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      )}
 
     </>
   );

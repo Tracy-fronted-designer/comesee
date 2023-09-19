@@ -1,18 +1,29 @@
 import React, { useState, useEffect } from 'react';
 import Socialhomestyle from '../../css/socialpage/socialhome.module.css';
-// import { Users } from './moviedata';
+import { Link } from 'react-router-dom/cjs/react-router-dom.min';
+import StarRate from './starRate'
+import Star from './star'
 import axios from 'axios';
 
 function Accordion({ searchTerm, selectedFilter }) {
 
     const [movie, setMovie] = useState([]);
-    // const [orderMovieList, setOrderMovieList] = useState([]);
-    // const [orderDate, setOrderDate] = useState([]);
-    const itemsPerPage = 15; // 每页显示的项目数量
+    const [members, setMembers] = useState([]);
+
+    const itemsPerPage = 15; //一頁幾項
     const [activeItem, setActiveItem] = useState(null);
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(0);
-    // const totalPages = Math.ceil(Users.length / itemsPerPage);
+
+    const calculateTotalRaters = (user) => {
+        const ratersSet = new Set();
+        user.comments.forEach((commentData) => {
+            if (commentData.comment) {
+                ratersSet.add(commentData.comment);
+            }
+        });
+        return ratersSet.size;
+    };
 
     useEffect(() => {
         axios.get('http://localhost:2407/socialhome')
@@ -22,10 +33,16 @@ function Accordion({ searchTerm, selectedFilter }) {
             })
             .catch(err => {
                 console.log(err.response);
+            });
+
+        axios.get('http://localhost:2407/socialhome/members')
+            .then(res => {
+                setMembers(res.data);
             })
-    }, [])
-
-
+            .catch(err => {
+                console.log(err.response);
+            });
+    }, []);
 
 
 
@@ -96,21 +113,34 @@ function Accordion({ searchTerm, selectedFilter }) {
     const startIndex = (currentPage - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
 
+    const calculateAverageScore = (user) => {
+        if (user.comments.length === 0) {
+            return 0;
+        }
+
+        let totalScore = 0;
+        user.comments.forEach((commentData) => {
+            totalScore += commentData.score;
+        });
+
+        return (totalScore / user.comments.length).toFixed(1); // 四舍五入到小数点后一位
+    };
+
 
     return (
         <div className={Socialhomestyle.accordionall}>
 
-            {filteredUsers.slice(startIndex, endIndex).map((user, index) => (
-                <div className={Socialhomestyle.accordnall} key={index}>
-                    <h2 id={`flush-heading${index}`} className={Socialhomestyle.accordionh2}>
+            {filteredUsers.slice(startIndex, endIndex).map((user, index1) => (
+                <div className={Socialhomestyle.accordnall} key={index1}>
+                    <h2 id={`flush-heading${index1}`} className={Socialhomestyle.accordionh2}>
                         <button
-                            className={`pt-2 accordion-button ${activeItem === index ? '' : 'collapsed'}`}
+                            className={`pt-2 accordion-button ${activeItem === index1 ? '' : 'collapsed'}`}
                             type="button"
                             data-bs-toggle="collapse"
-                            data-bs-target={`#flush-collapse${index}`}
-                            aria-expanded={activeItem === index ? 'true' : 'false'}
-                            aria-controls={`flush-collapse${index}`}
-                            onClick={() => handleAccordionClick(index)}
+                            data-bs-target={`#flush-collapse${index1}`}
+                            aria-expanded={activeItem === index1 ? 'true' : 'false'}
+                            aria-controls={`flush-collapse${index1}`}
+                            onClick={() => handleAccordionClick(index1)}
                         >
                             <svg xmlns="http://www.w3.org/2000/svg"
                                 width="12"
@@ -125,13 +155,14 @@ function Accordion({ searchTerm, selectedFilter }) {
                             <div className={Socialhomestyle.accordion123 + " col-3"}>{user.movieNameCN}</div>
                             <div className={Socialhomestyle.accordion123 + " col-4"}>
                                 {new Date(user.releaseDate).toISOString().split('T')[0]}</div>
-                            <div className={Socialhomestyle.accordion123 + " col-4"}>{ }</div>
+                            <div className={Socialhomestyle.accordion123 + " col-3"}><Star /><div className={Socialhomestyle.accordion1234}>{calculateAverageScore(user)}</div></div>
+                            <div className={Socialhomestyle.accordion123 + " col-2"}>共{calculateTotalRaters(user)}位評分</div>
                         </button>
                     </h2>
                     <div
-                        id={`flush-collapse${index}`}
-                        className={`accordion-collapse collapse ${activeItem === index ? 'show' : ''}`}
-                        aria-labelledby={`flush-heading${index}`}
+                        id={`flush-collapse${index1}`}
+                        className={`accordion-collapse collapse ${activeItem === index1 ? 'show' : ''}`}
+                        aria-labelledby={`flush-heading${index1}`}
                         data-bs-parent="#accordionFlushExample"
                     >
                         <div className={"accordion-body " + Socialhomestyle.accordionbody}>
@@ -139,13 +170,20 @@ function Accordion({ searchTerm, selectedFilter }) {
                             <img className={Socialhomestyle.poster + " col-2"} src={user.imageUrl} height="230px" alt=""></img>
                             <div className="col-1"></div>
                             <div className={Socialhomestyle.usercomment + " col-6"}>
-                                {user.comments.slice(0, 6).map((comment, commentIndex) => (
-                                    <div className={Socialhomestyle.usercontent} key={commentIndex}>
-                                        <div>
-                                            {comment}
+                                {user.comments.slice(0, 5).map((commentData, commentIndex) => {
+                                    const userData = members.find(member => member.userID === commentData.userID);
+                                    const userName = userData ? userData.userName : "User";
+                                    const comment = commentData.comment;
+                                    return (
+                                        <div className={Socialhomestyle.usercontent1} key={commentIndex}>
+                                            <div className={Socialhomestyle.usercontent}>
+                                                <Link to={`/personalSocialPage/${commentData.userID}`} className={Socialhomestyle.linkstyle}>{userName}:</Link>
+                                                <div className={Socialhomestyle.usercontent2}>{comment}</div>
+                                                <StarRate score={commentData.score} />
+                                            </div>
                                         </div>
-                                    </div>
-                                ))}
+                                    );
+                                })}
                             </div>
 
                         </div>

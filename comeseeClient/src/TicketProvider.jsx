@@ -11,16 +11,7 @@ export class TicketProvider extends Component {
     this.state = {
       ...savedState,
 
-      userID: 3,
-
-      // 電影資訊
-      movieID: 3,
-      releaseDate: "2023-07-21",
-      movieLength: "03時00分",
-      movieType: "歷史/傳記,劇情",
-      director: "克里斯多福諾蘭(ChristopherNolan)",
-      actor:
-        "席尼墨菲(CillianMurphy)、艾蜜莉布朗(EmilyBlunt)、麥特戴蒙(MattDamon)、小勞勃道尼(RobertDowneyJr.)、佛蘿倫絲普伊(FlorencePugh)、蓋瑞歐德曼(GaryOldman)、肯尼斯布萊納(KennethBranagh)、詹姆斯瑞馬(JamesRemar)、傑克奎德(JackQuaid)、雷米馬利克(RamiMalek)、喬許哈奈特(JoshHartnett)、高斯塔夫史卡司加德(GustafSkarsgård)、馬提亞斯史維克福(MatthiasSchweighöfer)、奧莉薇雅朵比(OliviaThirlby)",
+      userID: null,
 
       // 訂票資訊
       adultTickets: 0,
@@ -31,13 +22,13 @@ export class TicketProvider extends Component {
       colaS: 0,
       canProceed: false,
 
-      img: "https://movies.yahoo.com.tw/i/o/production/movies/May2023/Qc1HYHrRQcOf5Vc49EK2-1024x1622.jpg",
+
       activeRow1: null,
       ticketName: ["全票", "學生票"],
       ticketNum: ["1", "1"],
       ticketMoney: ["350", "300"],
       //maxSelectedSeats由選則人數(首頁開始)頁面更新，預設應為0
-      maxSelectedSeats: 5,
+      maxSelectedSeats: 0,
       seatNumber: "",
       foodName: ["爆米花(大)", "爆米花(小)", "可樂(大)", "可樂(小)"],
       foodNum: ["1", "1", "1", "1"],
@@ -52,22 +43,22 @@ export class TicketProvider extends Component {
       selectedCoupon: "", //預設
       coupons: [
         {
-          couponID: "入會禮 折抵50元",
+          couponID: "入會禮 - 贈送爆米花一份",
           discountAmount: 50, // 一般金額的折扣
           type: "fixed", // 一般金額的折扣類型
         },
         {
-          couponID: "95折優惠",
+          couponID: "里程碑活動 - 95折優惠卷使用",
           discountPercentage: 5, // 百分比的折扣
           type: "percentage", // 百分比的折扣類型
         },
         {
-          couponID: "88折優惠",
+          couponID: "里程碑活動 - 88折優惠卷使用",
           discountPercentage: 12, // 百分比的折扣
           type: "percentage", // 百分比的折扣類型
         },
         {
-          couponID: "免費電影票一張(全票)",
+          couponID: "里程碑活動 - 優惠電影卷乙張",
           discountAmount: 350, // 百分比的折扣
           type: "fixed", // 百分比的折扣類型
         },
@@ -84,7 +75,7 @@ export class TicketProvider extends Component {
       total: 0,
 
       // 訂票系統(品)選擇時間時會有對應的showtimeID
-      showtimeID: 1,
+      showtimeID: null,
 
       //----------------------------------------------------------------------
 
@@ -133,7 +124,7 @@ export class TicketProvider extends Component {
   // 檢查令牌是否過期
   checkTokenExpiration = () => {
     if (this.state.exp) {
-      console.log("1111");
+      // console.log("1111");
       const now = Date.now() / 1000;
       if (now > this.state.exp) {
         // 令牌已過期
@@ -166,6 +157,7 @@ export class TicketProvider extends Component {
   }
 
   setStateValue = (newState) => {
+    
     // 狀態如果是 selectedSeats
     if ("selectedSeats" in newState) {
       const { selectedSeats } = newState;
@@ -177,6 +169,7 @@ export class TicketProvider extends Component {
     }
 
     this.setState(newState);
+    // console.log(this.state.bookingInfo)
   };
 
   // 紅利點數
