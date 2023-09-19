@@ -2,17 +2,7 @@ var express = require("express");
 var db = require("../db");
 var filminfo = express.Router();
 
-// 資訊頁: 設定url // 
-// movieID / imageUrl / movieNameCN / movieNameEN
-// releaseDate / movieLength / movieType / director / actor
-
-// score / like?
-// story / 影片url
-
-// social / comment / 使用者頭貼 / 使用者名稱
-
 // 取得指定電影的相關資訊
-
 filminfo.get("/:id", function (req, res) {
     let id = req.params.id;
     db.exec(
@@ -24,13 +14,14 @@ filminfo.get("/:id", function (req, res) {
     );
 });
 
-filminfo.get("/order", function (req, res) {
-    db.exec("SELECT * FROM cinema", [], function (results, fields) {
-        res.send(JSON.stringify(results));
-    });
+// 取得該電影全部場次
+filminfo.get("/order/:id", function (req, res) {
+    let movieID = req.params.id;
+    db.exec("SELECT * FROM `showtime` WHERE movieID=?",
+        [movieID], function (results, fields) {
+            res.send(JSON.stringify(results));
+        });
 });
-
-// 指定電影id 搜尋該電影場次 取得日期、影城、版本(影廳)、時間
 
 // 指定電影id 搜尋該電影場次日期
 filminfo.get("/getdate/:movieID", function (req, res) {
@@ -53,12 +44,12 @@ filminfo.post("/getcinema", function (req, res) {
         });
 });
 
-// 查看該日期 該影城 有上映的場次
+// 場次版本
 filminfo.post("/getversion", function (req, res) {
     let movieID = req.body.movieID;
     let cinemaID = req.body.cinemaID;
     let date = req.body.date;
-    db.exec("SELECT DISTINCT t.version, t.theaterID FROM `theater` AS t INNER JOIN ( SELECT cinemaID, theaterID, startTime FROM `showtime` WHERE movieID = ? AND cinemaID = ? AND date = ? ) AS s ON t.cinemaID = s.cinemaID AND t.theaterID = s.theaterID",
+    db.exec("SELECT DISTINCT version, t.theaterID FROM (SELECT * FROM `showtime` WHERE movieID=?) AS s LEFT JOIN `theater` AS t ON s.theaterID = t.theaterID WHERE s.cinemaID=? AND date = ? ORDER BY 2",
         [movieID, cinemaID, date],
         function (results, fields) {
             res.send(JSON.stringify(results));
@@ -68,11 +59,10 @@ filminfo.post("/getversion", function (req, res) {
 // 該場次時間
 filminfo.post("/getshowtime", function (req, res) {
     let movieID = req.body.movieID;
-    let cinemaID = req.body.cinemaID;
     let theaterID = req.body.theaterID;
     let date = req.body.date;
-    db.exec("SELECT showtimeID,startTime FROM `showtime` WHERE movieID=? AND cinemaID = ? AND theaterID=? AND date=?",
-        [movieID, cinemaID, theaterID, date],
+    db.exec("SELECT showtimeID, startTime FROM `showtime` WHERE movieID=? AND theaterID=? AND date=? ORDER BY 2;",
+        [movieID, theaterID, date],
         function (results, fields) {
             res.send(JSON.stringify(results));
         });
