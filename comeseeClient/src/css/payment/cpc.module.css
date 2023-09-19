@@ -321,3 +321,40 @@
     line-height: 125%;
     margin-bottom: 28px;
 }
+
+
+.circle {
+    stroke:64A26A;
+    stroke-dasharray: 1194;
+    stroke-dashoffset: 1194;
+    animation: circle 2s linear forwards;
+    animation-delay: -1s;
+}
+
+
+.tick {
+    stroke:64A26A;
+    stroke-dasharray: 350;
+    stroke-dashoffset: 350;
+    animation: tick 2s ease forwards;
+    animation-delay: 1s;
+
+  }
+
+  @keyframes circle {
+    from {
+      stroke-dashoffset: 1194;
+    }
+    to {
+      stroke-dashoffset: 2388;
+    }
+  }
+   
+  @keyframes tick {
+    from {
+      stroke-dashoffset: 350;
+    }
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
