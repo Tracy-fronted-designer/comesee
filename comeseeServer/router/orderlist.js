@@ -62,19 +62,17 @@ orderlist.get("/userOrderList/:userID([0-9]+)", (req, res) => {
 
 //取消訂單=>1變0，當訂單status是0就會說已被取消
 orderlist.patch("/orders/:orderID", (req, res) => {
-  const orderID = req.params.orderID;//要有個變數抓body的資料
-  const sql =
-    "UPDATE `orderlist` SET status = 0 WHERE orderID = ? AND status = 1";
+  const orderID = req.params.orderID;
+  const sql = "UPDATE `orderlist` SET status = 0 WHERE orderID = ? AND status = 1";
 
   db.exec(sql, [orderID], (results, fields) => {
     if (results.changedRows) {
-    return res.status(202).json({ message: "訂單成功取消" });
+      res.status(202).json({ message: "訂單成功取消" });
     } else {
-    return res.status(404).json({ message: "該訂單已被取消" });
+      res.status(404).json({ message: "該訂單已被取消" });
     }
   });
 });
-
   
   orderlist.post("/create", function (req, res) {
    const { userID, showtimeID, date, price, bonus,couponID,seat,adult, student } = req.body; // 假設客戶端發送的訂單數據数在請求的 body 中
