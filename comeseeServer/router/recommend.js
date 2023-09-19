@@ -18,10 +18,12 @@ recommend.get("/:movieID([0-9]+)", function (req, res) {
       // 用like找只要包含其中一個的類型就可以
       const query = subTypes.map(subType => `movieType LIKE '%${subType}%'`).join(' OR ');
       // res.send(JSON.stringify(query)); // 檢查結果用
+      const myRecomment = `SELECT * FROM movie WHERE (${query}) AND id != ? ORDER BY RAND() LIMIT 5`
+      console.log(myRecomment)
 
       // 使用查詢推薦电影
       db.exec(
-        `SELECT * FROM movie WHERE (${query}) AND id != ? ORDER BY RAND() LIMIT 5`,
+        myRecomment,
         [movieID],
         function (results, fields) {
           res.send(JSON.stringify(results));

@@ -68,9 +68,9 @@ orderlist.patch("/orders/:orderID", (req, res) => {
 
   db.exec(sql, [orderID], (results, fields) => {
     if (results.changedRows) {
-      res.status(202).json({ message: "訂單成功取消" });
+    return res.status(202).json({ message: "訂單成功取消" });
     } else {
-      res.status(404).json({ message: "該訂單已被取消" });
+    return res.status(404).json({ message: "該訂單已被取消" });
     }
   });
 });
@@ -82,42 +82,11 @@ orderlist.patch("/orders/:orderID", (req, res) => {
    // 新增到資料庫
    db.exec(
      "INSERT INTO orderlist (userID, showtimeID, date, price, bonus,couponID,seat,adult, student,status) VALUES (?,?,?,?,?,?,?,?,?,1)",
-     [userID, showtimeID, date, price, bonus,couponID,seat,adult, student],
+     [userID, showtimeID, date, price, bonus,couponID,seat,adult, student,1],
      function (results, fields) {
-       if (results.insertId) {
-         res.send("successfully : " + JSON.stringify(results));
-       } else {
-         res.send("insertError");
-       }
+        return res.send("successfully : " + JSON.stringify(results));
      }
    )});
-
-  orderlist.post("/create", function (req, res) {
-  const {
-    userID,
-    showtimeID,
-    date,
-    price,
-    bonus,
-    couponID,
-    seat,
-    adult,
-    student,
-  } = req.body; // 假設客戶端發送的訂單數據数在請求的 body 中
-  console.log(req.body);
-  // 新增到資料庫
-  db.exec(
-    "INSERT INTO orderlist (userID, showtimeID, date, price, bonus,couponID,seat,adult, student,status) VALUES (?,?,?,?,?,?,?,?,?,1)",
-    [userID, showtimeID, date, price, bonus, couponID, seat, adult, student],
-    function (results, fields) {
-      if (results.insertId) {
-        res.send("successfully : " + JSON.stringify(results));
-      } else {
-        res.send("insertError");
-      }
-    }
-  );
-  });
 
 
 orderlist.get("/orders/:status([0-1]+)", (req, res) => {
