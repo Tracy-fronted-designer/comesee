@@ -6,10 +6,11 @@ import TimeAccordion from './timeAccordion';
 
 const TimeTabs = (props) => {
 
+    const [orderData, setOrderData] = useState([]);
     const [showDate, setShowDate] = useState([]);
     const [cinemaData, setCinemaData] = useState([]);
 
-    const [getDate, setGetDate] = useState("2023-09-02");
+    const [getDate, setGetDate] = useState("");
 
     const id = parseInt(props.id);
 
@@ -23,7 +24,18 @@ const TimeTabs = (props) => {
     // console.log(today);
     // const [getDate, setGetDate] = useState(today);
 
-
+    // 電影場次基本資訊
+    useEffect(() => {
+        axios
+            .get(`http://localhost:2407/filminfo/order/${id}`)
+            .then((res) => {
+                setOrderData(res.data);
+                // console.log(orderData);
+            })
+            .catch((err) => {
+                console.log(err.response);
+            });
+    }, [id]);
 
     // 指定電影的場次日期
     useEffect(() => {
@@ -53,7 +65,7 @@ const TimeTabs = (props) => {
             });
     }, [id]);
 
-    // 日期選擇
+    // 日期選擇 取得日期參數
     function handleDateCheck(e) {
         setGetDate(e.target.id);
     };
@@ -67,40 +79,28 @@ const TimeTabs = (props) => {
             })
             .then((res) => {
                 setCinemaData(res.data);
-                // console.log(cinemaData);
             })
             .catch((err) => {
                 console.log(err.response);
             });
     }, [getDate]);
-
-
-
-
-
-
-
-
-
-
-
-
-
+    // console.log(cinemaData);
 
 
     return (
-
         <>
 
-            <div className={`${IS.dateBox} d-box`}>
 
+
+            <div className={`${IS.dateBox} d-box`}>
                 {/* map日期 */}
                 {showDate.map((dateItem, index) => (
                     <span key={index} >
                         <input type="radio" name="date"
                             id={dateItem.showtimeDate}
                             className="btn-check"
-                            onChange={handleDateCheck} />
+                            onClick={handleDateCheck}
+                        />
                         <label
                             for={dateItem.showtimeDate}
                             className={`${IS.dbtn} btn`}
@@ -112,7 +112,6 @@ const TimeTabs = (props) => {
                         </label>
                     </span>
                 ))}
-
             </div>
 
             <div className={IS.theaterTime}>
@@ -125,13 +124,12 @@ const TimeTabs = (props) => {
                         cinemaID={item.cinemaID}
                         cinemaName={item.cinemaName} />
                 ))}
-
             </div>
 
 
+
+
         </>
-
-
     );
 }
 
