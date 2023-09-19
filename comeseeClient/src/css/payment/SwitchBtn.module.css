@@ -23,7 +23,7 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    margin-right: 80px;
+    margin-right: 100px;
 }
 
 .btnL:before {
@@ -95,7 +95,7 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    margin-left: 80px;
+    margin-left: 100px;
 }
 
 .btnR:before {

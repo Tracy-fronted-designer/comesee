@@ -78,6 +78,7 @@ filminfo.get("/getcheck/:showtimeID", function (req, res) {
         });
 });
 
+// 分數
 filminfo.get("/averageScore/:movieID", function (req, res) {
     let movieID = req.params.movieID;
     db.exec(
