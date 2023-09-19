@@ -12,6 +12,7 @@ import IS from "../../css/home/infoPage.module.css";
 
 const InfoPage = (props) => {
   const [filmInfo, setFilmInfo] = useState([]);
+  const [averageScore, setAverageScore] = useState(0); // 初始化平均分数状态  
   const id = parseInt(props.match.params.id);
 
   // 指定電影資訊
@@ -25,7 +26,17 @@ const InfoPage = (props) => {
       .catch((err) => {
         console.log(err.response);
       });
+    axios
+      .get(`http://localhost:2407/filminfo/averageScore/${id}`)
+      .then((res) => {
+        setAverageScore(res.data.averageScore.toFixed(1));
+      })
+      .catch((err) => {
+        console.log(err.response);
+      });
   }, []);
+
+
 
   // 轉成localTime，傳入utc字串
   const targetLocalDate = (utcStr) => {
@@ -68,7 +79,7 @@ const InfoPage = (props) => {
 
           <div className={`${IS.scoreBox} col-3 px-5 py-3`}>
             <ToastComponent />
-            <Score id={filmInfo.id} />
+            <Score id={filmInfo.id} averageScore={averageScore} />
           </div>
         </div>
 

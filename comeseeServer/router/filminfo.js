@@ -88,7 +88,16 @@ filminfo.get("/getcheck/:showtimeID", function (req, res) {
         });
 });
 
-
+filminfo.get("/averageScore/:movieID", function (req, res) {
+    let movieID = req.params.movieID;
+    db.exec(
+        "SELECT AVG(score) AS averageScore FROM commentlist WHERE movieID = ?",
+        [movieID],
+        function (results, fields) {
+            res.send(JSON.stringify(results[0]));
+        }
+    );
+});
 
 //這個路由匯出以後是app.js使用
 module.exports = filminfo;
