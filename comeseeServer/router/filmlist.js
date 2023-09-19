@@ -18,7 +18,7 @@ filmlist.get("/", function (req, res) {
 // 資料庫沒有 先寫假的 6~8月
 // SELECT * FROM movie WHERE releaseDate <= CURDATE()
 filmlist.get("/released", function (req, res) {
-    db.exec("SELECT * FROM movie WHERE releaseDate BETWEEN '2023-06-01' AND '2023-07-31'", [], function (results, fields) {
+    db.exec("SELECT * FROM movie WHERE releaseDate BETWEEN '2023-08-01' AND '2023-09-10'", [], function (results, fields) {
         res.send(JSON.stringify(results));
     });
 });
@@ -27,7 +27,7 @@ filmlist.get("/released", function (req, res) {
 // 資料庫沒有 先寫假的 8月~
 // SELECT * FROM movie WHERE releaseDate > CURDATE()
 filmlist.get("/comingsoon", function (req, res) {
-    db.exec("SELECT * FROM movie WHERE releaseDate > '2023-07-31'", [], function (results, fields) {
+    db.exec("SELECT * FROM movie WHERE releaseDate > '2023-09-10'", [], function (results, fields) {
         res.send(JSON.stringify(results));
     });
 });
