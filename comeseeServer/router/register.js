@@ -43,7 +43,7 @@ router.post(
 
     try {
       // 检查用户是否已经存在
-      const result = await new Promise((resolve, reject) => {
+      const result = await new Promise((resolve) => {
         db.exec("SELECT * FROM member WHERE email = ?", [email], (results, fields) => {
           if (results && results.length > 0) {
             resolve(results);
@@ -59,10 +59,10 @@ router.post(
 
       // 使用 bcrypt 加密用户密码
       const hashedPassword = await bcrypt.hash(password, saltRounds);
-
+      const reset_token = null;
       // 将用户信息插入数据库，包括 moviePreferences
       db.exec(
-        "INSERT INTO member (email, password, username, gender, birthday, phonenumber, addressCity, addressTown, addressDetail, moviePreferences) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "INSERT INTO member (email, password, username, gender, birthday, phonenumber, addressCity, addressTown, addressDetail, moviePreferences, reset_token) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         [
           email,
           hashedPassword,
@@ -74,6 +74,7 @@ router.post(
           addressTown,
           addressDetail,
           moviePreferencesString,
+          reset_token,
         ],
         (results, fields) => {
           if (results && results.insertId) {
