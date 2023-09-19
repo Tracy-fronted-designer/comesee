@@ -115,7 +115,6 @@ const TimeBtn = (props) => {
                                     <th className={TAS.tdbd} >時間</th>
                                 </tr>
 
-
                                 {checkData.length > 0 ? (
                                     <tr className={TAS.checkInfo}>
                                         <td style={{ padding: "0 10px" }} >{checkData[0].movieNameCN}</td>
@@ -125,10 +124,6 @@ const TimeBtn = (props) => {
                                         <td className={TAS.tdbd} >{checkData[0].startTime}</td>
                                     </tr>
                                 ) : null}
-
-
-
-
                             </table>
 
                             <h4 className={TAS.numberTitle}>人數</h4>
