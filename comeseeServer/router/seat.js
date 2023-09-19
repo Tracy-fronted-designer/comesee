@@ -50,23 +50,27 @@ seat.get("/:showtimeID([0-9]+)", function (req, res) {
   });
 });
 
-//修改座位資訊(已售出) 基本上傳入rowNumber和seatNumber
-seat.put('/update',function(req, res){
-  const{showtimeID, seatsRowNumber, seatsSeatNumber} = req.body;
+
+// 修改座位資訊(已售出) 基本上傳入rowNumber和seatNumber
+seat.put('/update', function(req, res) {
+  const { showtimeID, seatsRowNumber, seatsSeatNumber } = req.body;
 
   for (let i = 0; i < seatsRowNumber.length; i++) {
     const rowNumber = seatsRowNumber[i];
     const seatNumber = seatsSeatNumber[i];
 
-  db.exec(
-    "UPDATE seatinfo SET seatStatus = 'sold' WHERE showtimeID = ? AND rowNumber = ?  AND seatNumber = ?",
-    [showtimeID, rowNumber, seatNumber],
-    function (results, fields) {
-      res.send(JSON.stringify(results));
-    }
+    db.exec(
+      "UPDATE seatinfo SET seatStatus = 'sold' WHERE showtimeID = ? AND rowNumber = ?  AND seatNumber = ?",
+      [showtimeID, rowNumber, seatNumber],
+      function (results, fields) {
+        // 可以處理更新成功的情況，但不要在這裡發送回應，不然會循環
+      }
     );
-    }
-})
+  }
+
+  // 在for外發送一次回應
+  res.json({ message: "Seat status updated successfully" });
+});
 
 
 //這個路由匯出以後是app.js使用
