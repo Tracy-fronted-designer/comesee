@@ -22,7 +22,7 @@ class ForgotPasswordPage extends Component {
     const { email } = this.state;
 
     // 发送POST请求到后端
-    axios.post('/api/reset-password', { email })
+    axios.post('http://localhost:2407/forgotpassword', { email })
       .then((response) => {
         // 处理成功响应
         this.setState({ message: response.data.message });

@@ -29,6 +29,8 @@ import Register from "./components/Frank/register";
 // import ChangePassword from './components/Frank/ChangePassword'
 import UserMessage from "./components/member/UserMessage";
 import MemberInformation from "./components/Frank/MemberInformation";
+import ResetPassword from "./components/Frank/ResetPassword";
+import Mypassword from "./components/Frank/Mypassword";
 
 import HeadPicture from "./components/multer/HeadPicture";
 
@@ -62,6 +64,7 @@ class App extends Component {
               <Route path="/UserMessage" component={UserMessage} />
               <Route path="/Register" component={Register} />
               <Route path="/login" component={Login} />
+              <Route path="/ResetPassword" component={ResetPassword} />
               <Route path="/BookingSeat" component={BookingSeat} />
               <Route path="/TicketType" component={TicketType} />
               <Route path="/discount" component={Discount} />
@@ -69,6 +72,7 @@ class App extends Component {
               <Route path="/payment" component={Payment} />
               <Route path="/PaymentCompleted" component={PaymentCompleted} />
               <Route path="/memberinformation" component={MemberInformation} />
+              <Route path="/mypassword" component={Mypassword} />
 
               <Route path="/HeadPicture" component={HeadPicture} />
             </Switch>

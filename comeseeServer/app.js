@@ -18,6 +18,8 @@ var login = require("./router/login");
 var register = require("./router/register");
 var comment = require("./router/comment");
 var movieCollection = require("./router/movieCollection");
+var forgotpassword = require("./router/forgotpassword");
+var resetpassword = require("./router/resetpassword");
 
 var m = require("./router/multer");
 
@@ -51,6 +53,8 @@ app.use("/register", register);
 app.use("/comment", comment);
 app.use("/orderlist", orderlist);
 app.use("/movieCollection", movieCollection);
+app.use("/forgotpassword", forgotpassword);
+app.use("/resetpassword", resetpassword);
 app.use("/multer", m);
 
 app.listen(2407, function () {
