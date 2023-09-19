@@ -199,11 +199,11 @@ function TimeAccordion(props) {
                                     <th className={TAS.tdbd} >時間</th>
                                 </tr>
                                 <tr className={TAS.checkInfo}>
-                                    <td style={{ padding: "0 10px" }} >我的麻吉4個鬼{ }</td>
-                                    <td className={TAS.tdbd} >豐原豪華in89影城{ }</td>
-                                    <td className={TAS.tdbd} >08.23{ }</td>
+                                    <td style={{ padding: "0 10px" }} >GT：跨界玩家{ }</td>
+                                    <td className={TAS.tdbd} >白夏影城{ }</td>
+                                    <td className={TAS.tdbd} >09.01{ }</td>
                                     <td className={TAS.tdbd} >數位{ }</td>
-                                    <td className={TAS.tdbd} >15:00{ }</td>
+                                    <td className={TAS.tdbd} >12:00{ }</td>
                                 </tr>
                             </table>
 
