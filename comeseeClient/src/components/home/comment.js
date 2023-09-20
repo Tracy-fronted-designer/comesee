@@ -13,6 +13,18 @@ class OthersComment extends Component {
         members: [],
     }
 
+    sortByNewest = (comments) => {
+        return comments.slice().sort((a, b) => {
+            return new Date(b.sendTime) - new Date(a.sendTime);
+        });
+    };
+
+    sortByScore = (comments) => {
+        return comments.slice().sort((a, b) => {
+            return b.score - a.score;
+        });
+    };
+
     componentDidMount() {
         fetch('http://localhost:2407/comment/members')
             .then(response => response.json())
