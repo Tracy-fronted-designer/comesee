@@ -103,7 +103,7 @@ const InfoPage = (props) => {
           </div>
 
           <div className={`${IS.scoreBox} col-3 px-5 py-3`}>
-            <ToastComponent />
+            <ToastComponent movieID={filmInfo.id} />
             <Score id={filmInfo.id} averageScore={averageScore} />
           </div>
         </div>
