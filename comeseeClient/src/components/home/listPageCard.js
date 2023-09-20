@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
-import Like from "./Like";
+import Like from "./like";
 
 import CardStyle from "../../css/home/listPageCard.module.css";
 

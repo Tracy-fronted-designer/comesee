@@ -3,7 +3,7 @@ import { useHistory, useLocation } from "react-router-dom";
 import axios from "axios";
 
 import Score from "./score";
-import Like from "./Like";
+import Like from "./like";
 
 import TimeTabs from "./timeTabs";
 import StoryTabs from "./storyTabs";
