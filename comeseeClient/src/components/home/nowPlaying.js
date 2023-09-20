@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import axios from "axios";
@@ -11,7 +12,9 @@ import HS from '../../css/home/homePage.module.css';
 
 const NowPlaying = () => {
 
+    const history = useHistory();
     const [slideData, setSlideData] = useState([]);
+
 
     useEffect(() => {
         axios
@@ -24,14 +27,19 @@ const NowPlaying = () => {
             });
     }, []);
 
-
+    const goTime = (id) => {
+        history.push(`/info/${id}?tab=time`);
+    };
+    const goStory = (id) => {
+        history.push(`/info/${id}?tab=story`);
+    };
 
     return (
         <>
 
             <div className={HS.bar} >
                 <h1 className={HS.title}>現正熱映 ::</h1>
-                <Link to="/list/nowplaying"><div className={HS.more}>
+                <Link to="/list?tab=nowplaying"><div className={HS.more}>
                     看更多
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -68,8 +76,8 @@ const NowPlaying = () => {
                                 key={filmPoster.id}
                                 src={filmPoster.imageUrl} alt=' ' />
                             <div className={HS.btnblock}>
-                                <button className={HS.imgBtn} >立即訂票</button>
-                                <Link to={`/info/${filmPoster.id}`}><button className={HS.imgBtn} >電影介紹</button></Link>
+                                <button className={HS.imgBtn} onClick={() => goTime(filmPoster.id)}>立即訂票</button>
+                                <button className={HS.imgBtn} onClick={() => goStory(filmPoster.id)}>電影介紹</button>
                             </div>
                         </SwiperSlide>
                     )}

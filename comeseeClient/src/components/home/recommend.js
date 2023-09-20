@@ -1,6 +1,6 @@
 import React, { Component } from "react";
+import { withRouter } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import axios from "axios";
 
 import "swiper/css";
@@ -17,6 +17,18 @@ class Recommend extends Component {
   state = {
     recommendedMovies: [],
   };
+
+  goTime = (id) => {
+    this.props.history.push(`/info/${id}?tab=time`);
+    window.scrollTo(0, 0);
+  };
+
+  goStory = (id) => {
+    this.props.history.push(`/info/${id}?tab=story`);
+    window.scrollTo(0, 0);
+  };
+
+
 
   render() {
     return (
@@ -50,10 +62,8 @@ class Recommend extends Component {
                     alt=" "
                   />
                   <div className={HS.btnblock}>
-                    <button className={HS.imgBtn}>立即訂票</button>
-                    <Link to={`/info/${filmPoster.id}`}>
-                      <button className={HS.imgBtn}>電影介紹</button>
-                    </Link>
+                    <button className={HS.imgBtn} onClick={() => this.goTime(filmPoster.id)}>立即訂票</button>
+                    <button className={HS.imgBtn} onClick={() => this.goStory(filmPoster.id)}>電影介紹</button>
                   </div>
                 </SwiperSlide>
               );
@@ -65,23 +75,32 @@ class Recommend extends Component {
   }
 
   // 從後端拿到推薦電影
-  // async componentDidMount() {
-  //   try {
-  //     if (this.context.state.userID === null) {
-  //       const res = await axios.get(
-  //         `http://localhost:2407/recommend/home/1`
-  //       );
-  //       // console.log(res); //object
-  //       this.setState({ recommendedMovies: res.data }); //data 裡面是 array(電影資料)
-  //     } else {
-  //       const res = await axios.get(`http://localhost:2407/recommend/home/${this.context.state.userID}`);
-  //       console.log("userID is not available yet.");
-  //       this.setState({ recommendedMovies: res.data }); //data 裡面是 array(電影資料)
-  //     }
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // }
+  async componentDidMount() {
+    if (!this.context.state.userID) {
+      const res = await axios.get(
+        `http://localhost:2407/recommend/home/7`
+      );
+      const recommendedMovies = Array.isArray(res.data) ? res.data : [res.data];
+      this.setState({ recommendedMovies });
+      return;
+    }
+    try {
+      const res = await axios.get(
+        `http://localhost:2407/recommend/home/${this.context.state.userID}`
+      );
+      // console.log('this.context.state.userID'+this.context.state.userID);
+      // console.log("Response:", res);
+      // console.log("Response data:", res.data);
+      const recommendedMovies = Array.isArray(res.data) ? res.data : [res.data];
+      console.log("Recommended movies:", recommendedMovies);
+      this.setState({ recommendedMovies });
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+
+
 }
 
-export default Recommend;
+export default withRouter(Recommend);

@@ -250,6 +250,9 @@ class BookingSeat extends Component {
 
           {/* 中間白線 */}
           {/* <div className={styles.line}></div> */}
+          <div className={styles.loader}>
+            <div class={styles.tracker}></div>
+          </div>
 
           {/* 下半部 */}
           <div className={`${styles.down} row`}>
@@ -262,7 +265,9 @@ class BookingSeat extends Component {
               <div
                 className={styles.seatText}
               >{`剩餘 ${this.state.numberOfEmptySeats} 個空位可選`}</div>
-              <div className={styles.screen}>screen</div>
+              <div className={styles.screen}>
+                <div className={styles.neonText}>screen</div>
+              </div>
               {/* 座位區 */}
               <SeatSelectorClass
                 seatinfo={this.state.seatinfo}
@@ -274,21 +279,21 @@ class BookingSeat extends Component {
               <div className={styles.sample}>
                 <div>
                   <div
-                    className={styles.square}
+                    className={`${styles.square} ${styles.empty}`}
                     style={{ background: "#F1EFE9" }}
                   ></div>
                   <span>可選取</span>
                 </div>
                 <div>
                   <div
-                    className={styles.square}
+                    className={`${styles.square} ${styles.selected}`}
                     style={{ background: "#64A26A" }}
                   ></div>
                   <span>已選取</span>
                 </div>
                 <div>
                   <div
-                    className={styles.square}
+                    className={`${styles.square} ${styles.sold}`}
                     style={{ background: "#E12C4B" }}
                   ></div>
                   <span>無法選取</span>

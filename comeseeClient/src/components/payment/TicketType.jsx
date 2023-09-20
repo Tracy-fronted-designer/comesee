@@ -90,6 +90,11 @@ class TicketType extends Component {
             </div>
           </div>
 
+          {/* 中間白線 */}
+          <div className={DT.loader}>
+            <div class={DT.tracker}></div>
+          </div>
+
           {/* 下半部 */}
           <div className="row">
             <div className={"col-3 " + DT.mySidebar}>
