@@ -4,10 +4,11 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import axios from "axios";
 
+import { Navigation, FreeMode } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/free-mode';
 import 'swiper/css/navigation';
-import { Navigation, FreeMode } from 'swiper/modules';
+
 import HS from '../../css/home/homePage.module.css';
 
 const NowPlaying = () => {
@@ -69,11 +70,11 @@ const NowPlaying = () => {
                     className="ListSwiper"
                 >
 
-                    {slideData.map(filmPoster =>
-                        <SwiperSlide className={HS.imgContainer}>
+                    {slideData.map((filmPoster, index) =>
+                        <SwiperSlide className={HS.imgContainer} key={index}>
                             <img
                                 className={HS.listSlide}
-                                key={filmPoster.id}
+                                id={filmPoster.id}
                                 src={filmPoster.imageUrl} alt=' ' />
                             <div className={HS.btnblock}>
                                 <button className={HS.imgBtn} onClick={() => goTime(filmPoster.id)}>立即訂票</button>
