@@ -1,25 +1,30 @@
 import React, { useEffect, useState } from "react";
+import { useHistory, useLocation } from "react-router-dom";
 import axios from "axios";
-import { useHistory } from "react-router-dom";
 
 import LS from "../../css/home/listPage.module.css";
 import ListPageCard from "./listPageCard";
 
-const ListPageNP = () => {
+const ListPage = () => {
   const [releasedData, setReleasedData] = useState([]);
   const [comingData, setComingData] = useState([]);
 
-  const history = useHistory(); // 初始化 history
+  const history = useHistory();
+  const location = useLocation();
 
-  // 選擇上映中標籤
-  function handleReleaseChange() {
-    history.push("nowplaying");
-  }
+  const [tabState, setTabState] = useState(
+    new URLSearchParams(history.location.search).get("tab") || "nowplaying"
+  );
 
-  // 選擇即將上映標籤
-  function handleComingSoonChange() {
-    history.push("comingsoon");
-  }
+  console.log(tabState);
+
+  // 監聽URL的變化，當URL改變時更新標籤
+  useEffect(() => {
+    const tabFromURL = new URLSearchParams(location.search).get("tab");
+    if (tabFromURL) {
+      setTabState(tabFromURL);
+    }
+  }, [location.search]);
 
   // 上映中電影
   useEffect(() => {
@@ -31,19 +36,29 @@ const ListPageNP = () => {
       .catch((err) => {
         console.log(err.response);
       });
-  }, []);
+  }, [tabState]);
 
   // 即將上映電影
-  // useEffect(() => {
-  //   axios
-  //     .get("http://localhost:2407/filmlist/comingsoon")
-  //     .then((res) => {
-  //       setComingData(res.data);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err.response);
-  //     });
-  // }, []);
+  useEffect(() => {
+    axios
+      .get("http://localhost:2407/filmlist/comingsoon")
+      .then((res) => {
+        setComingData(res.data);
+      })
+      .catch((err) => {
+        console.log(err.response);
+      });
+  }, [tabState]);
+
+  const nowplayingTabChange = () => {
+    setTabState("nowplaying"); // 更新tabState
+    history.push(`/list?tab=nowplaying`); // 更新URL
+  };
+
+  const comingsoonTabChange = () => {
+    setTabState("comingsoon"); // 更新tabState
+    history.push(`/list?tab=comingsoon`); // 更新URL
+  };
 
   return (
     <div className={LS.List}>
@@ -52,28 +67,32 @@ const ListPageNP = () => {
           <div className={LS.myTabs} id="nav-tab" role="tablist">
             a
             <button
-              className={`${LS.myLink} listTab active`}
+              className={`${LS.myLink} listTab ${
+                tabState === "nowplaying" ? "active" : ""
+              }`}
               id="nowPlaying-tab"
               data-bs-toggle="tab"
               data-bs-target="#nowPlaying"
               type="button"
               role="tab"
               aria-controls="nowPlaying"
-              aria-selected="true"
-              onClick={handleReleaseChange}
+              aria-selected={tabState === "nowplaying"}
+              onClick={nowplayingTabChange}
             >
               現正熱映
             </button>
             <button
-              className={`${LS.myLink} listTab`}
+              className={`${LS.myLink} listTab ${
+                tabState === "comingsoon" ? "active" : ""
+              }`}
               id="comingSoon-tab"
               data-bs-toggle="tab"
               data-bs-target="#comingSoon"
               type="button"
               role="tab"
               aria-controls="comingSoon"
-              aria-selected="false"
-              onClick={handleComingSoonChange}
+              aria-selected={tabState === "comingsoon"}
+              onClick={comingsoonTabChange}
             >
               即將上映
             </button>
@@ -82,7 +101,9 @@ const ListPageNP = () => {
 
         <div className={`${LS.myContent} tab-content`} id="nav-tabContent">
           <div
-            className="tab-pane fade show active"
+            className={`tab-pane fade ${
+              tabState === "nowplaying" ? "show active" : ""
+            }`}
             id="nowPlaying"
             role="tabpanel"
             aria-labelledby="nowPlaying-tab"
@@ -99,8 +120,10 @@ const ListPageNP = () => {
             ))}
           </div>
 
-          {/* <div
-            className="tab-pane fade"
+          <div
+            className={`tab-pane fade ${
+              tabState === "comingsoon" ? "show active" : ""
+            }`}
             id="comingSoon"
             role="tabpanel"
             aria-labelledby="comingSoon-tab"
@@ -115,11 +138,11 @@ const ListPageNP = () => {
                 movieNameEN={filmItem.movieNameEN}
               />
             ))}
-          </div> */}
+          </div>
         </div>
       </div>
     </div>
   );
 };
 
-export default ListPageNP;
+export default ListPage;

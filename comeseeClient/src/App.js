@@ -6,8 +6,7 @@ import Navbar from "./components/navbar";
 import Footer from "./components/footer";
 
 import HomePage from "./components/home/homePage";
-import ListPageNP from "./components/home/listPage_NP";
-import ListPageCS from "./components/home/listPage_CS";
+import ListPage from "./components/home/listPage";
 import InfoPage from "./components/home/infoPage";
 
 import SupportCenter from "./components/supportCenter/SupportCenter";
@@ -45,8 +44,7 @@ class App extends Component {
           <div>
             <Switch>
               <Route path="/" component={HomePage} exact />
-              <Route path="/list/nowplaying" component={ListPageNP} />
-              <Route path="/list/comingsoon" component={ListPageCS} />
+              <Route path="/list" component={ListPage} />
               <Route path="/Info/:id" component={InfoPage} />
               <Route path="/SupportCenter/:page" component={SupportCenter} />
               <Route path="/Collectionpage" component={Collectionpage} />

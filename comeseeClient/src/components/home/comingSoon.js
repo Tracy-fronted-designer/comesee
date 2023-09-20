@@ -39,7 +39,7 @@ const ComingSoon = () => {
 
             <div className={HS.bar}>
                 <h1 className={HS.title}>即將上映 ::</h1>
-                <Link to="/list/comingsoon"><h2 className={HS.more}>
+                <Link to="/list?tab=comingsoon"><h2 className={HS.more}>
                     看更多
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
