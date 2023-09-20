@@ -14,6 +14,8 @@ class Socialhome extends Component {
         this.state = {
             searchTerm: '', // 新添加的搜索词状态
             selectedFilter: '0',
+            sortBy: '0', // 排序標準：0 - 無，1 - 平均分數，2 - 評分人數，3 - 上映日期
+            sortOrder: 'asc',
         };
     }
 
@@ -21,8 +23,14 @@ class Socialhome extends Component {
         this.setState({ searchTerm: e.target.value });
     };
 
+    handleSortChange = (e) => {
+        const sortBy = e.target.value;
+        const sortOrder = sortBy === this.state.sortBy ? (this.state.sortOrder === 'asc' ? 'desc' : 'asc') : 'asc';
+        this.setState({ sortBy, sortOrder });
+    };
+
     render() {
-        const { searchTerm } = this.state; // 获取搜索词
+        const { searchTerm, sortBy, sortOrder } = this.state; // 获取搜索词
         return (
             <div className={Socialhomestyle.all}>
                 <div className={"container " + Socialhomestyle.body}>
@@ -106,7 +114,12 @@ class Socialhome extends Component {
                                 <option value="5">2021</option>
                                 <option value="6">2020</option>
                             </select>
-                            <select defaultValue="0" className={"form-select " + Socialhomestyle.formselect} aria-label="Default select example">
+                            <select
+                                value={sortBy}
+                                className={"form-select " + Socialhomestyle.formselect}
+                                aria-label="Default select example"
+                                onChange={this.handleSortChange}
+                            >
                                 <option value="0">排序</option>
                                 <option value="1">依喜好度排序</option>
                                 <option value="2">依評分人數排序</option>
@@ -124,6 +137,8 @@ class Socialhome extends Component {
                             <Accordion
                                 searchTerm={searchTerm}
                                 selectedFilter={this.state.selectedFilter}
+                                sortBy={sortBy}
+                                sortOrder={sortOrder}
                             />
                         </div>
                     </div>

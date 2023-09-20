@@ -34,7 +34,7 @@ const InfoPage = (props) => {
       .catch((err) => {
         console.log(err.response);
       });
-  }, []);
+  }, [id]);
 
 
 
