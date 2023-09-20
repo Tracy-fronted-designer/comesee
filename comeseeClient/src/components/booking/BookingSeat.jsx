@@ -250,6 +250,9 @@ class BookingSeat extends Component {
 
           {/* 中間白線 */}
           {/* <div className={styles.line}></div> */}
+          <div className={styles.loader}>
+            <div class={styles.tracker}></div>
+          </div>
 
           {/* 下半部 */}
           <div className={`${styles.down} row`}>
