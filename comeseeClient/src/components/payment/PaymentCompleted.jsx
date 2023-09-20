@@ -26,20 +26,16 @@ class PaymentCompleted extends Component {
             <div className="col">
               <div className={CPC.completeRight}>
                 <p className={CPC.completeP1}>購票完成</p>
-                <svg
-                  width="80" 
-                  height="80" 
-                  xmlns="http://www.w3.org/2000/svg"
-                >
+                <svg width="80" height="80" xmlns="http://www.w3.org/2000/svg">
                   <circle
                     className={CPC.circle}
                     fill="none"
                     stroke="#68E534"
                     stroke-width="8"
-                    cx="40" 
+                    cx="40"
                     cy="40"
                     r="35"
-                    transform="rotate(-90 40 40)" 
+                    transform="rotate(-90 40 40)"
                   />
                   <polyline
                     className={CPC.tick}
@@ -118,12 +114,12 @@ class PaymentCompleted extends Component {
   };
 
   goBuy = (movieID) => {
-    this.props.history.push(`/Info/${movieID}`);
+    this.props.history.push(`/info/${movieID}?tab=time`);
     window.scrollTo(0, 0);
   };
 
   goMovie = (movieID) => {
-    this.props.history.push(`/Info/${movieID}`);
+    this.props.history.push(`/info/${movieID}?tab=story`);
     window.scrollTo(0, 0);
   };
 }
