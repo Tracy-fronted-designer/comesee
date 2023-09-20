@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import TicketContext from "../../TicketContext";
 import axios from "axios";
-// import Swal from "sweetalert2";
+import Swal from "sweetalert2";
 
 import TAS from '../../css/home/timetabsComponent.module.css'
 
@@ -68,49 +68,49 @@ const TimeBtn = (props) => {
 
 
     // 取得showtimeID 跟 使用者選擇數量 更新到context
-    // async function handleShowtimID() {
+    async function handleShowtimID() {
 
-    //     if (state.userID === null) {
-    //         const result = await Swal.fire({
-    //             title: '請先登入會員',
-    //             icon: 'warning',
-    //             confirmButtonText: "確認",
-    //         });
+        if (state.userID === null) {
+            const result = await Swal.fire({
+                title: '請先登入會員',
+                icon: 'warning',
+                confirmButtonText: "確認",
+            });
 
-    //         if (result.isConfirmed) {
-    //             window.location.href = "/login";
-    //         }
+            if (result.isConfirmed) {
+                window.location.href = "/login";
+            }
 
-    //     } else {
-    //         axios
-    //             .get(`http://localhost:2407/quickorder/emptySeat/${showTimeID}`)
-    //             .then((res) => {
-    //                 const emptySeat = res.data.emptySeat;
-    //                 console.log("空座位數：", emptySeat);
+        } else {
+            axios
+                .get(`http://localhost:2407/quickorder/emptySeat/${showTimeID}`)
+                .then((res) => {
+                    const emptySeat = res.data.emptySeat;
+                    console.log("空座位數：", emptySeat);
 
-    //                 // 位置數量ok
-    //                 if (parseInt(selectedValue) <= emptySeat) {
-    //                     setState({ showtimeID: showTimeID });
-    //                     setState({ maxSelectedSeats: parseInt(selectedValue) });
-    //                     history.push("/bookingseat");
-    //                     window.scrollTo(0, 0);
-    //                 } else {
-    //                     // 位置數不夠
-    //                     Swal.fire({
-    //                         title: '您目前所選的時段已無空位',
-    //                         text: "請重新選擇",
-    //                         icon: 'warning',
-    //                         confirmButtonText: "確認",
-    //                     })
-    //                     // return;
-    //                 }
-    //             })
-    //             .catch((err) => {
-    //                 console.log(err.response);
-    //             });
-    //     };
+                    // 位置數量ok
+                    if (parseInt(selectedValue) <= emptySeat) {
+                        setState({ showtimeID: showTimeID });
+                        setState({ maxSelectedSeats: parseInt(selectedValue) });
+                        history.push("/bookingseat");
+                        window.scrollTo(0, 0);
+                    } else {
+                        // 位置數不夠
+                        Swal.fire({
+                            title: '您目前所選的時段已無空位',
+                            text: "請重新選擇",
+                            icon: 'warning',
+                            confirmButtonText: "確認",
+                        })
+                        // return;
+                    }
+                })
+                .catch((err) => {
+                    console.log(err.response);
+                });
+        };
 
-    // };
+    };
 
 
 
@@ -139,7 +139,7 @@ const TimeBtn = (props) => {
 
 
             {/* check modal */}
-            < div
+            <div
                 className="modal fade"
                 id="checkModal"
                 tabindex="-1"
@@ -209,7 +209,7 @@ const TimeBtn = (props) => {
                         </div>
 
                         <div className={`${TAS.modalfooter} modal-footer`} >
-                            <button className={TAS.modalcheck} type="button" onClick={handleShowtimID} >送出</button>
+                            <button type="button" className={`${TAS.modalcheck}`} data-bs-dismiss="modal" aria-label="Close" onClick={handleShowtimID} >送出</button>
                         </div>
 
                     </div>
@@ -224,6 +224,8 @@ const TimeBtn = (props) => {
 
         </>
     );
+
+
 }
 
 
