@@ -1,14 +1,14 @@
 import React, { useContext, useEffect, useState } from "react";
-import axios from "axios";
 import { useHistory } from "react-router-dom";
-
-import HS from "../../css/home/homePage.module.css";
 
 import TicketContext from "../../TicketContext";
 import Swal from "sweetalert2";
+import axios from "axios";
+
+import HS from "../../css/home/homePage.module.css";
 
 const QuickOrder = () => {
-  const { state, setState } = useContext(TicketContext); //設定使用context
+  const { state, setState } = useContext(TicketContext); // 設定使用context
   const history = useHistory();
 
   const [orderCinema, setOrderCinema] = useState([]);
@@ -24,11 +24,11 @@ const QuickOrder = () => {
   const [selectedNumber, setSelectedNumber] = useState("");
   const [showModal, setShowModal] = useState(false);
 
-  // console.log(selectedCinema)      //影城1or2
-  // console.log(selectedMovie)       //movieID,theaterID
-  // console.log(selectedDate)        //場次時間 2023-00-00
-  // console.log(selectedShowtime)    //startTime
-  // console.log(selectedNumber)      //選擇人數
+  // console.log(selectedCinema)      // 影城1or2
+  // console.log(selectedMovie)       // movieID,theaterID
+  // console.log(selectedDate)        // 場次時間 2023-00-00
+  // console.log(selectedShowtime)    // startTime
+  // console.log(selectedNumber)      // 選擇人數
 
   // 後端抓取影城選項
   useEffect(() => {
@@ -63,6 +63,7 @@ const QuickOrder = () => {
       setSelectedNumber("");
     };
   }
+
   // 篩選影片選項
   useEffect(() => {
     axios
@@ -149,18 +150,6 @@ const QuickOrder = () => {
   function handleNumberChange(e) {
     setSelectedNumber(e.target.value);
   };
-
-  // 購票事件處理
-
-  // const openModal = () => {
-  //   setShowModal(true);
-  // };
-
-  const closeModal = () => {
-    setShowModal(false);
-  };
-
-
 
   // 取得showtimeID 跟 使用者選擇數量 更新到context
   function handleShowtimID() {
@@ -309,50 +298,12 @@ const QuickOrder = () => {
           type="button"
           className={HS.quickBtn}
           onClick={handleShowtimID}
-        // 原本的modal綁定
-        // data-bs-toggle="modal"
-        // data-bs-target="#Modal"
         >
           即刻購票
         </button>
 
       </form>
 
-      {/* 原本的modal */}
-      {/* <div
-        className="modal fade"
-        id="Modal"
-        tabindex="-1"
-        aria-labelledby="ModalLabel"
-        aria-hidden="true"
-      >
-        <div className="modal-dialog modal-dialog-centered">
-          <div className={`${HS.modalcontent} modal-content`}>
-            <div className={`${HS.modalheader} modal-header`}>
-              <button
-                type="button"
-                className={`${HS.modalclose} btn-close`}
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              />
-            </div>
-            <div className={`${HS.modalbody} modal-body`}>
-              <h3 className={HS.modaltitle}>注意</h3>
-              <p className={HS.modaltext}>您目前所選的時段已無空位</p>
-              <p className={HS.modaltext}>請重新選擇</p>
-            </div>
-            <div className={`${HS.modalfooter} modal-footer`}>
-              <button
-                type="button"
-                className={HS.modalcheck}
-                data-bs-dismiss="modal"
-              >
-                確認
-              </button>
-            </div>
-          </div>
-        </div>
-      </div> */}
 
     </>
   );
