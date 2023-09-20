@@ -16,8 +16,6 @@ const ListPage = () => {
     new URLSearchParams(history.location.search).get("tab") || "nowplaying"
   );
 
-  console.log(tabState);
-
   // 監聽URL的變化，當URL改變時更新標籤
   useEffect(() => {
     const tabFromURL = new URLSearchParams(location.search).get("tab");

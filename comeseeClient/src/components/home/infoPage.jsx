@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import axios from "axios";
 
 import Score from "./score";
@@ -15,13 +15,20 @@ const InfoPage = (props) => {
   const [filmInfo, setFilmInfo] = useState([]);
   const [averageScore, setAverageScore] = useState(0); // 初始化平均分數狀態
   const id = parseInt(props.match.params.id);
-  const history = useHistory();
 
-  /////////
+  const history = useHistory();
+  const location = useLocation();
+
   const [tabState, setTabState] = useState(
     new URLSearchParams(props.location.search).get("tab") || "time"
   );
-  /////////
+
+  useEffect(() => {
+    const tabFromURL = new URLSearchParams(location.search).get("tab");
+    if (tabFromURL) {
+      setTabState(tabFromURL);
+    }
+  }, [location.search]);
 
   // 指定電影資訊
   useEffect(() => {
