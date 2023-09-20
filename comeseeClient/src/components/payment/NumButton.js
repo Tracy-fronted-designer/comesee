@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 
+import NB from "../../css/payment/Numbutton.module.css"
+
 class NumButton extends Component {
     state = {
     }
@@ -24,9 +26,11 @@ class NumButton extends Component {
         const {maxValue1,maxValue2} =this.props
         const maxValue =  maxValue1 && maxValue2 ? (maxValue1 < maxValue2 ? maxValue1 : maxValue2 ) : maxValue2
         return (
+            <span className={NB.input}>
             <React.Fragment>
                 <input type="number" style={this.btnStyle} onChange={this.handleInputChange} min="0" max={maxValue} step={this.props.stepValue  || "1" } value={this.props.value || 0}/>
             </React.Fragment>
+            </span>
         );
     }
 
