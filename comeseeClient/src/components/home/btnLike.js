@@ -12,7 +12,7 @@ class BtnLike extends Component {
     fontSize: "24px",
     fontStyle: "normal",
     fontWeight: "500",
-    lineHeight: "25px",
+    lineHeight: "35px",
 
     border: "none",
     borderRadius: "20px",
@@ -32,7 +32,7 @@ class BtnLike extends Component {
 
   render() {
     // const { isLiked } = this.state;
-    const isliked = this.props.showToast;
+    const isliked = this.props.isLiked;
     return (
       <div
         // onClick={this.handleLike}

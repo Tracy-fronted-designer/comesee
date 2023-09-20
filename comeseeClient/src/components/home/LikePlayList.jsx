@@ -1,32 +1,60 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import axios from "axios";
-
+import Swal from "sweetalert2";
 
 function LikePlayList(props) {
+  const { playlistID, listname, closeModal, movieID, setIsLiked } = props;
 
-  
-    // useEffect(() => {
-    //   if (onClickPlayListID !== null && onClickPlayListID !== undefined) {
-    //     //在movieinplaylist資料表中取得該playlistID擁有的電影ID與中文名與imageUrl
-    //     axios
-    //       .get(
-    //         `http://localhost:2407/playlist/movieinplaylist/${onClickPlayListID}`
-    //       )
-    //       .then((response) => {
-    //         setMovieList(response.data);
-    //       })
-    //       .catch((error) => {
-    //         console.error("Error fetching data:", error);
-    //       });
-    //   }
-    // }, [onClickPlayListID]);
-  
-    return (
-     <div>
-        <span></span>
-        <button></button>
-     </div>
-    );
-  }
-  
-  export default LikePlayList;
+  const Toast = Swal.mixin({
+    toast: true,
+    position: "top-end",
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener("mouseenter", Swal.stopTimer);
+      toast.addEventListener("mouseleave", Swal.resumeTimer);
+    },
+  });
+
+  //   useEffect(() => {
+
+  //   }, []);
+  const addMovieIntoPlayList = () => {
+    axios
+      .post(`http://localhost:2407/playlist/movie`, {
+        playlistID: playlistID,
+        MovieID: movieID,
+      })
+      .then((response) => {
+        // console.log(response.data);
+        //新增收藏成功
+        if (response.data.result) {
+          Toast.fire({
+            icon: "success",
+            title: "收藏電影成功",
+            html: `
+            <div>
+              <a href="/Collectionpage">查看我的收藏片單</a>
+            </div>
+          `,
+          });
+        }
+
+        setIsLiked(true);
+        closeModal();
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+  };
+
+  return (
+    <div>
+      <span>{listname}</span>
+      <button onClick={addMovieIntoPlayList}>加入</button>
+    </div>
+  );
+}
+
+export default LikePlayList;
