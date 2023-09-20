@@ -65,23 +65,29 @@ class Recommend extends Component {
   }
 
   // 從後端拿到推薦電影
-  // async componentDidMount() {
-  //   try {
-  //     if (this.context.state.userID === null) {
-  //       const res = await axios.get(
-  //         `http://localhost:2407/recommend/home/1`
-  //       );
-  //       // console.log(res); //object
-  //       this.setState({ recommendedMovies: res.data }); //data 裡面是 array(電影資料)
-  //     } else {
-  //       const res = await axios.get(`http://localhost:2407/recommend/home/${this.context.state.userID}`);
-  //       console.log("userID is not available yet.");
-  //       this.setState({ recommendedMovies: res.data }); //data 裡面是 array(電影資料)
-  //     }
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // }
+  async componentDidMount() {
+    if (!this.context.state.userID) {
+      const res = await axios.get(
+        `http://localhost:2407/recommend/home/7`
+      );
+      const recommendedMovies = Array.isArray(res.data) ? res.data : [res.data];
+      this.setState({ recommendedMovies });
+      return;
+    }
+    try {
+      const res = await axios.get(
+        `http://localhost:2407/recommend/home/${this.context.state.userID}`
+      );
+      // console.log('this.context.state.userID'+this.context.state.userID);
+      // console.log("Response:", res);
+      // console.log("Response data:", res.data);
+      const recommendedMovies = Array.isArray(res.data) ? res.data : [res.data];
+      console.log("Recommended movies:", recommendedMovies);
+      this.setState({ recommendedMovies });
+    } catch (error) {
+      console.error(error);
+    }
+  }
 }
 
 export default Recommend;
