@@ -140,8 +140,10 @@ class Discount extends Component {
             </div>
           </div>
 
-          {/* 中間白線 */}
-          <div className={DT.line}></div>
+           {/* 中間白線 */}
+           <div className={DT.loader}>
+            <div class={DT.tracker}></div>
+          </div>
 
           {/* 下半部 */}
           <div className="row">
