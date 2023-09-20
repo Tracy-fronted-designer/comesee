@@ -312,16 +312,6 @@
     margin-top: 100px;
 }
 
-.recommend>p {
-    color: #F1EFE9;
-    font-family: "Noto Sans TC";
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 125%;
-    margin-bottom: 28px;
-}
-
 
 .circle {
     stroke:64A26A;
@@ -358,3 +348,29 @@
       stroke-dashoffset: 0;
     }
   }
+
+
+  /* 你可能感興趣...(打字機效果) */
+  .recommend>p {
+    color: #F1EFE9;
+    font-family: "Noto Sans TC";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 125%;
+    margin-bottom: 28px;
+    height: 18px;
+    animation: typing 2s steps(9, end);
+    overflow: hidden;
+}
+
+
+@keyframes typing {
+    from {
+        width: 0;
+    }
+    to {
+        width: 9em;
+    }
+};
+
