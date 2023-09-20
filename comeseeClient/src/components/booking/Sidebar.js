@@ -16,7 +16,9 @@ class Sidebar extends Component {
 
   //  底線樣式
   SidebarChoose = {
-    borderBottom: "3px solid #F1EFE9",
+    color: "#B6B995",
+    fontWeight: "800",
+    borderBottom: "3px solid #9E9E9E",
   };
 
   render() {

@@ -17,7 +17,7 @@
 
 .grayBackground {
   background: var(--gray);
-  padding: 130px 0px 0px 0px;
+  padding: 130px 12px 0px 12px;
   min-height: 100vh;
 }
 .grade {
@@ -261,12 +261,12 @@
   45% {
     transform: scaleX(1);
     transform-origin: left;
-    background-color: rgba(241, 239, 233, 1); /* 更深的透明度 */
+    background-color: #757575; /* 更深的透明度 */
   }
   60% {
     transform: scale(1);
     transform-origin: right;
-    background-color: rgba(241, 239, 233, 1); /* 保持透明度 */
+    background-color: #757575; /* 保持透明度 */
   }
   85%,
   100% {
