@@ -14,7 +14,9 @@ import IS from "../../css/home/infoPage.module.css";
 const InfoPage = (props) => {
   const [filmInfo, setFilmInfo] = useState([]);
   const [averageScore, setAverageScore] = useState(0); // 初始化平均分數狀態
+
   const id = parseInt(props.match.params.id);
+  console.log(id);
 
   const history = useHistory();
   const location = useLocation();
@@ -50,8 +52,6 @@ const InfoPage = (props) => {
         console.log(err.response);
       });
   }, [id]);
-
-
 
   // 轉成localTime，傳入utc字串
   const targetLocalDate = (utcStr) => {
@@ -115,51 +115,10 @@ const InfoPage = (props) => {
           {/* 分頁標籤 */}
           <nav className={IS.myNav}>
             <div className={IS.myTabs} id="nav-tab" role="tablist">
-              {/* <button
-                className={`${IS.myLink} infoTab active`}
-                id="time-tab"
-                data-bs-toggle="tab"
-                data-bs-target="#time"
-                type="button"
-                role="tab"
-                aria-controls="time"
-                aria-selected="true"
-                onClick={handleTimeTabChange}
-              >
-                電影時刻
-              </button>
-
               <button
-                className={`${IS.myLink} infoTab`}
-                id="story-tab"
-                data-bs-toggle="tab"
-                data-bs-target="#story"
-                type="button"
-                role="tab"
-                aria-controls="story"
-                aria-selected="false"
-                onClick={handleStoryTabChange}
-              >
-                劇情介紹
-              </button>
-
-              <button
-                className={`${IS.myLink} infoTab`}
-                id="comment-tab"
-                data-bs-toggle="tab"
-                data-bs-target="#comment"
-                type="button"
-                role="tab"
-                aria-controls="comment"
-                aria-selected="false"
-                onClick={handleCommentTabChange}
-              >
-                評論
-              </button> */}
-
-              <button
-                className={`${IS.myLink} infoTab ${tabState === "time" ? "active" : ""
-                  }`}
+                className={`${IS.myLink} infoTab ${
+                  tabState === "time" ? "active" : ""
+                }`}
                 id="time-tab"
                 data-bs-toggle="tab"
                 data-bs-target="#time"
@@ -173,8 +132,9 @@ const InfoPage = (props) => {
               </button>
 
               <button
-                className={`${IS.myLink} infoTab ${tabState === "story" ? "active" : ""
-                  }`}
+                className={`${IS.myLink} infoTab ${
+                  tabState === "story" ? "active" : ""
+                }`}
                 id="story-tab"
                 data-bs-toggle="tab"
                 data-bs-target="#story"
@@ -188,8 +148,9 @@ const InfoPage = (props) => {
               </button>
 
               <button
-                className={`${IS.myLink} infoTab ${tabState === "comment" ? "active" : ""
-                  }`}
+                className={`${IS.myLink} infoTab ${
+                  tabState === "comment" ? "active" : ""
+                }`}
                 id="comment-tab"
                 data-bs-toggle="tab"
                 data-bs-target="#comment"
@@ -207,8 +168,9 @@ const InfoPage = (props) => {
           {/* 分頁內容 */}
           <div className={`${IS.myContent} tab-content`} id="nav-tabContent">
             <div
-              className={`tab-pane fade ${tabState === "time" ? "show active" : ""
-                }`}
+              className={`tab-pane fade ${
+                tabState === "time" ? "show active" : ""
+              }`}
               id="time"
               role="tabpanel"
               aria-labelledby="time-tab"
@@ -217,8 +179,9 @@ const InfoPage = (props) => {
             </div>
 
             <div
-              className={`tab-pane fade ${tabState === "story" ? "show active" : ""
-                }`}
+              className={`tab-pane fade ${
+                tabState === "story" ? "show active" : ""
+              }`}
               id="story"
               role="tabpanel"
               aria-labelledby="story-tab"
@@ -227,8 +190,9 @@ const InfoPage = (props) => {
             </div>
 
             <div
-              className={`tab-pane fade ${tabState === "comment" ? "show active" : ""
-                }`}
+              className={`tab-pane fade ${
+                tabState === "comment" ? "show active" : ""
+              }`}
               id="comment"
               role="tabpanel"
               aria-labelledby="comment-tab"

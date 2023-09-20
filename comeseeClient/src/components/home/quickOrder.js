@@ -137,7 +137,7 @@ const QuickOrder = () => {
       .catch((err) => {
         console.log(err.response);
       });
-    console.log(selectedDate);
+    // console.log(selectedDate);
   }, [selectedMovie, selectedCinema, selectedDate]);
 
   // 場次選擇事件處理
