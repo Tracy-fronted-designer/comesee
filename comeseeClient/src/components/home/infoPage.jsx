@@ -201,7 +201,9 @@ const InfoPage = (props) => {
           {/* 分頁內容 */}
           <div className={`${IS.myContent} tab-content`} id="nav-tabContent">
             <div
-              className="tab-pane fade show active"
+              className={`tab-pane fade ${
+                tabState === "time" ? "show active" : ""
+              }`}
               id="time"
               role="tabpanel"
               aria-labelledby="time-tab"
@@ -210,7 +212,9 @@ const InfoPage = (props) => {
             </div>
 
             <div
-              className="tab-pane fade"
+              className={`tab-pane fade ${
+                tabState === "story" ? "show active" : ""
+              }`}
               id="story"
               role="tabpanel"
               aria-labelledby="story-tab"
@@ -219,7 +223,9 @@ const InfoPage = (props) => {
             </div>
 
             <div
-              className="tab-pane fade"
+              className={`tab-pane fade ${
+                tabState === "comment" ? "show active" : ""
+              }`}
               id="comment"
               role="tabpanel"
               aria-labelledby="comment-tab"
