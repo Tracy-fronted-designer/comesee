@@ -107,6 +107,7 @@ function TimeAccordion(props) {
                                 < TimeBtn
                                     movieID={id}
                                     date={date}
+                                    cinemaID={cinemaID}
                                     theaterID={vItem.theaterID}
                                 />
                             </div>

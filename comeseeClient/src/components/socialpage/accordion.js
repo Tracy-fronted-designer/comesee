@@ -5,7 +5,7 @@ import StarRate from './starRate'
 import Star from './star'
 import axios from 'axios';
 
-function Accordion({ searchTerm, selectedFilter }) {
+function Accordion({ searchTerm, selectedFilter, sortBy, sortOrder }) {
 
     const [movie, setMovie] = useState([]);
     const [members, setMembers] = useState([]);
@@ -126,11 +126,39 @@ function Accordion({ searchTerm, selectedFilter }) {
         return (totalScore / user.comments.length).toFixed(1); // 四舍五入到小数点后一位
     };
 
+    const sortUsers = (users, sortBy, sortOrder) => {
+        // 根據所選的標準和順序實現排序邏輯
+        switch (sortBy) {
+            case '1': // 按平均分數排序
+                return users.sort((a, b) => {
+                    const scoreA = parseFloat(calculateAverageScore(a));
+                    const scoreB = parseFloat(calculateAverageScore(b));
+                    return sortOrder === 'asc' ? scoreB - scoreA : scoreA - scoreB;
+                });
+            case '2': // 按評分人數排序
+                return users.sort((a, b) => {
+                    const ratersA = calculateTotalRaters(a);
+                    const ratersB = calculateTotalRaters(b);
+                    return sortOrder === 'asc' ? ratersB - ratersA : ratersA - ratersB;
+                });
+            case '3': // 按上映日期排序
+                return users.sort((a, b) => {
+                    const dateA = new Date(a.releaseDate);
+                    const dateB = new Date(b.releaseDate);
+                    return sortOrder === 'asc' ? dateB - dateA : dateA - dateB;
+                });
+            default:
+                return users;
+        }
+    };
+
+    const sortedUsers = sortUsers(filteredUsers, sortBy, sortOrder);
 
     return (
         <div className={Socialhomestyle.accordionall}>
 
-            {filteredUsers.slice(startIndex, endIndex).map((user, index1) => (
+            {sortedUsers.slice(startIndex, endIndex).map((user, index1) => (
+                // {filteredUsers.slice(startIndex, endIndex).map((user, index1) => (
                 <div className={Socialhomestyle.accordnall} key={index1}>
                     <h2 id={`flush-heading${index1}`} className={Socialhomestyle.accordionh2}>
                         <button
@@ -155,7 +183,7 @@ function Accordion({ searchTerm, selectedFilter }) {
                             <div className={Socialhomestyle.accordion123 + " col-3"}>{user.movieNameCN}</div>
                             <div className={Socialhomestyle.accordion123 + " col-4"}>
                                 {new Date(user.releaseDate).toISOString().split('T')[0]}</div>
-                            <div className={Socialhomestyle.accordion123 + " col-3"}><Star /><div className={Socialhomestyle.accordion1234}>{calculateAverageScore(user)}</div></div>
+                            <div className={Socialhomestyle.accordion123 + " col-3"}><Star averageScore={parseFloat(calculateAverageScore(user))} /><div className={Socialhomestyle.accordion1234}>{calculateAverageScore(user)}</div></div>
                             <div className={Socialhomestyle.accordion123 + " col-2"}>共{calculateTotalRaters(user)}位評分</div>
                         </button>
                     </h2>
@@ -184,8 +212,8 @@ function Accordion({ searchTerm, selectedFilter }) {
                                         </div>
                                     );
                                 })}
+                                <Link to={`/info/${user.id}?tab=comment`} className={Socialhomestyle.btnmore} data-hover="電影介紹"><div>看更多</div></Link>
                             </div>
-
                         </div>
                     </div>
                 </div>

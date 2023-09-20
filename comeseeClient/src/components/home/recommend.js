@@ -54,9 +54,8 @@ class Recommend extends Component {
           >
             {this.state.recommendedMovies.map((filmPoster, index) => {
               return (
-                <SwiperSlide className={HS.imgContainer}>
+                <SwiperSlide className={HS.imgContainer} key={index}>
                   <img
-                    key={index}
                     className={HS.listSlide}
                     src={filmPoster.imageUrl}
                     alt=" "

@@ -14,7 +14,9 @@ import IS from "../../css/home/infoPage.module.css";
 const InfoPage = (props) => {
   const [filmInfo, setFilmInfo] = useState([]);
   const [averageScore, setAverageScore] = useState(0); // 初始化平均分數狀態
+
   const id = parseInt(props.match.params.id);
+  console.log(id);
 
   const history = useHistory();
   const location = useLocation();
@@ -113,48 +115,6 @@ const InfoPage = (props) => {
           {/* 分頁標籤 */}
           <nav className={IS.myNav}>
             <div className={IS.myTabs} id="nav-tab" role="tablist">
-              {/* <button
-                className={`${IS.myLink} infoTab active`}
-                id="time-tab"
-                data-bs-toggle="tab"
-                data-bs-target="#time"
-                type="button"
-                role="tab"
-                aria-controls="time"
-                aria-selected="true"
-                onClick={handleTimeTabChange}
-              >
-                電影時刻
-              </button>
-
-              <button
-                className={`${IS.myLink} infoTab`}
-                id="story-tab"
-                data-bs-toggle="tab"
-                data-bs-target="#story"
-                type="button"
-                role="tab"
-                aria-controls="story"
-                aria-selected="false"
-                onClick={handleStoryTabChange}
-              >
-                劇情介紹
-              </button>
-
-              <button
-                className={`${IS.myLink} infoTab`}
-                id="comment-tab"
-                data-bs-toggle="tab"
-                data-bs-target="#comment"
-                type="button"
-                role="tab"
-                aria-controls="comment"
-                aria-selected="false"
-                onClick={handleCommentTabChange}
-              >
-                評論
-              </button> */}
-
               <button
                 className={`${IS.myLink} infoTab ${
                   tabState === "time" ? "active" : ""

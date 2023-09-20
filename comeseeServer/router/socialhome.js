@@ -9,6 +9,7 @@ socialhome.get("/", function (req, res) {
             const { id, movieNameCN, releaseDate, imageUrl, comment, userID, userName, score } = row;
             if (!movieComments[id]) {
                 movieComments[id] = {
+                    id,
                     movieNameCN,
                     releaseDate,
                     imageUrl,
