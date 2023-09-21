@@ -8,31 +8,31 @@ class btnLargeActive extends Component {
         height: "40px",
         borderRadius: "15px",
         border: "2px solid  #A6A79B",
-        backgroundColor: "#B6B995",
-        marginRight:"50px",
+        backgroundColor: "#F1EFE9",
+        marginRight: "50px",
 
-        color: "#F1EFE9",
+        color: "#727366",
         textAlign: "center",
         fontFamily: "Noto Sans TC",
-        fontSize: "18px",
+        fontSize: "20px",
         fontStyle: "normal",
-        fontWeight: "500",
+        fontWeight: "700",
         lineHeight: "22.5px"
     }
 
     btnStyleActive = {
-        backgroundColor: "#F1EFE9",
-        color: "#A6A79B"
+        backgroundColor: "#727366",
+        color: "#F1EFE9",
 
     }
 
 
     render() {
-        var { label, isActive, onClick} = this.props;
+        var { label, isActive, onClick } = this.props;
         return (
             <button
                 onClick={onClick}
-                style={isActive ? {...this.btnStyle, ...this.btnStyleActive} : this.btnStyle}
+                style={isActive ? { ...this.btnStyle, ...this.btnStyleActive } : this.btnStyle}
             >
                 {label}
             </button>
