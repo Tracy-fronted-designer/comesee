@@ -1,44 +1,106 @@
-import React, { useState } from 'react';
+import axios from "axios";
+import React, { useState, useContext, useEffect } from "react";
+//import AvatarEditor from "react-avatar-editor";
 import member from "../../css/member/member.module.css";
-
+import catchUser from "../../TicketContext";
 
 function AvatarUpload() {
+  const [data, setdata] = useState(null);
   const [file, setFile] = useState(null);
+  const [previewImage, setPreviewImage] = useState(null); // 預覽
+  const [isFileInputVisible, setIsFileInputVisible] = useState(true);
+  const context = useContext(catchUser);
+  const user = context.state.userID;
+  //const [scale, setScale] = useState(1);
+  //const fileInputRef = useRef(null);
 
-  const handleFileChange = (event) => {
-    const selectedFile = event.target.files[0];
+  useEffect(() => {
+    axios
+      .get(`http://localhost:2407/user/image/${user}`)
+      .then((res) => {
+        setdata(res.data[0]);
+        console.log(res.data[0].image);
+      })
+      .catch((err) => console.log(err));
+  }, [user]);
+
+  const handleFile = (e) => {
+    const selectedFile = e.target.files[0];
     setFile(selectedFile);
-    handleUpload(selectedFile); 
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      setPreviewImage(reader.result);
+    };
+    reader.readAsDataURL(selectedFile);
+
+    setIsFileInputVisible(false);
+  };
+  const handleUpload = () => {
+    const formdata = new FormData();
+    formdata.append("image", file);
+    axios
+      .post(`http://localhost:2407/user/uploads/${user}`, formdata)
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
+      window.location.href = "/member";
 
   };
 
-  const handleUpload = async () => {
-
-    const formData = new FormData();
-    formData.append('file', file);
-
-    try {
-      const response = await fetch('http://localhost:2407/user/uploads', {
-        method: 'POST',
-        body: formData,
-      });
-
-      if (response.ok) {
-        alert('大頭貼上傳成功');
-      } else {
-        alert('大頭貼上傳失敗');
-      }
-    } catch (error) {
-      console.error('上傳出錯:', error);
+  const handleImageClick = () => {
+    if (!isFileInputVisible) {
+      document.getElementById("fileInput").click();
     }
   };
 
   return (
-    <div>
-      <input className={member.AvatarUpload} type="file" accept="image/*" onChange={handleFileChange} />
-    </div>
+    <div className={member.AvatarUpload}>
+      {!data || !data.image ? (
+        <div>
+          <label className={member.Avatarinput}>
+            <span className={member.AvatarChooseText}>選擇照片</span>
+            <input
+              id="fileInput"
+              className={member.Avatarinput}
+              type="file"
+              onChange={handleFile}
+              style={{ display: "none" }}
+            />
+          </label>
+        </div>
+      ) : (
+        <div onClick={handleImageClick} style={{ cursor: "pointer" }}>
+          <img
+            className={member.Avatarstyle}
+            src={`http://localhost:2407/user/image/${data.image}`}
+            alt="Preview"
+          />
+        </div>
+      )}
 
-    
+      {previewImage && (
+        <div>
+          <img
+            className={member.Avatarstyle}
+            src={previewImage}
+            alt="Preview"
+          />
+          <button className={member.customfileinput} onClick={handleUpload}>
+            上傳照片
+          </button>
+        </div>
+      )}
+      <label className={member.Avatarinput}>
+        <span className={member.AvatarChooseText}>選擇照片</span>
+        <input
+          id="fileInput"
+          className={member.Avatarinput}
+          type="file"
+          onChange={handleFile}
+          style={{ display: "none" }}
+        />
+      </label>
+    </div>
   );
 }
 

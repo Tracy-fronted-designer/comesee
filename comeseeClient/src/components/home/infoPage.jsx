@@ -3,7 +3,7 @@ import { useHistory, useLocation } from "react-router-dom";
 import axios from "axios";
 
 import Score from "./score";
-import ToastComponent from "./like";
+import Like from "./like";
 
 import TimeTabs from "./timeTabs";
 import StoryTabs from "./storyTabs";
@@ -105,7 +105,8 @@ const InfoPage = (props) => {
           </div>
 
           <div className={`${IS.scoreBox} col-3 px-5 py-3`}>
-            <ToastComponent />
+            {/* 收藏按鈕 */}
+            <Like movieID={id} />
             <Score id={filmInfo.id} averageScore={averageScore} />
           </div>
         </div>

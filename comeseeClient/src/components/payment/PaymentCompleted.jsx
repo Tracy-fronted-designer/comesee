@@ -61,7 +61,7 @@ class PaymentCompleted extends Component {
                 <BtnLargeHover label="會員中心" onClick={this.goMemberCenter} />
               </div>
               <div className={CPC.recommend}>
-                <p>你可能感興趣...</p>
+                <p>你 可 能 感 興 趣 . . .</p>
 
                 {this.state.recommendedMovies.map((movieInfo, index) => {
                   // console.log(movieInfo)

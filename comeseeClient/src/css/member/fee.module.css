@@ -109,7 +109,7 @@
 .leftcontent {
   display: flex;
   flex-direction: column;
-  justify-content: start;
+  justify-content: flex-start;
   align-items: center;
   color: #f1efe9;
   margin: 10px;
