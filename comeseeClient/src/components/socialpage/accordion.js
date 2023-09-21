@@ -195,7 +195,7 @@ function Accordion({ searchTerm, selectedFilter, sortBy, sortOrder }) {
                     >
                         <div className={"accordion-body " + Socialhomestyle.accordionbody}>
                             <div className="col-1"></div>
-                            <img className={Socialhomestyle.poster + " col-2"} src={user.imageUrl} height="230px" alt=""></img>
+                            <img className={Socialhomestyle.poster + " col-2"} src={user.imageUrl} height="250px" alt=""></img>
                             <div className="col-1"></div>
                             <div className={Socialhomestyle.usercomment + " col-6"}>
                                 {user.comments.slice(0, 5).map((commentData, commentIndex) => {

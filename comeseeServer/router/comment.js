@@ -10,7 +10,7 @@ comment.get("/", function (req, res) {
 });
 
 comment.get("/members", function (req, res) {
-    db.exec("SELECT UserID, userName FROM member", [], function (results, fields) {
+    db.exec("SELECT UserID, userName, image FROM member", [], function (results, fields) {
         res.send(JSON.stringify(results));
     });
 });
