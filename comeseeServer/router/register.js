@@ -67,10 +67,11 @@ router.post(
       const hashedPassword = await bcrypt.hash(password, saltRounds);
       const reset_token = null;
       const selfintro = null;
+      const image = null;
 
       // 将用户信息插入数据库，包括 moviePreferences
       db.exec(
-        "INSERT INTO member (email, password, username, gender, birthday, phonenumber, addressCity, addressTown, addressDetail, moviePreferences, selfintro, reset_token) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "INSERT INTO member (email, password, username, gender, birthday, phonenumber, addressCity, addressTown, addressDetail, moviePreferences, selfintro, reset_token, image) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         [
           email,
           hashedPassword,
@@ -84,6 +85,7 @@ router.post(
           moviePreferencesString,
           selfintro,
           reset_token,
+          image,
         ],
         (results, fields) => {
           if (results && results.insertId) {
