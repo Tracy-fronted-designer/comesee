@@ -185,31 +185,6 @@ function Tabs(props) {
 
         {/* 片單 */}
         <div className={toggleState === 2 ? Tabb.activecontent : Tabb.content}>
-          {/* <div className={SocialStyle.movietype}>
-            <BtnLarge label="動作" />
-            <BtnLarge label="愛情" />
-            <BtnLarge label="搞笑" />
-            <BtnLarge label="經典" />
-            <BtnLarge label="驚悚" />
-            <BtnLarge label="感人" />
-            <BtnLarge label="感人" />
-            <BtnLarge label="感人" />
-            <BtnLarge label="感人" />
-            <BtnLarge label="感人" />
-            <BtnLarge label="感人" />
-            <BtnLarge label="動作" />
-            <BtnLarge label="愛情" />
-            <BtnLarge label="搞笑" />
-            <BtnLarge label="經典" />
-            <BtnLarge label="驚悚" />
-            <BtnLarge label="感人" />
-            <BtnLarge label="感人" />
-            <BtnLarge label="感人" />
-            <BtnLarge label="感人" />
-            <BtnLarge label="感人" />
-            <BtnLarge label="感人" />
-          </div> */}
-
           <PlayListArea userID={userID} />
         </div>
       </div>
