@@ -212,7 +212,7 @@ function Accordion({ searchTerm, selectedFilter, sortBy, sortOrder }) {
                                         </div>
                                     );
                                 })}
-                                <Link to={`/info/${user.id}?tab=comment`} className={Socialhomestyle.btnmore} data-hover="電影介紹"><div>看更多</div></Link>
+                                <Link to={`/info/${user.id}?tab=comment`} className={Socialhomestyle.btnmore} data-hover="發表評論"><div className={Socialhomestyle.btnmore2}>看更多</div></Link>
                             </div>
                         </div>
                     </div>

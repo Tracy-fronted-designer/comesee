@@ -438,11 +438,12 @@
 
 .btnmore {
     position: relative;
-    width: 200px;
-    background: #FFFFFF;
-    border: 2px solid #111111;
+    width: 100px;
+    background: rgba(166, 167, 155, 0.5);
+    border-radius: 50px;
+    border: none;
     text-decoration: none;
-    color: #B6B995;
+    color: #F1EFE9;
     overflow: hidden;
 }
 
@@ -452,7 +453,7 @@
     font-weight: bold;
     text-transform: uppercase;
     transition: all .3s ease-in-out;
-    padding: 5px 5px;
+    padding: 0px 15px;
 }
 
 .btnmore:before {
@@ -473,4 +474,8 @@
 .btnmore:hover:before {
     opacity: 1;
     transform: translate(0, 0);
+}
+
+.btnmore2 {
+    text-align: center;
 }

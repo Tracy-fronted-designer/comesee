@@ -90,5 +90,21 @@ filminfo.get("/averageScore/:movieID", function (req, res) {
     );
 });
 
+filminfo.get("/trailer/:id", function (req, res) {
+    let id = req.params.id; // 获取电影的ID参数
+    db.exec("SELECT trailerURL FROM movie WHERE id = ?",
+        [id],
+        function (results, fields) {
+            if (results.length > 0) {
+                const trailerURL = results[0].trailerURL;
+                res.send({ trailerURL });
+            } else {
+                res.status(404).send({ message: "电影未找到" });
+            }
+        }
+    );
+});
+
+
 //這個路由匯出以後是app.js使用
 module.exports = filminfo;
