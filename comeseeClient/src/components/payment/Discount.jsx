@@ -161,7 +161,7 @@ class Discount extends Component {
                 </div>
                 <div className={"col " + DT.discountList}>
                   <div className={DT.pLogoBg}>P</div>
-                  <div className={DT.pointsP}>目前點數 {myPoint} 點</div>
+                  <div className={DT.pointsP}>目前點數&ensp;{myPoint}&ensp;點</div>
                   <div>
                     本次使用&emsp;
                     <NumButton
@@ -174,7 +174,7 @@ class Discount extends Component {
                     &emsp;點
                   </div>
                   <div className={DT.pointsNote}>
-                    500點80元，每次最高可折抵2000點
+                    500 點 80 元，每次最高可折抵 2000 點
                   </div>
                 </div>
               </div>
@@ -190,7 +190,7 @@ class Discount extends Component {
                     onChange={this.couponChange}
                     value={state.selectedCoupon}
                   >
-                    <option value="" disabled>請選擇優惠券</option>
+                    <option value="">請選擇優惠券</option>
                     {this.state.coupons.map((coupon, index) => (
                         // console.log(coupon)
                       <option key={index} value={coupon.id}>
@@ -201,9 +201,9 @@ class Discount extends Component {
                 </div>
                 <div className={"row " + DT.discountAdd}>
                   <div className="col">
-                    金額<span style={{ fontSize: '22px' }}>&nbsp;{state.subtotal}&nbsp;</span>元，
-                    可折抵<span style={{ fontSize: '22px' }}>&nbsp;{this.discountPoint(state.usePoint) + state.couponDiscount}&nbsp;</span>元，
-                    小計<span style={{ fontSize: '22px' }}>&nbsp;{state.total}&nbsp;</span>元
+                    金額<span style={{ fontSize: '24px' }}>&nbsp;{state.subtotal}&nbsp;</span>元，
+                    可折抵<span style={{ fontSize: '24px' }}>&nbsp;{this.discountPoint(state.usePoint) + state.couponDiscount}&nbsp;</span>元，
+                    小計<span style={{ fontSize: '24px' }}>&nbsp;{state.total}&nbsp;</span>元
                   </div>
                 </div>
               </div>
