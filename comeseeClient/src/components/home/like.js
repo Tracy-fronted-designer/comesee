@@ -127,7 +127,7 @@ function Like(props) {
               <div className="modal-header border-0">
                 <h5
                   className="modal-title fs-4 fw-bold"
-                  style={{ color: "black" }}
+                  style={{ color: '#2f2f2f' }}
                 >
                   請選擇要放入哪個片單
                 </h5>
