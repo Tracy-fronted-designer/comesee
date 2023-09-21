@@ -199,19 +199,85 @@
 }
 
 .more {
-    font-size: 24px;
-    font-style: normal;
-    font-weight: 700;
+    position: relative;
     color: #F1EFE9;
-    line-height: 100%;
-    text-decoration: underline;
-    text-decoration-color: #F1EFE9;
+    font-size: 24px;
+    text-transform: uppercase;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    padding: 12px 20px;
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
 }
 
-.more:hover {
-    color: #B6B995;
-    text-decoration-color: #B6B995;
+.more:before {
+    content: "";
+    position: absolute;
+    top: 1;
+    left: 0;
+    display: block;
+    border-radius: 28px;
+    background: rgba(114, 115, 102, 0.5);
+    width: 56px;
+    height: 56px;
+    transition: all 0.3s ease;
 }
+
+.more span {
+    position: relative;
+    z-index: 1;
+}
+
+.more svg {
+    position: relative;
+    top: 0;
+    margin-left: 10px;
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke: #F1EFE9;
+    stroke-width: 2;
+    transform: translateX(-5px);
+    transition: all 0.3s ease;
+}
+
+.more:hover:before {
+    width: 100%;
+    background: #727366;
+}
+
+.more:hover svg {
+    transform: translateX(0);
+}
+
+.more:hover,
+.more:focus {
+    color: #F1EFE9;
+}
+
+.more:active {
+    color: #F1EFE9;
+    transform: scale(0.96);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 .box {
     display: flex;
