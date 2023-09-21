@@ -8,20 +8,20 @@ class btnLargeActive extends Component {
         height: "40px",
         borderRadius: "15px",
         border: "2px solid  #A6A79B",
-        backgroundColor: "#F1EFE9",
+        backgroundColor: "#2F2F2F",
         marginRight: "50px",
 
-        color: "#727366",
+        color: "#F1EFE9",
         textAlign: "center",
         fontFamily: "Noto Sans TC",
         fontSize: "20px",
         fontStyle: "normal",
-        fontWeight: "700",
+        fontWeight: "500",
         lineHeight: "22.5px"
     }
 
     btnStyleActive = {
-        backgroundColor: "#727366",
+        backgroundColor: "#8C8C83",
         color: "#F1EFE9",
 
     }

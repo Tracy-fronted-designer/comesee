@@ -35,21 +35,21 @@
     flex-shrink: 0;
     color: #A6A79B !important;
     font-family: Noto Sans TC;
-    font-size: 16px;
+    font-size: 20px;
     width: 306px !important;
 }
 
 .findmovinput::placeholder {
     color: #B6B995 !important;
     font-family: Noto Sans TC;
-    font-size: 16px;
+    font-size: 20px;
 }
 
 .formselect {
     width: 306px !important;
     flex-direction: column;
     font-family: Noto Sans TC;
-    font-size: 16px;
+    font-size: 20px;
     align-items: flex-start;
     align-self: stretch;
     color: #B6B995;
