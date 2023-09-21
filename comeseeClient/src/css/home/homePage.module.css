@@ -39,7 +39,7 @@
 }
 
 .subtitle {
-    font-size: 24px;
+    font-size: 28px;
     font-style: normal;
     font-weight: 700;
 }
@@ -91,17 +91,17 @@
 }
 
 .quickBtn {
-    width: 160px;
-    height: 50px;
-
+    width: 175px;
+    height: 55px;
+    margin-top: 30px;
     border: 2px solid #F1EFE9;
-    border-radius: 15px;
+    border-radius: 18px;
     background-color: #000000;
 
     color: #F1EFE9;
     text-align: center;
     font-family: "Noto Sans TC";
-    font-size: 20px;
+    font-size: 22px;
     font-style: normal;
     font-weight: 500;
     line-height: 25px;
@@ -110,13 +110,13 @@
 .quickBtn:hover {
     color: #F1EFE9;
     border: "none";
-    background-color: #B6B995;
+    background-color: #727366;
 }
 
 .quickBtn:active {
     color: #F1EFE9;
     border: "none";
-    background-color: #A6A79B;
+    background-color: #B6B995;
 }
 
 .modalcontent {
@@ -258,7 +258,7 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        gap: 20px;
+        gap: 30px;
 
         position: absolute;
         top: 70px;
@@ -287,24 +287,25 @@
 
 .imgBtn {
     width: 150px;
-    height: 37px;
-    border-radius: 15px;
+    height: 43px;
+    border-radius: 20px;
     border: 2px solid #F1EFE9;
     background-color: rgba(0, 0, 0, 0.0);
 
+    font-size: 20px;
     color: #F1EFE9;
     font-family: "Noto Sans TC";
     font-style: normal;
-    font-weight: 500;
+    font-weight: 700;
     line-height: 110%;
 }
 
 .imgBtn:hover {
-    background-color: #B6B995;
-    border-color: #B6B995;
+    background-color: #727366;
+    border-color: #A6A79B;
 }
 
 .imgBtn:active {
-    background-color: #A6A79B;
-    border-color: #A6A79B;
+    background-color: #B6B995;
+    border-color: #F1EFE9;
 }
