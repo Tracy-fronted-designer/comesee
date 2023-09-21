@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { BrowserRouter } from "react-router-dom/cjs/react-router-dom.min";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Info from "./info";
+import Info from "../member/info";
 import Sidebar from "./sidebar";
 import UserMessage from "./UserMessage";
 import LoveButton from "./LoveButton";
