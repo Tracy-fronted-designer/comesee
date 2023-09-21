@@ -19,10 +19,10 @@ class Confirm extends Component {
       <div className={CPC.mainBg}>
         <div className={"container " + CPC.contentBackground}>
           <div className="row">
-            <div className={"col-4 " + CPC.cpcSidebar}>
+            <div className={"col-3 " + CPC.cpcSidebar}>
               <Sidebar currentPage="訂票資訊確認" />
             </div>
-            <div className={"col-7"}>
+            <div className={"col-8"}>
               <div className={CPC.movieName}>
                 {/* 電影中文名 */}
                 <span className={CPC.movieNameC}>{state.bookingInfo.movieNameCN}</span>

@@ -63,7 +63,7 @@
 .contentTitle {
     color: #D9D9D9;
     font-family: "Noto Sans TC";
-    font-size: 20px;
+    font-size: 22px;
     font-style: normal;
     font-weight: 700;
     line-height: 35px;
@@ -73,7 +73,7 @@
 .content {
     color: #D9D9D9;
     font-family: "Noto Sans TC";
-    font-size: 20px;
+    font-size: 22px;
     font-style: normal;
     font-weight: 400;
     line-height: 35px;
@@ -109,16 +109,16 @@
 .discountTitle {
     color: #F1EFE9;
     font-family: 'Noto Sans TC';
-    font-size: 18px;
+    font-size: 20px;
     font-style: normal;
     font-weight: 700;
-    line-height: 20px;
+    line-height: 45px;
 }
 
 .discountList {
     color: #F1EFE9;
     font-family: 'Noto Sans TC';
-    font-size: 18px;
+    font-size: 20px;
     font-style: normal;
     font-weight: 400;
     line-height: 45px;
@@ -130,7 +130,7 @@
     padding-right: 130px;
     color: #F1EFE9;
     font-family: Noto Sans TC;
-    font-size: 20px;
+    font-size: 22px;
     font-style: normal;
     font-weight: 400;
     line-height: 22.5PX;
@@ -149,7 +149,7 @@
     text-align: center;
     color: #F1EFE9;
     font-family: "Noto Sans TC";
-    font-size: 20px;
+    font-size: 22px;
     font-style: normal;
     font-weight: 700;
     line-height: 125%;
@@ -161,7 +161,7 @@
     /* flex-direction: column; */
     color: #D9D9D9;
     font-family: Noto Sans TC;
-    font-size: 18px;
+    font-size: 20px;
     font-style: normal;
     font-weight: 400;
     line-height: 125%;
@@ -174,13 +174,13 @@
     height: 36px;
     color: #F1EFE9;
     font-family: "Noto Sans TC";
-    font-size: 18px;
+    font-size: 20px;
     font-style: normal;
     font-weight: 500;
     line-height: 20px;
     border-radius: 4px;
-    border: 1px solid rgba(255, 255, 255, 0.50);
-    background: #A6A79B;
+    border: 1px solid #727366;
+    background: #727366;
     box-shadow: 0px 1px 2px 0px rgba(55, 65, 81, 0.08);
 
 }
@@ -191,7 +191,7 @@
     padding-right: 130px;
     color: #F1EFE9;
     font-family: Noto Sans TC;
-    font-size: 20px;
+    font-size: 22px;
     font-style: normal;
     font-weight: 400;
     line-height: 22.5PX;
@@ -200,7 +200,7 @@
 .pointsNote {
     color: #D9D9D9;
     font-family: Noto Sans TC;
-    font-size: 14px;
+    font-size: 16px;
     font-style: normal;
     font-weight: 400;
     line-height: 25px;
