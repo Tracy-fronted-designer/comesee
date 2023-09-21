@@ -67,7 +67,7 @@ router.post(
       const hashedPassword = await bcrypt.hash(password, saltRounds);
       const reset_token = null;
       const selfintro = null;
-      const image = null;
+      const image = 'defaultimg.png';
 
       // 将用户信息插入数据库，包括 moviePreferences
       db.exec(
