@@ -34,7 +34,7 @@ router.post('/', async (req, res) => {
     const mailOptions = {
       from: 'vbn698754@gmail.com',
       to: email,
-      subject: '重设密码',
+      subject: '重設密碼',
       text: `請點擊以下鏈接重設您的密碼：\n\nhttp://localhost:3000/ResetPassword/${resetToken}/\n\n如果您沒有請求重設密碼，請忽略此郵件。`,
     };
 
