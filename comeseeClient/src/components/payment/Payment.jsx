@@ -431,6 +431,9 @@ class Payment extends Component {
                   colaS: 0,
                   usePoint: 0,
                   selectedCoupon: "",
+                  allDiscount: 0,
+                  subtotal: 0,
+                  total: 0,
                 });
               })
               .catch((error) => {

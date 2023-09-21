@@ -7,12 +7,12 @@ class Score extends Component {
     state = {}
 
     render() {
-
+        const { averageScore } = this.props;
         return (
-                    <div className={IS.Score}>
-                        <div className={`${IS.starscore} col-8 px-0 pb-3`}>4.8{ }</div>
-                        <div className={`${IS.full} col-4 px-2 pb-4`}>/5</div>
-                    </div>
+            <div className={IS.Score}>
+                <div className={`${IS.starscore} col-8 px-0 pb-3`}>{averageScore}</div>
+                <div className={`${IS.full} col-4 px-2 pb-4`}>/5</div>
+            </div>
         );
     }
 

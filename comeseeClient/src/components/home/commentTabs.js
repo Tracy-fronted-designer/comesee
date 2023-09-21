@@ -7,6 +7,7 @@ import CMS from '../../css/home/comment.module.css';
 import { Redirect, withRouter } from 'react-router-dom'; // 导入用于跳转的组件
 import TicketContext from '../../TicketContext';
 import jwtDecode from "jwt-decode";
+import Swal from "sweetalert2";
 
 
 class CommentTabs extends Component {
@@ -52,7 +53,11 @@ class CommentTabs extends Component {
             const { myComment, userID } = this.state;
             if (!userID) {
                 console.error("userID is null"); // 添加此行以检查 userID
-                alert("請先登入會員");
+                Swal.fire({
+                    title: '請先登入會員',
+                    icon: 'warning',
+                    confirmButtonText: "確認",
+                });
                 this.props.history.push("/login");
                 return;
             }
@@ -73,7 +78,11 @@ class CommentTabs extends Component {
             };
             if (!token) {
                 // Handle the case where the token is not available
-                alert("請先登入會員");
+                Swal.fire({
+                    title: '請先登入會員',
+                    icon: 'warning',
+                    confirmButtonText: "確認",
+                });
                 // this.props.history.push("/login");
             } else {
 
@@ -104,10 +113,14 @@ class CommentTabs extends Component {
                             console.error("Request Error:", error.message);
                         }
                     });
-                window.location = `/info/${movieID}`
+                window.location = `/info/${movieID}?tab=comment`
             }
         } else {
-            alert('請先登入')
+            Swal.fire({
+                title: '請先登入會員',
+                icon: 'warning',
+                confirmButtonText: "確認",
+            });
         }
     };
 
@@ -182,9 +195,27 @@ class CommentTabs extends Component {
     //JWT相關函式以上
 
 
+    sortByNewest = (comments) => {
+        return comments.slice().sort((a, b) => {
+            return new Date(b.sendTime) - new Date(a.sendTime);
+        });
+    };
 
+    sortByScore = (comments) => {
+        return comments.slice().sort((a, b) => {
+            return b.score - a.score;
+        });
+    };
 
+    handleSortByNewest = () => {
+        const sortedComments = this.sortByNewest(this.state.comment);
+        this.setState({ comment: sortedComments });
+    };
 
+    handleSortByScore = () => {
+        const sortedComments = this.sortByScore(this.state.comment);
+        this.setState({ comment: sortedComments });
+    };
     render() {
         const Img = 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/Twemoji_1f600.svg/1200px-Twemoji_1f600.svg.png';
         let contentToRender;
@@ -238,8 +269,8 @@ class CommentTabs extends Component {
 
                     {/* 留言排序的按鈕 */}
                     <div className={CMS.sortBar} >
-                        <SortBtn label="最新" />
-                        <SortBtn label="熱門" />
+                        <SortBtn label="最新" onClick={this.handleSortByNewest} />
+                        <SortBtn label="分數" onClick={this.handleSortByScore} />
                     </div >
 
                     {/* 其他人的評論 */}

@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import axios from "axios";
 
+import { Navigation, FreeMode } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/free-mode';
 import 'swiper/css/navigation';
-import { Navigation, FreeMode } from 'swiper/modules';
-import HS from '../../css/home/homePage.module.css';
 
+import HS from '../../css/home/homePage.module.css';
 
 const ComingSoon = () => {
 
+    const history = useHistory();
     const [slideData, setSlideData] = useState([]);
 
     useEffect(() => {
@@ -25,14 +27,19 @@ const ComingSoon = () => {
             });
     }, []);
 
-
+    const goTime = (id) => {
+        history.push(`/info/${id}?tab=time`);
+    };
+    const goStory = (id) => {
+        history.push(`/info/${id}?tab=story`);
+    };
 
     return (
         <>
 
             <div className={HS.bar}>
                 <h1 className={HS.title}>即將上映 ::</h1>
-                <Link to="/list/comingsoon"><h2 className={HS.more}>
+                <Link to="/list?tab=comingsoon"><h2 className={HS.more}>
                     看更多
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -63,17 +70,16 @@ const ComingSoon = () => {
                     className="ListSwiper"
                 >
 
-                    {slideData.map(filmPoster =>
-                        <SwiperSlide className={HS.imgContainer}>
+                    {slideData.map((filmPoster, index) =>
+                        <SwiperSlide className={HS.imgContainer} key={index}>
                             <img
                                 className={HS.listSlide}
-                                key={filmPoster.id}
+                                id={filmPoster.id}
                                 src={filmPoster.imageUrl} alt=' ' />
                             <div className={HS.btnblock}>
-                                <button className={HS.imgBtn} >立即訂票</button>
-                                <Link to={`/info/${filmPoster.id}`}><button className={HS.imgBtn} >電影介紹</button></Link>
+                                <button className={HS.imgBtn} onClick={() => goTime(filmPoster.id)}>立即訂票</button>
+                                <button className={HS.imgBtn} onClick={() => goStory(filmPoster.id)}>電影介紹</button>
                             </div>
-
                         </SwiperSlide>
                     )}
 

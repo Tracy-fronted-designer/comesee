@@ -449,7 +449,9 @@ const Register = () => {
                 <button
                   className={Registerstyle.btnstyle}
                   type="button"
-                  onClick={handleSkip}
+                  onClick={handleSkip}                  
+                  data-bs-dismiss="modal" 
+                  aria-label="Close"
                 >
                   略過
                 </button>
@@ -457,6 +459,7 @@ const Register = () => {
                   className={Registerstyle.btnstyle}
                   type="button"
                   onClick={handleSubmit}
+
                 >
                   送出
                 </button>

@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
+import { useHistory, useLocation } from "react-router-dom";
 import axios from "axios";
 
 import Score from "./score";
-import ToastComponent from "./like";
+import Like from "./like";
 
 import TimeTabs from "./timeTabs";
 import StoryTabs from "./storyTabs";
@@ -12,7 +13,24 @@ import IS from "../../css/home/infoPage.module.css";
 
 const InfoPage = (props) => {
   const [filmInfo, setFilmInfo] = useState([]);
+  const [averageScore, setAverageScore] = useState(0); // 初始化平均分數狀態
+
   const id = parseInt(props.match.params.id);
+  console.log(id);
+
+  const history = useHistory();
+  const location = useLocation();
+
+  const [tabState, setTabState] = useState(
+    new URLSearchParams(props.location.search).get("tab") || "time"
+  );
+
+  useEffect(() => {
+    const tabFromURL = new URLSearchParams(location.search).get("tab");
+    if (tabFromURL) {
+      setTabState(tabFromURL);
+    }
+  }, [location.search]);
 
   // 指定電影資訊
   useEffect(() => {
@@ -25,7 +43,15 @@ const InfoPage = (props) => {
       .catch((err) => {
         console.log(err.response);
       });
-  }, []);
+    axios
+      .get(`http://localhost:2407/filminfo/averageScore/${id}`)
+      .then((res) => {
+        setAverageScore(res.data.averageScore.toFixed(1));
+      })
+      .catch((err) => {
+        console.log(err.response);
+      });
+  }, [id]);
 
   // 轉成localTime，傳入utc字串
   const targetLocalDate = (utcStr) => {
@@ -43,6 +69,18 @@ const InfoPage = (props) => {
     );
     let date = targetLocal.toISOString().split("T")[0]; // 格式為 2023-08-23
     return date;
+  };
+
+  const handleTimeTabChange = () => {
+    history.push(`/info/${id}?tab=time`);
+  };
+
+  const handleStoryTabChange = () => {
+    history.push(`/info/${id}?tab=story`);
+  };
+
+  const handleCommentTabChange = () => {
+    history.push(`/info/${id}?tab=comment`);
   };
 
   return (
@@ -67,8 +105,9 @@ const InfoPage = (props) => {
           </div>
 
           <div className={`${IS.scoreBox} col-3 px-5 py-3`}>
-            <ToastComponent />
-            <Score id={filmInfo.id} />
+            {/* 收藏按鈕 */}
+            <Like movieID={id} />
+            <Score id={filmInfo.id} averageScore={averageScore} />
           </div>
         </div>
 
@@ -78,40 +117,46 @@ const InfoPage = (props) => {
           <nav className={IS.myNav}>
             <div className={IS.myTabs} id="nav-tab" role="tablist">
               <button
-                className={`${IS.myLink} infoTab active`}
+                className={`${IS.myLink} infoTab ${tabState === "time" ? "active" : ""
+                  }`}
                 id="time-tab"
                 data-bs-toggle="tab"
                 data-bs-target="#time"
                 type="button"
                 role="tab"
                 aria-controls="time"
-                aria-selected="true"
+                aria-selected={tabState === "time"}
+                onClick={handleTimeTabChange}
               >
-                現正熱映
+                電影時刻
               </button>
 
               <button
-                className={`${IS.myLink} infoTab`}
+                className={`${IS.myLink} infoTab ${tabState === "story" ? "active" : ""
+                  }`}
                 id="story-tab"
                 data-bs-toggle="tab"
                 data-bs-target="#story"
                 type="button"
                 role="tab"
                 aria-controls="story"
-                aria-selected="false"
+                aria-selected={tabState === "story"}
+                onClick={handleStoryTabChange}
               >
                 劇情介紹
               </button>
 
               <button
-                className={`${IS.myLink} infoTab`}
+                className={`${IS.myLink} infoTab ${tabState === "comment" ? "active" : ""
+                  }`}
                 id="comment-tab"
                 data-bs-toggle="tab"
                 data-bs-target="#comment"
                 type="button"
                 role="tab"
                 aria-controls="comment"
-                aria-selected="false"
+                aria-selected={tabState === "comment"}
+                onClick={handleCommentTabChange}
               >
                 評論
               </button>
@@ -121,7 +166,8 @@ const InfoPage = (props) => {
           {/* 分頁內容 */}
           <div className={`${IS.myContent} tab-content`} id="nav-tabContent">
             <div
-              className="tab-pane fade show active"
+              className={`tab-pane fade ${tabState === "time" ? "show active" : ""
+                }`}
               id="time"
               role="tabpanel"
               aria-labelledby="time-tab"
@@ -130,16 +176,18 @@ const InfoPage = (props) => {
             </div>
 
             <div
-              className="tab-pane fade"
+              className={`tab-pane fade ${tabState === "story" ? "show active" : ""
+                }`}
               id="story"
               role="tabpanel"
               aria-labelledby="story-tab"
             >
-              <StoryTabs story={filmInfo.story} />
+              <StoryTabs id={id} story={filmInfo.story} />
             </div>
 
             <div
-              className="tab-pane fade"
+              className={`tab-pane fade ${tabState === "comment" ? "show active" : ""
+                }`}
               id="comment"
               role="tabpanel"
               aria-labelledby="comment-tab"

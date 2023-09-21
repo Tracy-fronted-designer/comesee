@@ -80,17 +80,59 @@
 }
 
 
-
+/* 總計動畫 */
 .confirmTitle {
     color: #F1EFE9;
     font-family: "Noto Sans TC";
     font-size: 24px;
     font-style: normal;
     font-weight: 700;
-    line-height: 33.6px;
+    line-height: 64px;
     margin-top: 80px;
     margin-bottom: 80px;
+    position: relative;
+    width: 200px;
+    text-align: center;
+    border-radius: 10px;
+    transition: all .3s;
+    
+    
+    &::before,
+    &::after {
+        content: "";
+        position: absolute;
+        top: -10px;
+        left: -10px;
+        right: -10px;
+        bottom: -10px;
+        border: 2px solid #616161;
+        transition: all .5s;
+        animation: clippath 3s infinite linear;
+        border-radius: 10px;
+    }
+    
+    &::after {
+        animation: clippath 3s infinite -1.5s linear;
+    }
 }
+
+@keyframes clippath {
+    0%,
+    100% {
+        clip-path: inset(0 0 98% 0);
+    }
+    
+    25% {
+        clip-path: inset(0 98% 0 0);
+    }
+    50% {
+        clip-path: inset(98% 0 0 0);
+    }
+    75% {
+        clip-path: inset(0 0 0 98%);
+    }
+}
+
 
 /* Payment */
 .paymentP {
@@ -312,7 +354,46 @@
     margin-top: 100px;
 }
 
-.recommend>p {
+
+.circle {
+    stroke:64A26A;
+    stroke-dasharray: 1194;
+    stroke-dashoffset: 1194;
+    animation: circle 2s linear forwards;
+    animation-delay: -1s;
+}
+
+
+.tick {
+    stroke:64A26A;
+    stroke-dasharray: 350;
+    stroke-dashoffset: 350;
+    animation: tick 2s ease forwards;
+    animation-delay: 1s;
+
+  }
+
+  @keyframes circle {
+    from {
+      stroke-dashoffset: 1194;
+    }
+    to {
+      stroke-dashoffset: 2388;
+    }
+  }
+   
+  @keyframes tick {
+    from {
+      stroke-dashoffset: 350;
+    }
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+
+
+  /* 你可能感興趣...(打字機效果) */
+  .recommend>p {
     color: #F1EFE9;
     font-family: "Noto Sans TC";
     font-size: 16px;
@@ -320,4 +401,24 @@
     font-weight: 400;
     line-height: 125%;
     margin-bottom: 28px;
+    height: 18px;
+    animation: typing 2s steps(9, end);
+    overflow: hidden;
 }
+
+
+@keyframes typing {
+    from {
+        width: 0;
+    }
+    to {
+        width: 9em;
+    }
+};
+
+
+  
+  
+  
+  
+  

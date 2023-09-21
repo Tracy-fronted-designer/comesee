@@ -18,11 +18,6 @@ const verStyle = {
 
 function VerLabel(props) {
     const { label, id } = props;
-    console.log(label);
-
-    useEffect(() => {
-        props.onIdChange(id);
-    }, [id]);
 
     return (
         <label id={id} style={verStyle}>

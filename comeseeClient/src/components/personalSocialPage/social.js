@@ -58,8 +58,8 @@ class Social extends Component {
               <div className={SocialStyle.img}>
                 <img
                   className="img-fluid h-100 rounded-circle"
-                  // src={require("photo.jpg")}
-                  src={require(`../../img/photo.jpg`)}
+                  src={`http://localhost:2407/${this.state.userInfo.image}`}
+                  // src={require(`../../img/photo.jpg`)}
                   alt="userPhoto"
                 />
               </div>
@@ -72,7 +72,9 @@ class Social extends Component {
                   {this.state.userInfo.email}
                 </p>
                 {/* 自我介紹 */}
-                <p className={SocialStyle.newintro}>新增自我介紹{}</p>
+                <p className={SocialStyle.newintro}>
+                  {this.state.userInfo.selfintro}
+                </p>
               </div>
             </div>
             {/* 右半部 */}

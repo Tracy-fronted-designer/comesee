@@ -3,9 +3,10 @@ const multer = require("multer");
 
 var db = require("../db");
 var user = express.Router();
+const path = require('path');
 
 //上傳大頭貼
-user.use("/uploads", express.static("public"));
+user.use("/image", express.static("public"));
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -19,27 +20,24 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-user.post("/uploads", upload.single("avatar"), (req, res) => {
-  if (!req.file) {
-    return res.status(400).json({ message: "No file uploaded." });
-  }
+user.post("/uploads/:userID([0-9]+)", upload.single("image"), (req, res) => {
+  const image = req.file.filename;
+  const user = req.params.userID;
+  const sql = "UPDATE member SET image = ? WHERE userID = ?";
 
-  const { originalname, filename } = req.file;
-
-  db.query(
-    "INSERT INTO member (filename, originalname) VALUES (?, ?)",
-    [filename, originalname],
-    (error, results) => {
-      if (error) {
-        console.error("Error saving to database:", error);
-        return res.status(500).json({ message: "Internal server error." });
-      }
-      res.json({ message: "File uploaded and saved to database." });
-    }
-  );
-
-  res.json({ message: "File uploaded." });
+  db.exec(sql, [image, user], (req, results) => {
+    res.send(JSON.stringify(results));
+  })
 });
+
+user.get("/image/:userID([0-9]+)", function (req, res) {
+  let userID = req.params.userID;
+  db.exec("SELECT image FROM member WHERE userID = ?", [userID], 
+  function (results, fields) {
+    res.send(JSON.stringify(results));
+  });
+});
+
 
 //取得全部user
 user.get("/", function (req, res) {
