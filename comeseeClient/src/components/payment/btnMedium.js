@@ -8,21 +8,20 @@ class btnMedium extends Component {
         height: "40px",
         borderRadius: "15px",
         border: "2px solid  #A6A79B",
-        backgroundColor: "#B6B995",
+        backgroundColor: "#F1EFE9",
 
-        color: "#F1EFE9",
+        color: "#727366",
         textAlign: "center",
         fontFamily: "Noto Sans TC",
-        fontSize: "18px",
+        fontSize: "20px",
         fontStyle: "normal",
-        fontWeight: "500",
+        fontWeight: "700",
         lineHeight: "22.5px"
     }
 
     btnStyleHover = {
-        backgroundColor: "#F1EFE9",
-        color: "#A6A79B"
-
+        backgroundColor: "#727366",
+        color: "#F1EFE9"
     }
 
 
@@ -32,7 +31,7 @@ class btnMedium extends Component {
         return (
             <button
                 onClick={onClick}
-                style={isHovered ? {...this.btnStyle, ...this.btnStyleHover} : this.btnStyle}
+                style={isHovered ? { ...this.btnStyle, ...this.btnStyleHover } : this.btnStyle}
                 onMouseEnter={this.mouseEnter}
                 onMouseLeave={this.mouseLeave}
             >

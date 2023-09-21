@@ -172,7 +172,7 @@ const Register = () => {
       );
 
       if (response.data.success) {
-        alert("註冊成功！");
+        alert("註冊成功！別忘記到會員中心領取您的入會禮呦！");
 
         const res = await axios.get(
           `http://localhost:2407/user/getuserID/${values.email}`
