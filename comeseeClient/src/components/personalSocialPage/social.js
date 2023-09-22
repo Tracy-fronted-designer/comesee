@@ -58,7 +58,12 @@ class Social extends Component {
               <div className={SocialStyle.img}>
                 <img
                   className="img-fluid h-100 rounded-circle"
-                  src={`http://localhost:2407/${this.state.userInfo.image}`}
+                  // src={`http://localhost:2407/${this.state.userInfo.image}`}
+                  src={
+                    this.state.userInfo.image
+                      ? `http://localhost:2407/${this.state.userInfo.image}`
+                      : `http://localhost:2407/defaultimg.png`
+                  }
                   // src={require(`../../img/photo.jpg`)}
                   alt="userPhoto"
                 />

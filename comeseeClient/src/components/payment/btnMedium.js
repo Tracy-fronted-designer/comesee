@@ -8,9 +8,9 @@ class btnMedium extends Component {
         height: "40px",
         borderRadius: "15px",
         border: "2px solid  #A6A79B",
-        backgroundColor: "#F1EFE9",
+        backgroundColor: "#8C8C83",
 
-        color: "#8C8C83",
+        color: "#F1EFE9",
         textAlign: "center",
         fontFamily: "Noto Sans TC",
         fontSize: "20px",
@@ -20,8 +20,8 @@ class btnMedium extends Component {
     }
 
     btnStyleHover = {
-        backgroundColor: "#8C8C83",
-        color: "#F1EFE9"
+        backgroundColor: "#F1EFE9",
+        color: "#8C8C83"
     }
 
 
