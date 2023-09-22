@@ -51,7 +51,7 @@ class OthersComment extends Component {
     render() {
         const { members } = this.state;
         const filteredComments = this.props.comment.filter(comment => comment.movieID === this.props.filmInfo.id);
-        const Img = 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/Twemoji_1f600.svg/1200px-Twemoji_1f600.svg.png';
+        // const Img = 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/Twemoji_1f600.svg/1200px-Twemoji_1f600.svg.png';
 
         const reversedComments = filteredComments.slice().reverse();
 
@@ -60,12 +60,11 @@ class OthersComment extends Component {
                 {reversedComments.map((comment, index) => {
                     const member = members.find(member => member.UserID === comment.userID);
                     const userImage = this.getUserImage(comment.userID);
-                    const imgSrc = userImage ? `http://localhost:2407/user/image/${userImage}` : Img;
 
                     return (
                         <div className={CMS.ocb} key={index}>
                             {/* Your comment rendering logic */}
-                            <Link to={`/personalSocialPage/${comment.userID}`}><img className={CMS.user} src={imgSrc} alt=' '></img></Link>
+                            <Link to={`/personalSocialPage/${comment.userID}`}><img className={CMS.user} src={`http://localhost:2407/user/image/${userImage}`} alt=' '></img></Link>
                             <div className={CMS.tb}>
                                 <div className={CMS.name}>{member ? member.userName : comment.userID}</div>
                                 <div className={CMS.comm}>{comment.comment}</div>
