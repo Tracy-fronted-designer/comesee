@@ -32,7 +32,7 @@ class Navbar extends Component {
   render() {
     return (
       <nav className="navbar fixed-top">
-        <div className="container">
+        <div className={`container ${nav.nav}`}>
           <a href="/" className={nav.navLogo}>{""}</a>
           <span className={nav.navberA}>
             <a href="/">電影首頁</a>

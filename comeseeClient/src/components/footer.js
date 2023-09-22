@@ -10,7 +10,7 @@ class Footer extends Component {
                 <div className={"container "+ft.myFooter}>
                     <div className={"row "+ft.footerRow}>
                         <div className={"col-md-3  col-sm-12 "+ft.footerLogoP}>
-                            <a href='/' className={ft.footerLogo}>LOGO</a>
+                            <div className={ft.footerLogo}></div>
                             <p className={ft.footerComesee}>© ComeSee 看戲 版權所有</p>
                         </div>
                         <div className={"col-md-5 col-sm-12 "+ft.footerA}>

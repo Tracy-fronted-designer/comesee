@@ -1,8 +1,8 @@
 nav {
     background-color: #0C0C0C;
     width: 100%;
-    height: 94px;
-    justify-content: end;
+    height: 80px;
+    justify-content: center;
     padding: 33px 77px 33px 77px;
 }
 
@@ -15,19 +15,26 @@ nav {
     font-weight: 700;
     line-height: 28px;  */
     background-image: url(../img/logo-v3.png);
-    background-size: cover;
-    width:150px; 
-    height:60px;
-    display: flex;
+    background-size: contain;
+    width:130px; 
+    height:70px;
+}
+
+.navberA{
+    padding-bottom: 10px;
 }
 
 .navberA>a{
     text-decoration: none;
     font-family: 'Noto Sans TC';
     color:#FFFFFF;
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 700;
     line-height: 28px;
     margin-left: 20px;
     font-style: normal;
+}
+
+.nav{
+    height: 80px;
 }
