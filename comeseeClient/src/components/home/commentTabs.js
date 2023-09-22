@@ -217,7 +217,6 @@ class CommentTabs extends Component {
         this.setState({ comment: sortedComments });
     };
     render() {
-        const Img = 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/Twemoji_1f600.svg/1200px-Twemoji_1f600.svg.png';
         let contentToRender;
 
         if (this.state.redirectToLogin) {
@@ -229,10 +228,6 @@ class CommentTabs extends Component {
                 <div className="self-comment">
                     {/* 如果用户已登录，显示评论框 */}
                     <div className={CMS.selfBox}>
-                        {/* 自己的头像 */}
-                        <a href={`/personalSocialPage/${this.state.userID}`}>
-                            <img className={CMS.user} src={Img} alt='頭像' />
-                        </a>
                         <form onSubmit={this.handleSubmit}>
                             {/* 星星跟留言框 */}
                             <Star onRatingChange={this.handleRatingChange} />

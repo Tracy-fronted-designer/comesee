@@ -26,7 +26,7 @@ socialhome.get("/", function (req, res) {
 });
 
 socialhome.get("/members", function (req, res) {
-    db.exec("SELECT userID, userName FROM member", [], function (results, fields) {
+    db.exec("SELECT userID, userName, image FROM member", [], function (results, fields) {
         res.send(JSON.stringify(results));
     });
 });
