@@ -231,7 +231,7 @@
 .accordion123 {
     color: #F1EFE9;
     font-family: Noto Sans TC;
-    font-size: 16px;
+    font-size: 18px;
     font-style: normal;
     font-weight: 700;
     padding-right: 50px;
@@ -248,7 +248,7 @@
     background-color: transparent;
     color: #F1EFE9;
     font-family: Noto Sans TC;
-    font-size: 16px;
+    /* font-size: 16px; */
     font-style: normal;
     font-weight: 700;
     padding-left: 120px;

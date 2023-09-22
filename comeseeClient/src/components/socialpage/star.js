@@ -13,18 +13,18 @@ function StarRanking({ averageScore }) {
 
                 // 根据当前评分和平均评分的差值决定显示全星或半星
                 if (currentRating <= roundedScore) {
-                    return <FaStar key={index} className={Star.starlight} size={30} color="#ffc107" />;
+                    return <FaStar key={index} className={Star.starlight} size={25} color="#ffc107" />;
                 } else if (currentRating - 0.5 === roundedScore) {
                     return (
                         <span key={index} className={Star.starlight}>
                             <div className={Star.halfStarContainer}>
-                                <FaStarHalf size={30} color="#ffc107" />
-                                <FaStarHalf size={30} color="#e4e5e9" className={Star.rotate} />
+                                <FaStarHalf size={25} color="#ffc107" />
+                                <FaStarHalf size={25} color="#e4e5e9" className={Star.rotate} />
                             </div>
                         </span>
                     );
                 } else {
-                    return <FaStar key={index} className={Star.starlight} size={30} color="#e4e5e9" />;
+                    return <FaStar key={index} className={Star.starlight} size={25} color="#e4e5e9" />;
                 }
             })}
         </div>
