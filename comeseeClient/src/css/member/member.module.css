@@ -27,8 +27,10 @@
 }
 
 .AvatarUpload {
-  width: 100px;
+  width: 120px;
   height: 200px;
+  display: flex;
+  align-items: center;
 }
 
 .Avatarstyle{
@@ -39,9 +41,8 @@
 }
 
 .Avatarinput {
-  z-index: 21;
+  z-index: 2;
   position: absolute;
-  top: 150px;
   background-color: #888;
   color: #333;
   padding: 10px;
@@ -197,6 +198,8 @@
 .sidebar > a {
   color: #2f2f2f;
   text-decoration: none;
+  font-size: 17px;
+  font-weight: 500;
 }
 
 .sidebar > a:hover {
@@ -388,21 +391,28 @@
   padding: 15px 20px 16px 20px;
   justify-content: center;
   align-items: center;
-  font-size: 14px;
+  font-size: 16px;
+  font-weight: 700;
+
+  border: 2px solid #A6A79B;
+  background-color: "#F1EFE9";
+  color: "#8C8C83";
 
   border-radius: 15px;
-  background: #b6b995;
-  color: #f1efe9;
-  border: none;
+  /* background: #b6b995; */
+  /* color: #f1efe9; */
+  /* border: none; */
 }
 
 .button:hover {
-  background-color: #F1EFE9;
+  background-color: #8C8C83;
   stroke-width: 2px;
   stroke:  #A6A79B;
   text-decoration: none;
   box-shadow: 0px 0px 5px 0px rgba(217, 217, 217, 0.50);
-  color: #b6b995;
+  color: #F1EFE9;
+  font-size: 16px;
+  font-weight: 700;
 }
 
 .cancelbutton {
@@ -414,10 +424,11 @@
   font-size: 14px;
 
   border-radius: 15px;
-  background: #b6b995;
+  background: #8C8C83;
   color: #f1efe9;
   border: none;
   margin-top: 50px;
+
 }
 
 

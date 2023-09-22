@@ -32,10 +32,8 @@ class Navbar extends Component {
   render() {
     return (
       <nav className="navbar fixed-top">
-        <div className="container ">
-          <a href="/" className={nav.navLogo}>
-            LOGO
-          </a>
+        <div className="container">
+          <a href="/" className={nav.navLogo}>{""}</a>
           <span className={nav.navberA}>
             <a href="/">電影首頁</a>
             <a href="/Socialhome">社群討論</a>
