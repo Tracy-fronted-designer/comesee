@@ -1,5 +1,5 @@
 .all {
-    min-height: 100vh;
+    min-height: 100%;
     background-color: black;
 }
 
@@ -39,7 +39,7 @@
 .label {
     font-family: Noto Sans TC;
     color: #F1EFE9;
-    font-size: 16px;
+    font-size: 18px;
     font-style: normal;
     font-weight: 400;
     line-height: 125%;
@@ -49,14 +49,14 @@
 
 
 .input {
-    color: #A6A79B;
+    color: #000000;
     background-color: #F1EFE9;
     font-family: Noto Sans TC;
-    font-size: 14px;
+    font-size: 17px;
     font-style: normal;
     font-weight: 400;
     line-height: 125%;
-    width: 220px;
+    width: 280px;
     height: 35px;
     margin-right: 10px;
 
@@ -135,6 +135,22 @@
     font-style: normal;
     font-weight: 500;
     line-height: 125%;
+    margin-right: -200px;
+}
+
+.btnstyle2 {
+    border-radius: 15px;
+    width: 120px;
+    height: 35px;
+    font-size: 14px;
+    color: #F1EFE9;
+    background-color: #B6B995;
+    border: #A6A79B solid 2px;
+    text-align: center;
+    font-family: Noto Sans TC;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 125%;
 }
 
 .btnstyle:hover {
@@ -158,14 +174,14 @@
 }
 
 .addressinput {
-    width: 105px;
+    width: 135px;
     height: 35px;
     background-color: #F1EFE9;
-    font-size: 14px;
+    font-size: 16px;
     font-style: normal;
     font-weight: 400;
     line-height: 125%;
-    color: #A6A79B;
+    color: #000000;
     margin-right: 10px;
 }
 

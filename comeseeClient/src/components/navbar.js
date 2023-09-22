@@ -48,6 +48,7 @@ class Navbar extends Component {
                   e.preventDefault();
                   this.handleLogout();
                   alert("已登出");
+                  window.location.href = "/";
                 }}
               >
                 登出

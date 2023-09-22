@@ -40,8 +40,9 @@ const NowPlaying = () => {
 
             <div className={HS.bar} >
                 <h1 className={HS.title}>現正熱映 ::</h1>
-                <Link to="/list?tab=nowplaying"><div className={HS.more}>
-                    看更多
+                <Link to="/list?tab=nowplaying" className={HS.more}>
+                    {/* <div > */}
+                    <span>看更多</span>
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width={20}
@@ -55,7 +56,8 @@ const NowPlaying = () => {
                             d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"
                         />
                     </svg>
-                </div></Link>
+                    {/* </div> */}
+                </Link>
             </div>
 
 

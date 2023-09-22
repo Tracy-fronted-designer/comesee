@@ -84,14 +84,6 @@ const UserMessage = () => {
   };
 
   const handleChangeBtn = () => {
-    // console.log(userName);
-    // console.log(gender);
-    // console.log(birthday);
-    // console.log(selectedCity);
-    // console.log(selectedTown);
-    // console.log(address);
-    // console.log(selfintro);
-
     axios
       .put(`http://localhost:2407/user/${userID}`, {
         userName,
@@ -108,6 +100,11 @@ const UserMessage = () => {
             title: "更改成功",
             icon: "success",
             confirmButtonText: "確定",
+          }).then((result) => {
+            if (result.isConfirmed) {
+              // 在確定按鈕被按下後執行刷新網頁的程式碼
+              window.location.reload();
+            }
           });
         }
         // console.log(typeof response.data.result);
@@ -115,6 +112,8 @@ const UserMessage = () => {
       .catch((error) => {
         console.error("Error fetching data", error);
       });
+
+    // window.location.href = "/MemberInformation";
   };
 
   //使用者資訊
@@ -278,7 +277,7 @@ const UserMessage = () => {
       </div>
 
       <div className="d-flex justify-content-center">
-        <button style={button} onClick={handleChangeBtn}>
+        <button className={member.changeBtn} onClick={handleChangeBtn}>
           確認更改
         </button>
       </div>

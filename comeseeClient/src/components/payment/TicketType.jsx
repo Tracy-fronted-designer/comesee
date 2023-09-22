@@ -193,9 +193,9 @@ class TicketType extends Component {
                 </div>
                 <div className={"row " + DT.ticketAdd}>
                   <div className="col">
-                    電影票<span style={{ fontSize: '22px' }}>&nbsp;{this.ticketCost()}&nbsp;</span>元，
-                    餐點加購<span style={{ fontSize: '22px' }}>&nbsp;{this.foodCost()}&nbsp;</span>元，
-                    小計<span style={{ fontSize: '22px' }}>&nbsp;{state.subtotal}&nbsp;</span>元
+                    電影票<span style={{ fontSize: '24px' }}>&nbsp;{this.ticketCost()}&nbsp;</span>元，
+                    餐點加購<span style={{ fontSize: '24px' }}>&nbsp;{this.foodCost()}&nbsp;</span>元，
+                    小計<span style={{ fontSize: '24px' }}>&nbsp;{state.subtotal}&nbsp;</span>元
                   </div>
                 </div>
               </div>

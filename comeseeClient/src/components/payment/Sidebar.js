@@ -9,7 +9,7 @@ class Sidebar extends Component {
         "width": "160px",
         "color": "#F1EFE9",
         "fontFamily": "Noto Sans TC",
-        "fontSize": "18px",
+        "fontSize": "20px",
         "fontStyle": "normal",
         "fontWeight": "500",
         "lineHeight": "70px",

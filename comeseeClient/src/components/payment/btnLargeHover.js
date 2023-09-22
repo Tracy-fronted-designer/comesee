@@ -10,21 +10,21 @@ class BtnLargeHover extends Component {
         marginLeft:"10px",
         borderRadius: "15px",
         border: "2px solid  #A6A79B",
-        backgroundColor: "#B6B995",
+        backgroundColor: "#F1EFE9",
 
-        color: "#F1EFE9",
+        color: "#8C8C83",
         textAlign: "center",
         fontFamily: "Noto Sans TC",
         fontSize: "18px",
         fontStyle: "normal",
-        fontWeight: "500",
+        fontWeight: "700",
         lineHeight: "22.5px"
 
     }
 
     btnStyleHover = {
-        backgroundColor: "#F1EFE9",
-        color: "#A6A79B"
+        backgroundColor: "#8C8C83",
+        color: "#F1EFE9"
 
     }
 

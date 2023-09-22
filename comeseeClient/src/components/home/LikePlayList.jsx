@@ -2,6 +2,8 @@ import React from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 
+import LPL from "../../css/home/likePlayList.module.css";
+
 function LikePlayList(props) {
   const { playlistID, listname, closeModal, movieID, setIsLiked } = props;
 
@@ -50,9 +52,11 @@ function LikePlayList(props) {
   };
 
   return (
-    <div>
-      <span>{listname}</span>
-      <button onClick={addMovieIntoPlayList}>加入</button>
+    <div className={LPL.listAndBtn}>
+      <span className={LPL.listname}>{listname}</span>
+      <button onClick={addMovieIntoPlayList} className={LPL.addBtn}>
+        加入
+      </button>
     </div>
   );
 }

@@ -83,7 +83,6 @@ const Register = () => {
       id: 1,
       name: "password",
       type: "password",
-      placeholder: "密碼",
       message: "請輸入中英文夾雜、6~20字的密碼",
       pattern: "^[A-Za-z0-9]{6,20}$",
       label: "密碼",
@@ -93,7 +92,6 @@ const Register = () => {
       id: 2,
       name: "confirmPassword",
       type: "password",
-      placeholder: "密碼",
       message: "請再次輸入密碼",
       label: "再次確認密碼",
       pattern: values.password,
@@ -103,7 +101,6 @@ const Register = () => {
       id: 3,
       name: "username",
       type: "text",
-      placeholder: "使用者名稱",
       label: "姓名/暱稱",
       message: "必填",
       required: true,
@@ -119,7 +116,6 @@ const Register = () => {
       id: 5,
       name: "phonenumber",
       type: "text",
-      placeholder: "手機號碼",
       label: "手機號碼",
       pattern: "^\\d{4}\\d{3}\\d{3}$",
       message: "請輸入有效的手機號碼，格式為：0987654321",
@@ -172,7 +168,7 @@ const Register = () => {
       );
 
       if (response.data.success) {
-        alert("註冊成功！");
+        alert("註冊成功！別忘記到會員中心領取您的入會禮呦！");
 
         const res = await axios.get(
           `http://localhost:2407/user/getuserID/${values.email}`
@@ -254,7 +250,6 @@ const Register = () => {
               <input
                 className={Registerstyle.input}
                 type="email"
-                placeholder="comesee@comesee.com"
                 required
                 name="email"
                 onChange={onChange}
@@ -283,7 +278,7 @@ const Register = () => {
               onChange={onChange}
               value={values.gender || ""}
             >
-              <option value="">請選擇</option>
+              <option value="" >請選擇</option>
               <option value="男">男</option>
               <option value="女">女</option>
             </select>
@@ -447,7 +442,7 @@ const Register = () => {
               </div>
               <div className="modal-footer">
                 <button
-                  className={Registerstyle.btnstyle}
+                  className={Registerstyle.btnstyle2}
                   type="button"
                   onClick={handleSkip}                  
                   data-bs-dismiss="modal" 
@@ -456,7 +451,7 @@ const Register = () => {
                   略過
                 </button>
                 <button
-                  className={Registerstyle.btnstyle}
+                  className={Registerstyle.btnstyle2}
                   type="button"
                   onClick={handleSubmit}
 

@@ -279,21 +279,24 @@ class BookingSeat extends Component {
               <div className={styles.sample}>
                 <div>
                   <div
-                    className={`${styles.square} ${styles.empty}`}
+                    // className={`${styles.square} ${styles.empty}`}
+                    className={`${styles.square}`}
                     style={{ background: "#F1EFE9" }}
                   ></div>
                   <span>可選取</span>
                 </div>
                 <div>
                   <div
-                    className={`${styles.square} ${styles.selected}`}
+                    // className={`${styles.square} ${styles.selected}`}
+                    className={`${styles.square}`}
                     style={{ background: "#64A26A" }}
                   ></div>
                   <span>已選取</span>
                 </div>
                 <div>
                   <div
-                    className={`${styles.square} ${styles.sold}`}
+                    // className={`${styles.square} ${styles.sold}`}
+                    className={`${styles.square}`}
                     style={{ background: "#E12C4B" }}
                   ></div>
                   <span>無法選取</span>

@@ -195,7 +195,7 @@ function Accordion({ searchTerm, selectedFilter, sortBy, sortOrder }) {
                     >
                         <div className={"accordion-body " + Socialhomestyle.accordionbody}>
                             <div className="col-1"></div>
-                            <img className={Socialhomestyle.poster + " col-2"} src={user.imageUrl} height="230px" alt=""></img>
+                            <img className={Socialhomestyle.poster + " col-2"} src={user.imageUrl} height="250px" alt=""></img>
                             <div className="col-1"></div>
                             <div className={Socialhomestyle.usercomment + " col-6"}>
                                 {user.comments.slice(0, 5).map((commentData, commentIndex) => {
@@ -212,7 +212,7 @@ function Accordion({ searchTerm, selectedFilter, sortBy, sortOrder }) {
                                         </div>
                                     );
                                 })}
-                                <Link to={`/info/${user.id}?tab=comment`} className={Socialhomestyle.btnmore} data-hover="電影介紹"><div>看更多</div></Link>
+                                <Link to={`/info/${user.id}?tab=comment`} className={Socialhomestyle.btnmore} data-hover="發表評論"><div className={Socialhomestyle.btnmore2}>看更多</div></Link>
                             </div>
                         </div>
                     </div>
