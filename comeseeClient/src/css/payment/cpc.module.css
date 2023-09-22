@@ -161,8 +161,9 @@
 
 .memInfo {
     margin-top: 100px;
-    border-top: 1px solid #F1EFE9;
-    padding-top: 20px;
+    border-top: 2px solid #F1EFE9;
+    padding-top: 30px;
+    margin-right: 100px;
 }
 
 .memPhone {

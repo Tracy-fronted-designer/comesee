@@ -201,9 +201,9 @@ class Discount extends Component {
                 </div>
                 <div className={"row " + DT.discountAdd}>
                   <div className="col">
-                    金額<span style={{ fontSize: '24px' }}>&nbsp;{state.subtotal}&nbsp;</span>元，
-                    可折抵<span style={{ fontSize: '24px' }}>&nbsp;{this.discountPoint(state.usePoint) + state.couponDiscount}&nbsp;</span>元，
-                    小計<span style={{ fontSize: '24px' }}>&nbsp;{state.total}&nbsp;</span>元
+                    金額<span style={{ fontSize: '36px' }}>&nbsp;{state.subtotal}&nbsp;</span>元，
+                    可折抵<span style={{ fontSize: '36px' }}>&nbsp;{this.discountPoint(state.usePoint) + state.couponDiscount}&nbsp;</span>元，
+                    小計<span style={{ fontSize: '36px' }}>&nbsp;{state.total}&nbsp;</span>元
                   </div>
                 </div>
               </div>
