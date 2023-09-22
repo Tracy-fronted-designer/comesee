@@ -58,6 +58,7 @@
 
 /* //////////////////////////////////////////////////////// */
 
+/* 快速訂票 */
 .Order {
     flex-basis: 25%;
     display: flex;
@@ -91,6 +92,7 @@
 }
 
 .quickBtn {
+    position: relative;
     width: 175px;
     height: 55px;
     margin-top: 30px;
@@ -105,90 +107,59 @@
     font-style: normal;
     font-weight: 500;
     line-height: 25px;
+
+    z-index: 1;
+    text-transform: uppercase;
+    overflow: hidden;
+    transition: 0.5s;
 }
 
+/* .quickBtn:focus, */
 .quickBtn:hover {
     color: #F1EFE9;
-    border: "none";
+    border: 2px solid #F1EFE9;
+    /* background-color: #727366; */
+}
+
+.quickBtn span {
+    position: absolute;
+    width: 25%;
+    height: 100%;
     background-color: #727366;
+    transform: translateY(150%);
+    border-radius: 50%;
+    left: calc((var(--n) - 1) * 25%);
+    transition: 0.5s;
+    transition-delay: calc((var(--n) - 1) * 0.1s);
+    z-index: -1;
 }
 
-.quickBtn:active {
-    color: #F1EFE9;
-    border: "none";
-    background-color: #B6B995;
+.quickBtn:hover span {
+    transform: translateY(0) scale(2);
 }
 
-.modalcontent {
-    width: 400px;
-    height: 200px;
-    background-color: #d9d9d9;
-    border-radius: 15px;
+.quickBtn span:nth-child(1) {
+    --n: 1;
 }
 
-.modalheader {
-    display: flex;
-    justify-content: flex-end;
-    padding: 15px;
-    border: none;
+.quickBtn span:nth-child(2) {
+    --n: 2;
 }
 
-.modalbody {
-    border: #000000;
-    padding: 0 35px 0;
+.quickBtn span:nth-child(3) {
+    --n: 3;
 }
 
-.modalfooter {
-    display: flex;
-    justify-content: flex-end;
-    padding: 15px;
-    border: none;
+.quickBtn span:nth-child(4) {
+    --n: 4;
 }
 
-.modaltitle {
-    color: #2F2F2F;
-    font-family: "Noto Sans TC";
-    font-size: 24px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: 120%;
-}
 
-.modaltext {
-    margin-bottom: 0;
-    color: #2F2F2F;
-    font-family: "Noto Sans TC";
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 400;
-}
 
-.modalcheck {
-    width: 80px;
-    height: 30px;
-    color: #F1EFE9;
-    border: none;
-    border-radius: 15px;
-    background-color: #AE1914;
-
-    font-family: "Noto Sans TC";
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 140%;
-}
-
-.modalcheck:hover {
-    border: 1px solid #F1EFE9;
-}
-
-.modalcheck:active {
-    background-color: #AE1914;
-    color: #d9d9d9;
-}
 
 /* //////////////////////////////////////////////////////// */
 
+/* 電影列表 */
 .bar {
     display: flex;
     justify-content: space-between;
@@ -264,21 +235,6 @@
     transform: scale(0.96);
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 .box {
     display: flex;
     justify-content: center;
@@ -302,8 +258,6 @@
     padding-top: 20px;
 }
 
-
-/*  */
 .imgContainer {
     position: relative;
     padding: 70px 0 100px;
@@ -349,7 +303,6 @@
         }
     }
 }
-
 
 .imgBtn {
     width: 150px;

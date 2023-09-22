@@ -46,22 +46,21 @@ const QuickOrder = () => {
   async function handleCinemaChange(e) {
     if (state.userID === null) {
       const result = await Swal.fire({
-        title: '請先登入會員',
-        icon: 'warning',
+        title: "請先登入會員",
+        icon: "warning",
         confirmButtonText: "確認",
       });
 
       if (result.isConfirmed) {
         window.location.href = "/login";
       }
-
     } else {
       setSelectedCinema(e.target.value);
       setSelectedMovie("");
       setSelectedDate("");
       setSelectedShowtime("");
       setSelectedNumber("");
-    };
+    }
   }
 
   // 篩選影片選項
@@ -82,7 +81,7 @@ const QuickOrder = () => {
     setSelectedDate("");
     setSelectedShowtime("");
     setSelectedNumber("");
-  };
+  }
 
   // 篩選日期選項
   useEffect(() => {
@@ -121,7 +120,7 @@ const QuickOrder = () => {
     setSelectedDate(e.target.value);
     setSelectedShowtime("");
     setSelectedNumber("");
-  };
+  }
 
   // 篩選場次選項
   useEffect(() => {
@@ -144,16 +143,15 @@ const QuickOrder = () => {
   function handleShowtimeChange(e) {
     setSelectedShowtime(e.target.value);
     setSelectedNumber("");
-  };
+  }
 
   // 人數選擇事件處理
   function handleNumberChange(e) {
     setSelectedNumber(e.target.value);
-  };
+  }
 
   // 取得showtimeID 跟 使用者選擇數量 更新到context
   function handleShowtimID() {
-
     const [movieID, theaterID] = selectedMovie.split(",");
 
     // 相對應資料傳後端
@@ -194,15 +192,14 @@ const QuickOrder = () => {
             } else {
               // 位置數不夠
               Swal.fire({
-                title: '您目前所選的時段已無空位',
+                title: "您目前所選的時段已無空位",
                 text: "請重新選擇",
-                icon: 'warning',
+                icon: "warning",
                 confirmButtonText: "確認",
-              }
-              )
+              });
               return;
             }
-          })
+          });
       })
       .catch((err) => {
         console.log("showtimeID取得失敗:" + err.response);
@@ -294,17 +291,14 @@ const QuickOrder = () => {
           <option value="6">6</option>
         </select>
 
-        <button
-          type="button"
-          className={HS.quickBtn}
-          onClick={handleShowtimID}
-        >
+        <button type="button" className={HS.quickBtn} onClick={handleShowtimID}>
           即刻購票
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
         </button>
-
       </form>
-
-
     </>
   );
 };

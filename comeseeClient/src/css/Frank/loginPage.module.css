@@ -50,10 +50,6 @@
     line-height: 125%;
 }
 
-.btn {
-    justify-content: flex-end;
-}
-
 .tip {
     text-align: center;
     font-size: 18px;
@@ -91,27 +87,76 @@
     padding: 0 10px;
 }
 
-.btn {
+.sbtn {
     width: 125px;
     height: 50px;
     margin-top: 30px;
-    border: 2px solid #F1EFE9;
+
+    border: 2px solid #727366;
     border-radius: 18px;
-    background-color: #727366;
-    color: #F1EFE9;
+    /* background-color: rgba(0, 0, 0, 0.0); */
+    background-color: #f0f0f0;
+
+    color: #727366;
     text-align: center;
     font-size: 22px;
     font-style: normal;
-    font-weight: 500;
-    line-height: 25px;
+    font-weight: 700;
+    line-height: 175%;
     float: right;
+
+    position: relative;
+    display: flex;
+    justify-content: center;
+    z-index: 1;
+    text-transform: uppercase;
+    overflow: hidden;
+    transition: 0.5s;
 }
 
-.btn:hover {
-    border: 2px solid #F1EFE9;
-    background-color: #B6B995;
+.sbtn:hover,
+.sbtn:focus {
     color: #F1EFE9;
+    border: 2px solid #F1EFE9;
+
 }
+
+.sbtn span {
+    position: absolute;
+    width: 25%;
+    height: 100%;
+    background-color: #727366;
+    transform: translateY(150%);
+    border-radius: 50%;
+    left: calc((var(--n) - 1) * 25%);
+    transition: 0.5s;
+    transition-delay: calc((var(--n) - 1) * 0.1s);
+    z-index: -1;
+}
+
+.sbtn:hover span {
+    transform: translateY(0) scale(2);
+}
+
+.sbtn span:nth-child(1) {
+    --n: 1;
+}
+
+.sbtn span:nth-child(2) {
+    --n: 2;
+}
+
+.sbtn span:nth-child(3) {
+    --n: 3;
+}
+
+.sbtn span:nth-child(4) {
+    --n: 4;
+}
+
+
+
+
 
 .box {
     margin-top: 50px;
@@ -126,14 +171,13 @@
 .Lbtn {
     border: none;
     border-radius: 15px;
-    width: 180px;
-    height: 45px;
-    color: #A6A79B;
-    font-size: 22px;
+    width: 170px;
+    height: 43px;
+    color: #727366;
+    font-size: 20px;
     font-style: normal;
     font-weight: 700;
     line-height: 125%;
-    /* margin: 5px; */
 
     display: flex;
     justify-content: center;
@@ -143,4 +187,18 @@
 
 .Lbtn:hover {
     background: #D9D9D9;
+}
+
+.icon {
+    height: 28px;
+    width: 28px;
+}
+
+.error {
+    color: #E12C4B;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 125%;
+    margin-bottom: 5px;
 }

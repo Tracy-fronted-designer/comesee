@@ -7,7 +7,6 @@ import Ficon from "../../css/Frank/img/facebook.png";
 import Licon from "../../css/Frank/img/line.png";
 import TicketContext from "../../TicketContext";
 
-
 class Login extends Component {
   static contextType = TicketContext;
 
@@ -93,8 +92,12 @@ class Login extends Component {
                 忘記密碼？
               </Link>
             </div>
-            <button type="submit" className={LoginStyle.btn}>
+            <button type="submit" className={LoginStyle.sbtn}>
               登入
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
             </button>
           </form>
           <div className={LoginStyle.box}>
