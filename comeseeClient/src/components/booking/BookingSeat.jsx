@@ -262,9 +262,11 @@ class BookingSeat extends Component {
             </div>
             {/* 右邊訂票區 */}
             <div className={`col-9 ${styles.seatArea}`}>
-              <div
-                className={styles.seatText}
-              >{`剩餘 ${this.state.numberOfEmptySeats} 個空位可選`}</div>
+              <div className={styles.seatText}>
+                <span>剩餘&nbsp;&nbsp;</span>
+                {` ${this.state.numberOfEmptySeats} `}
+                <span>&nbsp;&nbsp;個空位可選</span>
+              </div>
               <div className={styles.screen}>
                 <div className={styles.neonText}>screen</div>
               </div>

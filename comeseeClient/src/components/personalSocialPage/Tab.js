@@ -7,12 +7,18 @@ import SmartMasonry from "react-smart-masonry"; // 引入 react-smart-masonry
 
 import PlayListArea from "./PlayListArea";
 import axios from "axios";
+import AOS from "aos";
+import "aos/dist/aos.css"; //  AOS 的 CSS
 
 function Tabs(props) {
   const [toggleState, setToggleState] = useState(1); // tab的紀錄值
   const [commentsData, setCommentsData] = useState([]);
 
   const { userID } = props; //取得social.js傳來的prop
+
+  useEffect(() => {
+    AOS.init();
+  }, []);
 
   ////以userID取得該user的評論資訊(movieNameCN, userName, sendTime, score, comment)
   useEffect(() => {
@@ -113,36 +119,62 @@ function Tabs(props) {
           >
             {commentsData.length !== 0 ? (
               commentsData.map((comment, index) => (
-                <div key={index} className={SocialStyle.content1}>
-                  {/* 攝影機小圖 + 電影名稱 */}
-                  <div>
-                    {/* 攝影機小圖 */}
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="46"
-                      height="23"
-                      viewBox="0 0 46 23"
-                      fill="none"
-                    >
-                      <rect
-                        x="1"
-                        y="1"
-                        width="33"
-                        height="21"
-                        rx="3"
-                        stroke="#F1EFE9"
-                        strokeWidth="2"
+                <div
+                  key={index}
+                  className={SocialStyle.content1}
+                  data-aos="zoom-in-right"
+                >
+                  <div className="d-flex justify-content-between">
+                    {/* 攝影機小圖 + 電影名稱 + 星星*/}
+                    <div className={Tabb.nameAndScore}>
+                      <div>
+                        {/* 攝影機小圖 */}
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="46"
+                          height="23"
+                          viewBox="0 0 46 23"
+                          fill="none"
+                        >
+                          <rect
+                            x="1"
+                            y="1"
+                            width="33"
+                            height="21"
+                            rx="3"
+                            stroke="#F1EFE9"
+                            strokeWidth="2"
+                          />
+                          <path
+                            d="M34 16.0312L45 19V4L34 7.4375"
+                            stroke="#F1EFE9"
+                            strokeWidth="2"
+                          />
+                        </svg>
+                        {/* 影片名稱 */}
+                        <span className={SocialStyle.moviename}>
+                          {comment.movieNameCN}
+                        </span>
+                      </div>
+                      {/* 星星 */}
+                      <StaticStart rating={comment.score} />
+                      {/* 評價日期 */}
+                      <p className={SocialStyle.date}>
+                        {"於 " + targetLocalDate(comment.sendTime) + " 評論"}
+                      </p>
+                    </div>
+
+                    {/* 電影圖 */}
+                    <div className={Tabb.movieImg}>
+                      <img
+                        className="img-fluid rounded h-100"
+                        src={comment.imageUrl}
+                        alt="moviePhoto"
                       />
-                      <path
-                        d="M34 16.0312L45 19V4L34 7.4375"
-                        stroke="#F1EFE9"
-                        strokeWidth="2"
-                      />
-                    </svg>
-                    <span className={SocialStyle.moviename}>
-                      {comment.movieNameCN}
-                    </span>
+                    </div>
                   </div>
+                  {/* 評論 */}
+                  <p className={SocialStyle.text1}>{comment.comment}</p>
 
                   {/* 除了攝影機小圖 + 電影名稱以外的部分 */}
                   <div className={SocialStyle.user}>
@@ -150,7 +182,7 @@ function Tabs(props) {
                       {/* 包含個人頭像 & userName + 發送日期 */}
                       <div className="d-flex ">
                         {/* 個人頭像 */}
-                        <div className={SocialStyle.userphoto}>
+                        {/* <div className={SocialStyle.userphoto}>
                           <img
                             className="img-fluid rounded-circle"
                             // src={require("photo.jpg")}
@@ -158,22 +190,22 @@ function Tabs(props) {
                             src={require(`../../img/photo.jpg`)}
                             alt="userPhoto"
                           />
-                        </div>
+                        </div> */}
                         {/* userName + 發送日期 */}
                         <div className={SocialStyle.userinfo}>
-                          <p className={SocialStyle.username1}>
+                          {/* <p className={SocialStyle.username1}>
                             {comment.userName}
-                          </p>
-                          <p className={SocialStyle.date}>
+                          </p> */}
+                          {/* <p className={SocialStyle.date}>
                             {targetLocalDate(comment.sendTime)}
-                          </p>
+                          </p> */}
                         </div>
                       </div>
                       {/* star */}
-                      <StaticStart rating={comment.score} />
+                      {/* <StaticStart rating={comment.score} /> */}
                     </div>
 
-                    <p className={SocialStyle.text1}>{comment.comment}</p>
+                    {/* <p className={SocialStyle.text1}>{comment.comment}</p> */}
                   </div>
                 </div>
               ))

@@ -6,6 +6,7 @@ import "bootstrap/dist/js/bootstrap";
 import BtnMovie from "./btnMovie";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const Register = () => {
   const [selectedCity, setSelectedCity] = useState("");
@@ -168,22 +169,45 @@ const Register = () => {
       );
 
       if (response.data.success) {
-        alert("註冊成功！別忘記到會員中心領取您的入會禮呦！");
+        // alert("註冊成功！別忘記到會員中心領取您的入會禮呦！");
+        Swal.fire({
+          title: "註冊成功！別忘記到會員中心領取您的入會禮呦！",
+          icon: "success",
+          confirmButtonText: "確定",
+        }).then(async (result) => {
+          if (result.isConfirmed) {
+            // 在確定按鈕被按下後執行刷新網頁的程式碼
+            const res = await axios.get(
+              `http://localhost:2407/user/getuserID/${values.email}`
+            );
 
-        const res = await axios.get(
-          `http://localhost:2407/user/getuserID/${values.email}`
-        );
+            const result = await axios.post(
+              `http://localhost:2407/playlist/create/${res.data}`,
+              {
+                listname: "預設片單",
+              }
+            );
 
-        const result = await axios.post(
-          `http://localhost:2407/playlist/create/${res.data}`,
-          {
-            listname: "預設片單",
+            history.push("/login");
+
+            window.location.reload();
           }
-        );
+        });
 
-        history.push("/login");
+        // const res = await axios.get(
+        //   `http://localhost:2407/user/getuserID/${values.email}`
+        // );
 
-        window.location.reload();
+        // const result = await axios.post(
+        //   `http://localhost:2407/playlist/create/${res.data}`,
+        //   {
+        //     listname: "預設片單",
+        //   }
+        // );
+
+        // history.push("/login");
+
+        // window.location.reload();
       }
     } catch (error) {
       if (error.response && error.response.status === 420) {
@@ -278,7 +302,7 @@ const Register = () => {
               onChange={onChange}
               value={values.gender || ""}
             >
-              <option value="" >請選擇</option>
+              <option value="">請選擇</option>
               <option value="男">男</option>
               <option value="女">女</option>
             </select>
@@ -444,8 +468,8 @@ const Register = () => {
                 <button
                   className={Registerstyle.btnstyle2}
                   type="button"
-                  onClick={handleSkip}                  
-                  data-bs-dismiss="modal" 
+                  onClick={handleSkip}
+                  data-bs-dismiss="modal"
                   aria-label="Close"
                 >
                   略過
@@ -454,7 +478,6 @@ const Register = () => {
                   className={Registerstyle.btnstyle2}
                   type="button"
                   onClick={handleSubmit}
-
                 >
                   送出
                 </button>

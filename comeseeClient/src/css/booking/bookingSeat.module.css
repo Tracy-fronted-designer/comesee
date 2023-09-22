@@ -116,11 +116,15 @@
 
 .seatText {
   color: #f1efe9;
-  font-size: 16px;
+  font-size: 25px;
   text-align: center;
   width: 200px;
   margin: 66px auto 20px auto;
   transform: translateX(20px);
+}
+
+.seatText span {
+  font-size: 18px;
 }
 
 .sample {
