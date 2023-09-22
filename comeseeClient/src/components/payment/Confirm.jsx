@@ -71,7 +71,7 @@ class Confirm extends Component {
                     : 紅利點數 - 折抵 {state.discount} 元, 優惠券 : {state.selectedCoupon} - 折抵 {state.couponDiscount} 元
                   </span>
                 </div>
-                <div className={CPC.confirmTitle}>總計： {state.total} 元</div>
+                <div className={CPC.confirmTitle}>總計：<span style={{fontSize:'32px'}}>{state.total}</span>&ensp;元</div>
               </div>
             </div>
           </div>
