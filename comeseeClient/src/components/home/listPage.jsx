@@ -63,7 +63,6 @@ const ListPage = () => {
       <div className="container">
         <nav className={LS.myNav}>
           <div className={LS.myTabs} id="nav-tab" role="tablist">
-            a
             <button
               className={`${LS.myLink} listTab ${
                 tabState === "nowplaying" ? "active" : ""
