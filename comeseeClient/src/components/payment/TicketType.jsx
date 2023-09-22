@@ -31,7 +31,7 @@ class TicketType extends Component {
               {/* 電影圖片 */}
               <img src={state.bookingInfo.imageUrl} alt="電影圖片" />
             </div>
-            <div className="col-8 col-md-6">
+            <div className="col-8">
               <div className={DT.movieName}>
                 {/* 電影中文名 */}
                 <span className={DT.movieNameC}>

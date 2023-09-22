@@ -29,9 +29,18 @@ class SwitchBtn extends Component {
           onMouseLeave={this.prevMouseLeave}
 
         >
-          <svg width="13px" height="10px" viewBox="0 0 13 10">
-            <path d="M11,5 L1,5"></path>
-            <polyline points="4 1 0 5 4 9"></polyline>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            fill="currentColor"
+            class="bi bi-chevron-left"
+            viewBox="0 0 16 16"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M11.354 1.646a.5.5 0 0 1 0 .708L6.707 8l4.647 4.646a.5.5 0 1 1-.708.708l-5-5a.5.5 0 0 1 0-.708l5-5a.5.5 0 0 1 .708 0z"
+            />
           </svg>
           <span>上一頁</span>
         </Link>
@@ -54,9 +63,18 @@ class SwitchBtn extends Component {
           }}
         >
           <span>下一頁</span>
-          <svg width="13px" height="10px" viewBox="0 0 13 10">
-            <path d="M1,5 L11,5"></path>
-            <polyline points="8 1 12 5 8 9"></polyline>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width={20}
+            height={20}
+            fill="currentColor"
+            className="bi bi-chevron-right"
+            viewBox="0 0 16 16"
+          >
+            <path
+              fillRule="evenodd"
+              d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"
+            />
           </svg>
         </Link>
       </div>
