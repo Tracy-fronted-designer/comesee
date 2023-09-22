@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import nav from "../css/navbar.module.css";
 import TicketContext from "../TicketContext";
+import Swal from "sweetalert2";
 
 class Navbar extends Component {
   static contextType = TicketContext;
@@ -33,7 +34,9 @@ class Navbar extends Component {
     return (
       <nav className="navbar fixed-top">
         <div className={`container ${nav.nav}`}>
-          <a href="/" className={nav.navLogo}>{""}</a>
+          <a href="/" className={nav.navLogo}>
+            {""}
+          </a>
           <span className={nav.navberA}>
             <a href="/">電影首頁</a>
             <a href="/Socialhome">社群討論</a>
@@ -47,8 +50,18 @@ class Navbar extends Component {
                 onClick={(e) => {
                   e.preventDefault();
                   this.handleLogout();
-                  alert("已登出");
-                  window.location.href = "/";
+                  // alert("已登出");
+                  // window.location.href = "/";
+                  Swal.fire({
+                    title: "已登出",
+                    icon: "success",
+                    confirmButtonText: "確定",
+                  }).then((result) => {
+                    if (result.isConfirmed) {
+                      // 在確定按鈕被按下後執行刷新網頁的程式碼
+                      window.location.href = "/";
+                    }
+                  });
                 }}
               >
                 登出

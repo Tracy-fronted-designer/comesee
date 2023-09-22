@@ -194,7 +194,7 @@ const UserMessage = () => {
       </div>
       <div className={member.FormGroup}>
         <div className={member.a3}>
-          <label className={member.b1}>西元出生年月日</label>
+          <label className={member.b1}>生日</label>
         </div>
         <input
           type="date"

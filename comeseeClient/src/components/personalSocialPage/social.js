@@ -55,7 +55,7 @@ class Social extends Component {
             {/* 左半部 */}
             <div className={SocialStyle.intro}>
               {/* 大頭貼 */}
-              <div className={SocialStyle.img}>
+              <div className={SocialStyle.userImg}>
                 <img
                   className="img-fluid h-100 rounded-circle"
                   // src={`http://localhost:2407/${this.state.userInfo.image}`}

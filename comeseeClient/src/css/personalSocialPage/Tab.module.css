@@ -6,6 +6,18 @@
   margin-top: 94px;
 } */
 
+.nameAndScore {
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+}
+
+.movieImg {
+  height: 160px;
+  margin-left: 30px;
+  flex-shrink: 0;
+}
+
 .content {
   display: none;
 }

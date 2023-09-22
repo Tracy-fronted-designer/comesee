@@ -1,5 +1,5 @@
 import React from "react";
-import SocialStyle from "../../css/socialpage/social.module.css";
+import SocialStyle from "../../css/personalSocialPage/social.module.css";
 
 const StarContainer = ({ rating }) => {
   return (
