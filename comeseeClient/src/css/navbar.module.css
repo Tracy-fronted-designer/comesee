@@ -9,11 +9,16 @@ nav {
 
 .navLogo {
     text-decoration: none;
-    font-family: 'Noto Sans TC';
-    color: #FFF;
-    font-size: 20px;
+    /* font-family: 'Noto Sans TC'; */
+    /* color: #FFF; */
+    /* font-size: 20px;
     font-weight: 700;
-    line-height: 28px;
+    line-height: 28px;  */
+    background-image: url(../img/logo-v3.png);
+    background-size: cover;
+    width:150px; 
+    height:60px;
+    display: flex;
 }
 
 .navberA>a{
