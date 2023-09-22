@@ -24,6 +24,7 @@
     width: 65px;
     height: 65px;
     border-radius: 40px;
+    border: #424242 1px solid;
 }
 
 /* 留言input */
@@ -33,6 +34,7 @@
     margin-top: 15px;
     border: none;
     border-radius: 15px;
+    font-size: 20px;
 }
 
 /* 送出按鈕 */
@@ -43,18 +45,19 @@
 
     border: none;
     border-radius: 15px;
-    background-color: #a6a79b;
+    background-color: #8C8C83;
 
-    color: #f1efe9;
-    font-size: 18px;
+
+    color: #F1EFE9;
+    font-size: 20px;
     font-style: normal;
-    font-weight: 400;
+    font-weight: 600;
 }
 
 .scb:hover {
-    color: #F1EFE9;
+    color: #8C8C83;
     border: none;
-    background-color: #B6B995;
+    background-color: #F1EFE9;
 }
 
 /* 他人評論區 */
@@ -89,7 +92,7 @@
 /* 暱稱 */
 .name {
     margin-bottom: 8px;
-    font-size: 20px;
+    font-size: 22px;
     font-style: normal;
     font-weight: 700;
     line-height: 140%;
@@ -98,7 +101,7 @@
 /* 評論文字 */
 .comm {
     margin-bottom: 8px;
-    font-size: 18px;
+    font-size: 20px;
     font-style: normal;
     font-weight: 400;
     line-height: 140%;
@@ -123,7 +126,7 @@
 
 /* 互動數 */
 .number {
-    font-size: 16px;
+    font-size: 20px;
     font-style: normal;
     font-weight: 400;
     line-height: 140%;
@@ -133,7 +136,7 @@
 .date {
     text-align: end;
     padding-top: 10px;
-    font-size: 16px;
+    font-size: 18px;
     font-style: normal;
     font-weight: 400;
     line-height: 140%;

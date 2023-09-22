@@ -29,30 +29,31 @@
 
 .findmovinput {
     height: 40px;
-    border-radius: 8px;
+    border-radius: 6px;
+    border: 1px solid #D9D9D9;
     flex-direction: column;
     justify-content: center;
     flex-shrink: 0;
-    color: #A6A79B !important;
+    color: #8C8C83 !important;
     font-family: Noto Sans TC;
-    font-size: 20px;
+    font-size: 18px;
     width: 306px !important;
 }
 
 .findmovinput::placeholder {
-    color: #B6B995 !important;
+    color: #8C8C83 !important;
     font-family: Noto Sans TC;
-    font-size: 20px;
+    font-size: 18px;
 }
 
 .formselect {
     width: 306px !important;
     flex-direction: column;
     font-family: Noto Sans TC;
-    font-size: 20px;
+    font-size: 18px;
     align-items: flex-start;
     align-self: stretch;
-    color: #B6B995;
+    color: #8C8C83;
 }
 
 .movieview {
@@ -95,7 +96,7 @@
 .myh5 {
     color: var(--primary-mint, #F1EFE9);
     font-family: Noto Sans TC;
-    font-size: 16px;
+    font-size: 18px;
     font-style: normal;
     font-weight: 700;
     line-height: 140%;
@@ -105,7 +106,7 @@
 .myh51 {
     color: var(--primary-mint, #F1EFE9);
     font-family: Noto Sans TC;
-    font-size: 16px;
+    font-size: 18px;
     font-style: normal;
     font-weight: 700;
     line-height: 140%;
@@ -214,6 +215,7 @@
 
 .ratingpost {
     width: 70%;
+    /* height: 500px; */
 }
 
 .ratingword {
@@ -225,7 +227,7 @@
 }
 
 .inside {
-    height: 500px;
+    height: 450px;
 }
 
 .accordion123 {
@@ -414,7 +416,7 @@
 }
 
 .ratingSC {
-    padding-top: 80px;
+    padding-top: 50px;
 }
 
 .rotated {

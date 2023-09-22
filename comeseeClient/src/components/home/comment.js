@@ -53,10 +53,11 @@ class OthersComment extends Component {
         const filteredComments = this.props.comment.filter(comment => comment.movieID === this.props.filmInfo.id);
         const Img = 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/Twemoji_1f600.svg/1200px-Twemoji_1f600.svg.png';
 
+        const reversedComments = filteredComments.slice().reverse();
 
         return (
             <div>
-                {filteredComments.map((comment, index) => {
+                {reversedComments.map((comment, index) => {
                     const member = members.find(member => member.UserID === comment.userID);
                     const userImage = this.getUserImage(comment.userID);
                     const imgSrc = userImage ? `http://localhost:2407/user/image/${userImage}` : Img;

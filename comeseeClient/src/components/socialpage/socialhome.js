@@ -46,10 +46,10 @@ class Socialhome extends Component {
                                     <img className={Socialhomestyle.ratingpost} src={require("../../img/carouselimg.jpg")} alt=""></img>
                                     <div className={Socialhomestyle.ratingword}>
                                         <p className={Socialhomestyle.ratingtitle}>本週評分最高</p>
-                                        <h1 className={Socialhomestyle.ratingMN}>奧本海默</h1>
-                                        <h5 className={Socialhomestyle.ratingMEN}>Oppenheimer</h5>
+                                        <h1 className={Socialhomestyle.ratingMN}>峰爆</h1>
+                                        <h5 className={Socialhomestyle.ratingMEN}>Cloudy Mountain</h5>
                                         <div className={Socialhomestyle.ratingSC}>
-                                            <Score score="4.6" /></div>
+                                            <Score score="5.0" /></div>
                                     </div>
                                 </div>
                             </div>
@@ -61,7 +61,7 @@ class Socialhome extends Component {
                                         <h1 className={Socialhomestyle.ratingMN}>私刑教育3</h1>
                                         <h5 className={Socialhomestyle.ratingMEN}>THEEQUALIZER3</h5>
                                         <div className={Socialhomestyle.ratingSC}>
-                                            <Score score="4.3" /></div>
+                                            <Score score="4.4" /></div>
 
                                     </div>
                                 </div>
@@ -70,9 +70,9 @@ class Socialhome extends Component {
                                 <div className={Socialhomestyle.ratingchampion}>
                                     <img className={Socialhomestyle.ratingpost} src={require("../../img/GranTurismo.jpg")} alt=""></img>
                                     <div className={Socialhomestyle.ratingword}>
-                                        <p className={Socialhomestyle.ratingtitle}>本週留言次數最多</p>
-                                        <h1 className={Socialhomestyle.ratingMN}>GT:跨界玩家</h1>
-                                        <h5 className={Socialhomestyle.ratingMEN}>GranTurismo</h5>
+                                        <p className={Socialhomestyle.ratingtitle}>綜合排名最高</p>
+                                        <h1 className={Socialhomestyle.ratingMN}>闇黑新世界</h1>
+                                        <h5 className={Socialhomestyle.ratingMEN}>New World</h5>
                                         <div className={Socialhomestyle.ratingSC}>
                                             <Score score="4.7" /></div>
                                     </div>

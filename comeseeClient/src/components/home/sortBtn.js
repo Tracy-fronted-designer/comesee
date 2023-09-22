@@ -8,11 +8,11 @@ class SortBtn extends Component {
         width: "70px",
         height: "30px",
 
-        border: "2px solid #B6B995",
+        border: "2px solid #8C8C83",
         borderRadius: "15px",
         backgroundColor: "rgba(0,0,0,0.0)",
 
-        color: "#B6B995",
+        color: "#8C8C83",
         fontFamily: "Noto Sans TC",
         fontSize: "18px",
         fontStyle: "normal",
@@ -22,13 +22,13 @@ class SortBtn extends Component {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        alignSelf:"flex-end"
+        alignSelf: "flex-end"
     }
 
     btnStyleHover = {
         color: "#F1EFE9",
-        border:"none",
-        backgroundColor: "#B6B995"
+        border: "none",
+        backgroundColor: "#8C8C83"
     }
 
 
@@ -38,7 +38,7 @@ class SortBtn extends Component {
         return (
             <button
                 onClick={onClick}
-                style={isHovered ? {...this.btnStyle, ...this.btnStyleHover} : this.btnStyle}
+                style={isHovered ? { ...this.btnStyle, ...this.btnStyleHover } : this.btnStyle}
                 onMouseEnter={this.mouseEnter}
                 onMouseLeave={this.mouseLeave}
             >
