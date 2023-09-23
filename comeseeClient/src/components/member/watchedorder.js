@@ -2,9 +2,10 @@ import React, { useState,useEffect,useCallback} from "react";
 import member from "../../css/member/member.module.css";
 
 const WatchedOrder = ({ orderdetail }) => {
-  //const [orderstate, setOrderstate] = useState("取消訂單");
   const [countdown, setCountdownDays] = useState(null);
   const [isVisible, setIsVisible] = useState(false); 
+
+  
 
 
   const calculateCountdown = useCallback(() => {
@@ -130,9 +131,9 @@ const WatchedOrder = ({ orderdetail }) => {
             {countdown === "已觀看" ? countdown : `${countdown}`}
             {/* <span className={member.text}>天</span> */}
           </div>
-          {/* <button onClick={() => changeOrderstate(orderdetail)} className={member.button}>
-            {orderstate}
-          </button> */}
+          <button className={member.button} onclick="location.href='https://mnya.tw';">
+            撰寫評論
+          </button>
         </div>
       </div>
     </div>

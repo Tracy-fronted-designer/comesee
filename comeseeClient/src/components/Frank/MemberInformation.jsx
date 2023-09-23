@@ -2,9 +2,9 @@ import React, { Component } from "react";
 import { BrowserRouter } from "react-router-dom/cjs/react-router-dom.min";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Info from "../member/info";
-import Sidebar from "./sidebar";
+import Sidebar from "../member/sidebar";
 import UserMessage from "./UserMessage";
-import LoveButton from "./LoveButton";
+// import LoveButton from "./LoveButton";
 import member from "../../css/Frank/allcss.module.css";
 
 class MemberInformation extends Component {

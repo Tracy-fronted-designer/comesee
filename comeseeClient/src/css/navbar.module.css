@@ -14,10 +14,11 @@ nav {
     /* font-size: 20px;
     font-weight: 700;
     line-height: 28px;  */
-    background-image: url(../img/logo-v3.png);
+    background-image: url(../img/logo-v6.png);
     background-size: contain;
+    background-repeat: no-repeat;
     width:130px; 
-    height:70px;
+    height:80px;
 }
 
 .navberA{

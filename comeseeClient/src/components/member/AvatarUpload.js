@@ -36,14 +36,14 @@ function AvatarUpload() {
 
     setIsFileInputVisible(false);
   };
+
   const handleUpload = () => {
     const formdata = new FormData();
-    formdata.append("image", file);
+    formdata.set("image", file);
     axios
       .post(`http://localhost:2407/user/uploads/${user}`, formdata)
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
-      window.location.href = "/member";
   };
 
   const handleImageClick = () => {
@@ -78,7 +78,7 @@ function AvatarUpload() {
       )}
 
       {previewImage && (
-        <div>
+        <div className={member.AvatarPreviewContainer}>
           <img
             className={member.Avatarstyle}
             src={previewImage}
@@ -90,7 +90,6 @@ function AvatarUpload() {
         </div>
       )}
       <label className={member.Avatarinput}>
-        <span className={member.AvatarChooseText}>選擇照片</span>
         <input
           id="fileInput"
           className={member.Avatarinput}
