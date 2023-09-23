@@ -264,7 +264,7 @@ class CommentTabs extends Component {
 
                     {/* 留言排序的按鈕 */}
                     <div className={CMS.sortBar} >
-                        <SortBtn label="最新" onClick={this.handleSortByNewest} />
+                        <SortBtn label="時間" onClick={this.handleSortByNewest} />
                         <SortBtn label="分數" onClick={this.handleSortByScore} />
                     </div >
 
