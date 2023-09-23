@@ -3,6 +3,7 @@ import member from "../../css/member/member.module.css";
 
 const CancelOrder = ({ CanceledOrders }) => {
 
+
   return (
     <div className={member.order}>
        <div>
@@ -88,6 +89,14 @@ const CancelOrder = ({ CanceledOrders }) => {
                   優惠卷&nbsp;
                   <span style={{ textDecoration: "underline" }}>
                     {CanceledOrders.couponID}
+                  </span>
+                </td>
+              </tr>
+              <tr>
+                <th scope="row">金額</th>
+                <td style={{ paddingLeft: "20px" }}>
+                  <span>
+                    ${CanceledOrders.price}
                   </span>
                 </td>
               </tr>

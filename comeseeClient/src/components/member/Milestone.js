@@ -5,6 +5,7 @@ import Axios from "axios";
 const Milestone = ({userID}) => {
   const [progress, setProgress] = useState(0); 
   const [Moneystate, setMoneystate] = useState(""); 
+  const [Moneystate2, setMoneystate2] = useState(""); 
   const [totalSpent, setTotalSpent] = useState([]); 
 
   useEffect(() => {
@@ -22,11 +23,14 @@ const Milestone = ({userID}) => {
 
   useEffect(() => {
     if (totalSpent >= 10000) {
-      setMoneystate("恭喜你獲得電影票卷乙張，請至紅利優惠區兌換");
+      setMoneystate("||  恭喜您消費滿$10,000元，已獲得電影票卷乙張，請至紅利優惠區兌換");
     } else if (totalSpent >= 6000) {
-      setMoneystate("恭喜你獲得88折優惠，請至紅利優惠區兌換。消費滿$10,000，即可獲得電影票卷乙張");
+      setMoneystate("|| 恭喜您目前消費里程已滿$6,000元，請至紅利優惠區兌換88折優惠卷");
+      setMoneystate2("累計滿$10,000，即可獲得電影票卷乙張");
     } else if (totalSpent >= 3000) {
-      setMoneystate("恭喜你獲得95折優惠，請至紅利優惠區兌換。消費滿$6,000，即可享有88折優惠");
+      setMoneystate("||  恭喜您目前消費里程已滿$3.000元，請至紅利優惠區兌換95折優惠卷");
+      setMoneystate2("累計滿$6,000，即可享有88折優惠");
+
     } else if(totalSpent < 3000) {
       setMoneystate("消費滿$3,000，即可享有95折優惠");
     }
@@ -41,14 +45,16 @@ const Milestone = ({userID}) => {
     <div className={member.milestonesection}>
       <div className={member.milestone}>
         <div className={member.title}>
+        <div className={member.title2}>
           <p className={member.username}>里程碑</p>
+          {/* <p className={member.subtitle2}>{Moneystate2}</p> */}
+        </div>
           <p className={member.subtitle}>{Moneystate}</p>
         </div>
         <div className={member.progressbar}>
-          <div className={member.progressbar2} style={{ width: `${progress}%` }}></div>
-        </div>
-        <div className={member.money}>
-          <div>
+        <div className={member.progressbar2} style={{ width: `${progress}%` }}>
+          </div>
+          {/* <div>
             <p>$3,000</p>
           </div>
           <div>
@@ -56,8 +62,9 @@ const Milestone = ({userID}) => {
           </div>
           <div>
             <p>$10,000</p>
-          </div>
+          </div> */}
         </div>
+        {totalSpent > 0 && <p className={member.spendtext}>目前消費里程: ${totalSpent}， {Moneystate2}</p>}
       </div>
     </div>
   );

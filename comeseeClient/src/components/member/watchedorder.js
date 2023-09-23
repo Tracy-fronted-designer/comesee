@@ -6,8 +6,8 @@ const WatchedOrder = ({ orderdetail }) => {
   const [isVisible, setIsVisible] = useState(false); 
 
   const handleButtonClick = () => {
-    // 在這裡處理按鈕點擊事件，例如導航到指定頁面
-    window.location.href = "https://example.com"; // 這裡替換為你想要導航的URL
+    const movieId = orderdetail.movieID;
+    window.location.href = `http://localhost:3000/info/${movieId}?tab=comment`;  
   };
 
 
@@ -44,9 +44,9 @@ const WatchedOrder = ({ orderdetail }) => {
     <div className={member.order}>
       <div>
         <img
-          className={member.film}
+          className={member.film2}
           src={orderdetail.imageUrl}
-          alt=""
+          alt="已觀看"
         />
       </div>
       <div className={member.orderdetail}>

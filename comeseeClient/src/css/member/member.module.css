@@ -14,7 +14,7 @@
   display: flex;
   flex-direction: row;
   background-color: #2f2f2f;
-  height: 263px;
+  height: 240px;
   padding: 10px 30px;
   border-radius: 15px;
 
@@ -23,7 +23,7 @@
 }
 
 .infosec{
-  padding-top: 120px;
+  padding-top: 100px;
 }
 
 .AvatarPreviewContainer{
@@ -153,18 +153,22 @@
 
 .title {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  align-items: flex-start;
+  color: #f1efe9;
+}
 
+.title2{
   display: flex;
   flex-direction: row;
   align-items: center;
   color: #f1efe9;
 }
 
-.title .subtitle {
-  display: flex;
+.title .subtitle2 {
   padding-left: 10px;
 }
+
 .title .username {
   font-size: 20px;
   font-weight: 700;
@@ -186,6 +190,26 @@
   border-radius: 80px;
 }
 
+.progressbar2::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(90deg, #e0e3c3 , transparent);
+}
+
+
+
+.spendtext{
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 20px;
+  font-weight: 500;
+  color: #b6b995;
+}
+
 .money {
   display: flex;
   flex-direction: row;
@@ -196,6 +220,10 @@
   display: flex;
   justify-content: flex-end;
   color: #f1efe9;
+}
+
+.money > div > p{
+  font-size: 18px;
 }
 
 /* sidebar */
@@ -352,6 +380,7 @@
   margin-bottom: 20px;
 }
 
+
 .film {
   width: 200px;
   height: 280px;
@@ -359,6 +388,17 @@
   margin-left: 20px;
   object-fit: cover;
 }
+
+.film2 {
+  width: 200px;
+  height: 280px;
+  background-color: #d9d9d9;
+  margin-left: 20px;
+  object-fit: cover;
+  opacity: 0.2;
+}
+
+
 
 
 /* 訂單紀錄bar內容設定 */
@@ -385,6 +425,7 @@
   font-family: 'Noto Sans TC', sans-serif;
   word-break: break-all;
 }
+
 
 .movie{
   white-space: normal;

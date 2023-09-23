@@ -169,7 +169,7 @@
 }
 .button {
   display: flex;
-  width: 120px;
+  width: 180px;
   height: 50px;
   padding: 15px 20px 16px 20px;
   justify-content: center;
@@ -177,10 +177,12 @@
   font-size: 14px;
 
   border-radius: 15px;
-  background: #b6b995;
+  background: #8C8C83;
   text-decoration: none;
-  color: #f1efe9;
+  color: #F1EFE9;
   border-style: none;
+  font-weight: 500;
+  font-size: 16px;
 
 }
 

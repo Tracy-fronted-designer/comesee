@@ -129,6 +129,14 @@ const Order = ({ orderdetail, onCancelOrder }) => {
                   </span>
                 </td>
               </tr>
+              <tr>
+                <th scope="row">金額</th>
+                <td style={{ paddingLeft: "20px" }}>
+                  <span>
+                    ${orderdetail.price}
+                  </span>
+                </td>
+              </tr>
             </tbody>
           </table >
         <div className={`col-3 ${member.rightcontent}`}>
