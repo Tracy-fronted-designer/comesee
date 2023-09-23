@@ -14,6 +14,7 @@ function Accordion({ searchTerm, selectedFilter, sortBy, sortOrder }) {
     const [activeItem, setActiveItem] = useState(null);
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(0);
+    const [filteredUsers, setFilteredUsers] = useState([]);
 
     const calculateTotalRaters = (user) => {
         const ratersSet = new Set();
@@ -77,9 +78,17 @@ function Accordion({ searchTerm, selectedFilter, sortBy, sortOrder }) {
                 return users;
         }
     };
-    const filteredUsers = filterUsersByDate(movie, selectedFilter)
-        .filter((user) => user.movieNameCN.includes(searchTerm));
+    // const filteredUsers = filterUsersByDate(movie, selectedFilter)
+    //     .filter((user) => user.movieNameCN.includes(searchTerm));
 
+    useEffect(() => {
+        const filteredData = filterUsersByDate(movie, selectedFilter).filter((user) => user.movieNameCN.includes(searchTerm));
+        setFilteredUsers(filteredData);
+
+        // 计算总页数
+        const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+        setTotalPages(totalPages);
+    }, [searchTerm, selectedFilter, movie]);
 
 
     useEffect(() => {
