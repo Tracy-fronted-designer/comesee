@@ -5,7 +5,11 @@ const WatchedOrder = ({ orderdetail }) => {
   const [countdown, setCountdownDays] = useState(null);
   const [isVisible, setIsVisible] = useState(false); 
 
-  
+  const handleButtonClick = () => {
+    // 在這裡處理按鈕點擊事件，例如導航到指定頁面
+    window.location.href = "https://example.com"; // 這裡替換為你想要導航的URL
+  };
+
 
 
   const calculateCountdown = useCallback(() => {
@@ -131,7 +135,7 @@ const WatchedOrder = ({ orderdetail }) => {
             {countdown === "已觀看" ? countdown : `${countdown}`}
             {/* <span className={member.text}>天</span> */}
           </div>
-          <button className={member.button} onclick="location.href='https://mnya.tw';">
+          <button className={member.button} onClick={handleButtonClick}>
             撰寫評論
           </button>
         </div>

@@ -83,16 +83,16 @@
   border-radius: 15px;
   /* font */
   text-decoration: none;
-  color: #f1efe9;
-  background: #b6b995;
-  border: none;
+  border: 2px solid #A6A79B;
+  background-color: #2F2F2F;
+  color: #8C8C83;
 }
 
 .button:hover {
-  background-color: #f1efe9;
+  background-color: #8C8C83;
   text-decoration: none;
   stroke-width: 2px;
-  stroke: #a6a79b;
+  stroke:  #A6A79B;
   box-shadow: 0px 0px 5px 0px rgba(217, 217, 217, 0.5);
-  color: #b6b995;
+  color: #F1EFE9;
 }
