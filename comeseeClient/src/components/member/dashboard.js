@@ -4,8 +4,8 @@ import Record from "./record";
 import Axios from "axios";
 
 const Dashboard = (user) => {
-  const [bonus, setBonus] = useState([]);
-  const [bonusRecord, setBonusrecord] = useState([]);
+  const [bonus, setBonus] = useState(["0"]);
+  const [bonusRecord, setBonusrecord] = useState(["尚無使用紀錄"]);
   const [bonusLoaded, setBonusLoaded] = useState(false); 
   const filteredRecords = bonusRecord.filter(record => record.used !== 0); //過濾0
   useEffect(() => {
@@ -45,12 +45,15 @@ const Dashboard = (user) => {
         <span className={fee.number}>{bonus}</span>
       </div>
       <div className={`col-8 ${fee.recordsec}`}>
-        {filteredRecords
-          .sort((a, b) => new Date(b.bonusDate) - new Date(a.bonusDate))
-          .map((bonus) => (
-            <Record key={bonus.orderID} bonusRecord={bonus} />
-          ))}
-          
+    {filteredRecords.length === 0 ? (
+      <div>尚無使用紀錄</div>
+    ) : (
+      filteredRecords
+        .sort((a, b) => new Date(b.bonusDate) - new Date(a.bonusDate))
+        .map((bonus) => (
+          <Record key={bonus.orderID} bonusRecord={bonus} />
+        ))
+    )}
       </div>
     </div>
   );
