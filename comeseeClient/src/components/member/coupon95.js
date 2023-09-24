@@ -70,7 +70,26 @@ const Coupon95 = ({allSpent,userID} ) => {
           onClick={() => changeCouponState()}
           className={fee.button}
           disabled={!isButtonEnabled}
-        >
+          style={{
+            backgroundColor:
+              coupons === "兌換"
+                ? "#557A46"
+                : coupons === "已領取"
+                ? "#333333"
+                : "#B4B4B3",
+            color:
+              coupons === "兌換"
+                ? "#f1efe9"
+                : coupons === "已領取"
+                ? "#F1EFE9"
+                : "#4D4D4D",
+              hover:
+              coupons === "兌換"
+              ? "2px solid  #A6A79B"
+              : coupons === "已領取"
+              ? ""
+              : "",
+          }}>
           {coupons}
         </button>
         <div className={fee.expire}>

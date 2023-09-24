@@ -20,6 +20,8 @@ const Topbutton = () => {
         `http://localhost:2407/orderlist/userOrderList/${user}`
       );
       const data = response.data;
+      //最新訂單放前面
+      data.sort((a, b) => new Date(b.ordertime) - new Date(a.ordertime));
       setOrders(data);
       setCanceledOrders(data);
     } catch (error) {
@@ -39,18 +41,17 @@ const Topbutton = () => {
         .catch((error) => {
           console.error("拿到取消訂單失敗", error);
         });
-    }else if (activeTab === "觀看紀錄"){
+    } else if (activeTab === "觀看紀錄") {
       Axios.get(`http://localhost:2407/orderlist/userOrderList/${user}`)
-      .then((response) => {
-        const watchedData = response.data;
-        setCanceledOrders(watchedData);
-      })
-      .catch((error) => {
-        console.error("拿到取消訂單失敗", error);
-      });
+        .then((response) => {
+          const watchedData = response.data;
+          setCanceledOrders(watchedData);
+        })
+        .catch((error) => {
+          console.error("拿到取消訂單失敗", error);
+        });
     }
-
-  }, [user,activeTab, fetchOrders]);
+  }, [user, activeTab, fetchOrders]);
 
   // 取消訂單
   const handleCancelOrder = async (orderToCancel) => {
@@ -63,13 +64,15 @@ const Topbutton = () => {
         `http://localhost:2407/orderlist/orders/${orderToCancel.orderID}`,
         datatoServer
       );
-      
 
       if (response.status === 202) {
         // 取消後移除訂單
-        setOrders((prevOrders) =>
-          prevOrders.filter((order) => order.orderID !== orderToCancel.orderID)
-        );
+        setCanceledOrders((prevCanceledOrders) => [
+          orderToCancel,
+          ...prevCanceledOrders.filter(
+            (order) => order.orderID !== orderToCancel.orderID
+          ),
+        ]);
         console.log("取消成功");
 
         const cancelOrderResponse = await Axios.get(
@@ -86,34 +89,32 @@ const Topbutton = () => {
           orderToCancel,
         ]);
 
-        //座位
-
-        window.location = 'http://localhost:3000/member';
-
+        window.location = "http://localhost:3000/member";
       }
     } catch (error) {
       console.error("取消失敗123", error);
     }
-    
+    //座位
     const seatInfo = {
       showtimeID: orderToCancel.showtimeID,
-      seatsRowNumber: [orderToCancel.seatInfo[0]],
-      seatsSeatNumber: [orderToCancel.seatInfo[1].split("位")[0]],
+      theaterID: orderToCancel.theaterID,
+      cinemaID: orderToCancel.cinemaID,
+      rowNumber: [orderToCancel.seatInfo[0]],
+      seatNumber: [orderToCancel.seatInfo[1].split("位")[0]],
+      seatStatus:"empty"
     };
 
     const seatUpdateResponse = await Axios.post(
-      "http://localhost:2407/seat/update",
+      "http://localhost:2407/seat/",
       seatInfo
     );
 
-    console.log(seatInfo)
+    console.log(seatInfo);
 
     if (seatUpdateResponse.status === 200) {
       console.log("成功");
     }
   };
-
-
 
   // const refreshData = () => {
   //   Axios.get("http://localhost:2407/orderlist/orders/0")
@@ -170,23 +171,22 @@ const Topbutton = () => {
         </div>
       ) : activeTab === "訂單取消" ? (
         <div>
-          {CanceledOrders.filter((order) => order.userID === user).map((order) => (
-            <CancelOrder
-              key={order.orderID}
-              CanceledOrders={order}
-              onCancelOrder={handleCancelOrder}
-            />
-          ))}
+          {CanceledOrders.filter((order) => order.userID === user).map(
+            (order) => (
+              <CancelOrder
+                key={order.orderID}
+                CanceledOrders={order}
+                onCancelOrder={handleCancelOrder}
+              />
+            )
+          )}
         </div>
       ) : (
         <div>
           {orders
             .filter((order) => order.status === 1)
             .map((order) => (
-              <WatchedOrder
-                key={order.orderID}
-                orderdetail={order}
-              />
+              <WatchedOrder key={order.orderID} orderdetail={order} />
             ))}
         </div>
       )}

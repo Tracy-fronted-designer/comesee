@@ -36,6 +36,7 @@ orderlist.get("/userOrderList/:userID([0-9]+)", (req, res) => {
   o.adult,
   o.student,
   o.status,
+  o.ordertime,
   s.movieID,
   c.cinemaName,
   t.theaterName,

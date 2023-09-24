@@ -40,8 +40,8 @@ const Coupon = ({ userID }) => {
         },
       });
       
-      // 设置状态和 localStorage
-      setCoupons("已兌換");
+      // localStorage
+      setCoupons("已領取");
       setIsCouponRedeemed4(true);
       localStorage.setItem("isCouponRedeemed4", "true");
     }
@@ -52,7 +52,27 @@ const Coupon = ({ userID }) => {
       <div className={fee.ticket}>
         <p style={{ fontWeight: 500, fontSize: "large" }}>入會禮</p>
         <p className={fee.text}>贈送爆米花一份</p>
-        <button onClick={changeCouponstate} className={fee.button}>
+        <button onClick={changeCouponstate} className={fee.button}
+                    style={{
+                      backgroundColor:
+                        coupons === "兌換"
+                          ? "#557A46"
+                          : coupons === "已領取"
+                          ? "#333333"
+                          : "#B4B4B3",
+                      color:
+                        coupons === "兌換"
+                          ? "#f1efe9"
+                          : coupons === "已領取"
+                          ? "#F1EFE9"
+                          : "#4D4D4D",
+                        hover:
+                        coupons === "兌換"
+                        ? "2px solid  #A6A79B"
+                        : coupons === "已領取"
+                        ? ""
+                        : "",
+                    }}>
           {coupons}
         </button>
         <div className={fee.expire}>
