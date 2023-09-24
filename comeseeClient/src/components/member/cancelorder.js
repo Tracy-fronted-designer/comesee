@@ -8,7 +8,7 @@ const CancelOrder = ({ CanceledOrders }) => {
     <div className={member.order}>
        <div>
         <img
-          className={member.film}
+          className={member.film2}
           src={CanceledOrders.imageUrl}
           alt=""
         />

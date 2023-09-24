@@ -131,7 +131,7 @@ const WatchedOrder = ({ orderdetail }) => {
           </table >
         <div className={`col-3 ${member.rightcontent}`}>
           {/* <div>觀看倒數</div> */}
-          <div className={member.canceltext}>
+          <div className={member.watchedtext}>
             {countdown === "已觀看" ? countdown : `${countdown}`}
             {/* <span className={member.text}>天</span> */}
           </div>

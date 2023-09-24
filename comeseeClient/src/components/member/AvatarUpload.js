@@ -44,8 +44,8 @@ function AvatarUpload() {
       .post(`http://localhost:2407/user/uploads/${user}`, formdata)
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
-      window.location = 'http://localhost:3000/member';
-    };
+    window.location = "http://localhost:3000/member";
+  };
 
   const handleImageClick = () => {
     if (!isFileInputVisible) {
@@ -58,7 +58,6 @@ function AvatarUpload() {
       {!data || !data.image ? (
         <div>
           <label className={member.Avatarinput}>
-            <span className={member.AvatarChooseText}>選擇照片</span>
             <input
               id="fileInput"
               className={member.Avatarinput}
@@ -66,6 +65,7 @@ function AvatarUpload() {
               onChange={handleFile}
               style={{ display: "none" }}
             />
+            <span className={member.AvatarChooseText}>選擇照片</span>
           </label>
         </div>
       ) : (
@@ -73,6 +73,7 @@ function AvatarUpload() {
           <img
             className={member.Avatarstyle}
             src={`http://localhost:2407/user/image/${data.image}`}
+            alt=""
           />
         </div>
       )}

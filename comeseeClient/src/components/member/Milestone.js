@@ -64,7 +64,7 @@ const Milestone = ({userID}) => {
             <p>$10,000</p>
           </div> */}
         </div>
-        {totalSpent > 0 && <p className={member.spendtext}>目前消費里程: ${totalSpent}， {Moneystate2}</p>}
+        {totalSpent > 0 && <p className={member.spendtext}>目前消費里程: ${totalSpent}。 {Moneystate2}</p>}
       </div>
     </div>
   );

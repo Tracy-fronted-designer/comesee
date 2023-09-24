@@ -63,6 +63,7 @@ const Topbutton = () => {
         `http://localhost:2407/orderlist/orders/${orderToCancel.orderID}`,
         datatoServer
       );
+      
 
       if (response.status === 202) {
         // 取消後移除訂單
@@ -84,11 +85,35 @@ const Topbutton = () => {
           ...prevCanceledOrders,
           orderToCancel,
         ]);
+
+        //座位
+
+        window.location = 'http://localhost:3000/member';
+
       }
     } catch (error) {
       console.error("取消失敗123", error);
     }
+    
+    const seatInfo = {
+      showtimeID: orderToCancel.showtimeID,
+      seatsRowNumber: [orderToCancel.seatInfo[0]],
+      seatsSeatNumber: [orderToCancel.seatInfo[1].split("位")[0]],
+    };
+
+    const seatUpdateResponse = await Axios.post(
+      "http://localhost:2407/seat/update",
+      seatInfo
+    );
+
+    console.log(seatInfo)
+
+    if (seatUpdateResponse.status === 200) {
+      console.log("成功");
+    }
   };
+
+
 
   // const refreshData = () => {
   //   Axios.get("http://localhost:2407/orderlist/orders/0")

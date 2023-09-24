@@ -4,10 +4,10 @@ var orderlist = express.Router();
 
 //會員中心的紅利總和
 orderlist.get("/totalspent/:userID([0-9]+)", (req, res) => {
-  const userID = req.params.userID ;
+  const userID = req.params.userID;
 
   db.exec(
-    "SELECT SUM(price) - SUM(bonus) AS totalSpent FROM orderlist WHERE userID = ?",
+    "SELECT SUM(CASE WHEN status = 1 THEN price ELSE 0 END) - SUM(CASE WHEN status = 1 THEN bonus ELSE 0 END) AS totalSpent FROM orderlist WHERE userID = ?",
     [userID],
     function (results, fields) {
       res.send(JSON.stringify(results));
@@ -15,17 +15,7 @@ orderlist.get("/totalspent/:userID([0-9]+)", (req, res) => {
   );
 });
 
-//刪除取消訂單
-orderlist.post("/cancelorder/:userID([0-9]+)", (req, res) => {
-  const userID = req.params.userID ;
-  db.exec(
-    "DELETE price FROM orderlist WHERE userID = ?",
-    [userID],
-    function (results, fields) {
-      res.send(JSON.stringify(results));
-    }
-  );
-});
+
 
 //會員中心抓到userID的訂單編號
 orderlist.get("/userOrderList/:userID([0-9]+)", (req, res) => {
