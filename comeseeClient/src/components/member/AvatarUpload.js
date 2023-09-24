@@ -22,7 +22,7 @@ function AvatarUpload() {
         console.log(res.data[0].image);
       })
       .catch((err) => console.log(err));
-  }, [user]);
+  }, [user, data]);
 
   const handleFile = (e) => {
     const selectedFile = e.target.files[0];
@@ -44,7 +44,6 @@ function AvatarUpload() {
       .post(`http://localhost:2407/user/uploads/${user}`, formdata)
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
-    window.location = "http://localhost:3000/member";
   };
 
   const handleImageClick = () => {
@@ -69,13 +68,15 @@ function AvatarUpload() {
           </label>
         </div>
       ) : (
-        <div onClick={handleImageClick} style={{ cursor: "pointer" }}>
-          <img
-            className={member.Avatarstyle}
-            src={`http://localhost:2407/user/image/${data.image}`}
-            alt=""
+        <label className={member.Avatarinput}>
+          <input
+            id="fileInput"
+            className={member.Avatarinput}
+            type="file"
+            onChange={handleFile}
+            style={{ display: "none" }}
           />
-        </div>
+        </label>
       )}
 
       {previewImage && (
@@ -90,15 +91,6 @@ function AvatarUpload() {
           </button>
         </div>
       )}
-      <label className={member.Avatarinput}>
-        <input
-          id="fileInput"
-          className={member.Avatarinput}
-          type="file"
-          onChange={handleFile}
-          style={{ display: "none" }}
-        />
-      </label>
     </div>
   );
 }

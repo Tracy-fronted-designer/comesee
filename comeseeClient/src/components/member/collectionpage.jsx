@@ -35,7 +35,7 @@ const Collectionpage = () => {
       .catch((error) => {
         console.error("Error fetching data:", error);
       });
-  }, [user]);
+  }, [user,playlist]);
 
   // 要有個新增片單的地方
   const handleSubmit = (e) => {
@@ -55,6 +55,7 @@ const Collectionpage = () => {
       })
       .then((response) => {
         console.log("新增片單成功：", response.data);
+        setPlaylist((prevPlaylist) => [...prevPlaylist, response.data]);
         // 清空
         setInputValue("");
       })
@@ -63,7 +64,7 @@ const Collectionpage = () => {
         console.error("新增片單錯誤：", error);
       });
 
-      window.location="/Collectionpage";
+      // window.location="/Collectionpage";
   };
 
   return (

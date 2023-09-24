@@ -51,7 +51,7 @@ const Topbutton = () => {
           console.error("拿到取消訂單失敗", error);
         });
     }
-  }, [user, activeTab, fetchOrders]);
+  }, [user, activeTab, fetchOrders,CanceledOrders]);
 
   // 取消訂單
   const handleCancelOrder = async (orderToCancel) => {
@@ -88,8 +88,6 @@ const Topbutton = () => {
           ...prevCanceledOrders,
           orderToCancel,
         ]);
-
-        window.location = "http://localhost:3000/member";
       }
     } catch (error) {
       console.error("取消失敗123", error);

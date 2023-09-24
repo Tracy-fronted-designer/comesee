@@ -33,7 +33,7 @@ const PlayListArea = (props) => {
       .catch((error) => {
         console.error("Error fetching data:", error);
       });
-  }, [userID]);
+  }, [userID,playlist]);
   // console.log(playlist);
   return (
     <div className="d-flex flex-wrap">
