@@ -29,9 +29,6 @@
 .AvatarPreviewContainer{
   width: 120px;
   height: 200px;
-  position: absolute;
-  left: 100px;
-  top: 120px;
 }
 
 .AvatarChooseText{
@@ -50,6 +47,7 @@
 }
 
 .Avatarstyle{
+  z-index: 1;
   position: relative;
   object-fit: cover;
   width: 150px;
@@ -76,16 +74,22 @@
   flex-direction: column; */
 }
 
+.imageupload{
+  position: relative;
+  right: 150px;
+  width: 120px;
+  height: 200px;
+  z-index: 20;
+}
 
 .customfileinput{
   background-color:#e0e0e0;
   margin-top: 20px;
   border-style: none;
-  padding: 8px;
+  /* padding: 8px; */
   width: 150px;
   opacity: 0.4;
   font-weight: 600;
-  position: relative;
 
   border: 2px solid #A6A79B;
   background-color: #2F2F2F;
