@@ -38,7 +38,7 @@
     margin: 40px 0 15px;
     font-size: 24px;
     font-style: normal;
-    font-weight: 400;
+    font-weight: 500;
     line-height: 125%;
 }
 
@@ -76,15 +76,18 @@
 .in {
     width: 380px;
     height: 55px;
+    padding: 0 10px;
     margin-bottom: 10px;
+
     background-color: #F1EFE9;
+    border-radius: 3px;
     border: none;
+
     color: #2f2f2f;
     font-size: 20px;
     font-style: normal;
     font-weight: 500;
     line-height: 25px;
-    padding: 0 10px;
 }
 
 .sbtn {
@@ -94,7 +97,6 @@
 
     border: 2px solid #727366;
     border-radius: 18px;
-    /* background-color: rgba(0, 0, 0, 0.0); */
     background-color: #f0f0f0;
 
     color: #727366;
@@ -114,11 +116,9 @@
     transition: 0.5s;
 }
 
-.sbtn:hover,
-.sbtn:focus {
+.sbtn:hover {
     color: #F1EFE9;
     border: 2px solid #F1EFE9;
-
 }
 
 .sbtn span {

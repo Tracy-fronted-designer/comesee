@@ -29,7 +29,7 @@ class ForgotPasswordPage extends Component {
       })
       .catch((error) => {
         // 处理请求错误
-        this.setState({ message: '密碼重製失敗' });
+        this.setState({ message: '請輸入正確的電子郵件地址' });
       });
   }
 
@@ -39,13 +39,18 @@ class ForgotPasswordPage extends Component {
     return (
       <div className={frank.top}>
         <div className={`container ${frank.ForgotPasswordContainer} `}>
-          <div className={frank.tit}>
+          <div>
             <h1 className={frank.ForgotPasswordHeading}>忘記密碼</h1>
           </div>
           <p className={frank.tit}>請輸入您的電子郵件地址以重置密碼：</p>
           <input type="email" placeholder="輸入您的電子郵件地址" className={frank.myinput} onChange={this.handleEmailChange} />
-          <button className={frank.ResetButton} onClick={this.handleResetPassword}>重置密碼</button>
           <p className={frank.mes}>{message}</p>
+          <button className={frank.ResetButton} onClick={this.handleResetPassword}>送出
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
           <div className={frank.BackToLogin}>
             <Link className={frank.myBackToLogin} to="/login">返回登入頁面</Link>
           </div>

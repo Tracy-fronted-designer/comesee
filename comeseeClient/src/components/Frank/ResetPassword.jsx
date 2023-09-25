@@ -101,10 +101,15 @@ function ResetPassword() {
         <p className={frank.tit}>請輸入您的新密碼：</p>
         <input type="text" placeholder="輸入您的新密碼" className={frank.myinput} onChange={handleNewPasswordChange} />
         <input type="password" placeholder="再次輸入您的新密碼" className={frank.myinput} onChange={handleConfirmPasswordChange} />
+        <p className={frank.mes}>{message}</p>
         {/* 显示密码匹配消息 */}
         {passwordMatch ? null : <p className={frank.mes}>新密碼和確認密碼不相同</p>}
-        <button className={frank.ResetButton} onClick={handleResetPassword}>重置密碼</button>
-        <p className={frank.mes}>{message}</p>
+        <button className={frank.ResetButton} onClick={handleResetPassword}>重置密碼
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
       </div>
     </div>
   );
