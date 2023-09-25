@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import axios from "axios";
 
+import Rank from "../booking/Rank";
 import Score from "./score";
 import Like from "./like";
 
@@ -93,7 +94,8 @@ const InfoPage = (props) => {
           </div>
 
           <div className="col-6 px-4 py-3">
-            <h1 className={IS.title}>{filmInfo.movieNameCN}</h1>
+            <h1 className={IS.title}>{filmInfo.movieNameCN}<Rank rank={filmInfo.rank} /></h1>
+
             <h2 className={IS.subtitle}>{filmInfo.movieNameEN}</h2>
             <div className={IS.info}>
               <p>上映日期：{targetLocalDate(filmInfo.releaseDate)}</p>
