@@ -10,7 +10,7 @@ function Accordion({ searchTerm, selectedFilter, sortBy, sortOrder }) {
     const [movie, setMovie] = useState([]);
     const [members, setMembers] = useState([]);
 
-    const itemsPerPage = 15; //一頁幾項
+    const itemsPerPage = 8; //一頁幾項
     const [activeItem, setActiveItem] = useState(null);
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(0);
