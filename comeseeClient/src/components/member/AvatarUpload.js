@@ -15,14 +15,20 @@ function AvatarUpload() {
   //const fileInputRef = useRef(null);
 
   useEffect(() => {
+    let isMounted = true;
     axios
       .get(`http://localhost:2407/user/image/${user}`)
       .then((res) => {
-        setdata(res.data[0]);
-        console.log(res.data[0].image);
+        if (isMounted) {
+          setdata(res.data[0]);
+          console.log(res.data[0]);
+        }
       })
       .catch((err) => console.log(err));
-  }, [user, data]);
+    return () => {
+      isMounted = false;
+    };
+  }, [user]);
 
   const handleFile = (e) => {
     const selectedFile = e.target.files[0];
@@ -42,7 +48,11 @@ function AvatarUpload() {
     formdata.set("image", file);
     axios
       .post(`http://localhost:2407/user/uploads/${user}`, formdata)
-      .then((res) => console.log(res))
+      .then((res) => {
+        console.log(res);
+        // 上傳成功後，更新圖片預覽
+        setPreviewImage(res.data.image); // 假設後端回傳了圖片的 URL
+      })
       .catch((err) => console.log(err));
   };
 
@@ -64,17 +74,28 @@ function AvatarUpload() {
               onChange={handleFile}
               style={{ display: "none" }}
             />
-            <span className={member.AvatarChooseText}>選擇照片</span>
+            <span
+              className={member.AvatarChooseText}
+              onClick={handleImageClick}
+            >
+              選擇照片
+            </span>
           </label>
         </div>
       ) : (
         <label className={member.Avatarinput}>
-          <input
+            <input
             id="fileInput"
             className={member.Avatarinput}
             type="file"
             onChange={handleFile}
             style={{ display: "none" }}
+          />
+            <img
+            className={member.Avatarstyle}
+            src={`http://localhost:2407/user/image/${data.image}`}
+            alt="Preview"
+            onClick={handleImageClick}
           />
         </label>
       )}
@@ -83,8 +104,9 @@ function AvatarUpload() {
         <div className={member.AvatarPreviewContainer}>
           <img
             className={member.Avatarstyle}
-            src={previewImage}
-            alt="Preview"
+            src={`http://localhost:2407/user/image/${data.image}`}
+            alt="
+            "
           />
           <button className={member.customfileinput} onClick={handleUpload}>
             上傳照片
