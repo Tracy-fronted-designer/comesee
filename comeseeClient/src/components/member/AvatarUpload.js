@@ -2,6 +2,8 @@ import axios from "axios";
 import React, { useState, useContext, useEffect } from "react";
 import member from "../../css/member/member.module.css";
 import catchUser from "../../TicketContext";
+import Swal from "sweetalert2";
+
 
 function AvatarUpload() {
   const [data, setdata] = useState(null);
@@ -39,6 +41,11 @@ function AvatarUpload() {
   };
 
   const handleUpload = () => {
+    Swal.fire({
+      title: "成功上傳大頭貼",
+      icon: "success",
+      confirmButtonText: "確定",
+    })
     if (!file) {
       return;
     }

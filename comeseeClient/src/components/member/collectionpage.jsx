@@ -5,6 +5,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Info from "./info";
 import Sidebar from "./sidebar";
 import catchUser from "../../TicketContext";
+import Swal from "sweetalert2";
+
 
 //import Collection from "./collection";
 
@@ -52,6 +54,11 @@ const Collectionpage = () => {
       .post(`http://localhost:2407/playlist/create/${user}`, {
         userID: user,
         listname: inputValue,
+      })
+      Swal.fire({
+        title: "已成功建立片單",
+        icon: "success",
+        confirmButtonText: "確定",
       })
       .then((response) => {
         console.log("新增片單成功：", response.data);

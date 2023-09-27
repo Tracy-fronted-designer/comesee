@@ -330,6 +330,8 @@
   text-decoration: none;
   text-align: center;
   width: 122px;
+  cursor: pointer;
+
 }
 
 .togglebuttontoggled {
@@ -387,19 +389,29 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  /* margin-left: 50px;
-  margin-bottom: 40px; */
   gap: 50px;
   margin-bottom: 20px;
 }
 
 
-.film {
+.zoomwrapper img {
   width: 200px;
   height: 280px;
   background-color: #d9d9d9;
   margin-left: 20px;
   object-fit: cover;
+  transition: transform 400ms;
+  border-radius: 10px;
+}
+
+.film:hover {
+  transform: scale(1.2);
+}
+
+.zoomwrapper{
+  width: 220px;
+  height: 280px;
+  overflow: hidden;
 }
 
 .film2 {
@@ -409,6 +421,8 @@
   margin-left: 20px;
   object-fit: cover;
   opacity: 0.4;
+  border-radius: 10px;
+
 }
 
 

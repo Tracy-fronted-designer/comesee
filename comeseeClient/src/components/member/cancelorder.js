@@ -5,7 +5,7 @@ const CancelOrder = ({ CanceledOrders }) => {
 
 
   return (
-    <div className={member.order}>
+    <div className={member.order }>
        <div>
         <img
           className={member.film2}

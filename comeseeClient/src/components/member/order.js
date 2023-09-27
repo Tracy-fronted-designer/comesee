@@ -1,5 +1,7 @@
 import React, { useState,useEffect,useCallback} from "react";
 import member from "../../css/member/member.module.css";
+import Swal from "sweetalert2";
+
 
 const Order = ({ orderdetail, onCancelOrder }) => {
   const [orderstate, setOrderstate] = useState("取消訂單");
@@ -35,6 +37,11 @@ const Order = ({ orderdetail, onCancelOrder }) => {
   }, [calculateCountdown]);
 
   const changeOrderstate = (canceledOrder) => {
+    Swal.fire({
+      title: "您的訂單已取消",
+      icon: "success",
+      confirmButtonText: "確定",
+    })
     setOrderstate("cancel");
     onCancelOrder(canceledOrder); //確認可以抓到ID
 
@@ -44,7 +51,7 @@ const Order = ({ orderdetail, onCancelOrder }) => {
   return (
     <div className={`${member.order} ${isVisible ? "" : member.hidden}`}>
     <div className={member.order}>
-      <div>
+      <div className={member.zoomwrapper}>
         <img
           className={member.film}
           src={orderdetail.imageUrl}

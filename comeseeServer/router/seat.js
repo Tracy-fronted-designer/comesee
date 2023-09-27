@@ -72,6 +72,27 @@ seat.put('/update', function(req, res) {
   res.json({ message: "Seat status updated successfully" });
 });
 
+//取消訂單後加回來
+seat.put('/cancelUpdate', function(req, res) {
+  const { showtimeID, seatsRowNumber, seatsSeatNumber } = req.body;
+
+  for (let i = 0; i < seatsRowNumber.length; i++) {
+    const rowNumber = seatsRowNumber[i];
+    const seatNumber = seatsSeatNumber[i];
+
+    db.exec(
+      "UPDATE seatinfo SET seatStatus = 'empty' WHERE showtimeID = ? AND rowNumber = ?  AND seatNumber = ?",
+      [showtimeID, rowNumber, seatNumber],
+      function (results, fields) {
+        // 可以處理更新成功的情況，但不要在這裡發送回應，不然會循環
+      }
+    );
+  }
+
+  // 在for外發送一次回應
+  res.json({ message: "Seat status updated successfully" });
+});
+
 
 //這個路由匯出以後是app.js使用
 module.exports = seat;

@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import fee from "../../css/member/fee.module.css";
 import Axios from "axios";
+import Swal from "sweetalert2";
+
 
 const Coupon = ({ userID }) => {
   const [coupons, setCoupons] = useState("兌換");
@@ -41,6 +43,11 @@ const Coupon = ({ userID }) => {
       });
       
       // localStorage
+      Swal.fire({
+        title: "已領取入會禮，請於付款時使用",
+        icon: "success",
+        confirmButtonText: "確定",
+      })
       setCoupons("已領取");
       setIsCouponRedeemed4(true);
       localStorage.setItem("isCouponRedeemed4", "true");

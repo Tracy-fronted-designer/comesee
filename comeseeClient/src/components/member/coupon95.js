@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import fee from "../../css/member/fee.module.css";
 import Axios from "axios";
+import Swal from "sweetalert2";
+
 
 const Coupon95 = ({allSpent,userID} ) => {
   
@@ -51,6 +53,11 @@ const Coupon95 = ({allSpent,userID} ) => {
       });
 
       setIsCouponRedeemed(true);
+      Swal.fire({
+        title: "已領取95折優惠卷，請於付款時使用",
+        icon: "success",
+        confirmButtonText: "確定",
+      })
       localStorage.setItem("isCouponRedeemed", "true"); 
     }
   };

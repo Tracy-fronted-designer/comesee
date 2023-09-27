@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import fee from "../../css/member/fee.module.css";
 import Axios from "axios";
+import Swal from "sweetalert2";
+
 
 const Couponticket = ({allSpent,userID}) => {
   
@@ -48,6 +50,11 @@ const Couponticket = ({allSpent,userID}) => {
           "Content-Type": "application/json",
         },
       });
+      Swal.fire({
+        title: "已領取電影優惠卷乙張，請於付款時使用",
+        icon: "success",
+        confirmButtonText: "確定",
+      })
 
       setIsCouponRedeemed3(true);
       localStorage.setItem("isCouponRedeemed3", "true"); 

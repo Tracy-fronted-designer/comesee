@@ -6,6 +6,7 @@ import Axios from "axios";
 import catchUser from "../../TicketContext";
 import WatchedOrder from "./watchedorder";
 
+
 const Topbutton = () => {
   const [activeTab, setActiveTab] = useState("訂購紀錄");
   const context = useContext(catchUser);
@@ -74,6 +75,7 @@ const Topbutton = () => {
           ),
         ]);
         console.log("取消成功");
+        
 
         const cancelOrderResponse = await Axios.get(
           "http://localhost:2407/orderlist/orders/0"
@@ -92,27 +94,10 @@ const Topbutton = () => {
     } catch (error) {
       console.error("取消失敗123", error);
     }
-    //座位
-    const seatInfo = {
-      showtimeID: orderToCancel.showtimeID,
-      theaterID: orderToCancel.theaterID,
-      cinemaID: orderToCancel.cinemaID,
-      rowNumber: [orderToCancel.seatInfo[0]],
-      seatNumber: [orderToCancel.seatInfo[1].split("位")[0]],
-      seatStatus:"empty"
-    };
 
-    const seatUpdateResponse = await Axios.post(
-      "http://localhost:2407/seat/",
-      seatInfo
-    );
-
-    console.log(seatInfo);
-
-    if (seatUpdateResponse.status === 200) {
-      console.log("成功");
-    }
+    
   };
+
 
   // const refreshData = () => {
   //   Axios.get("http://localhost:2407/orderlist/orders/0")
